@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minna no Nihongo Lesson 4 - Japanese Restaurant Flashcards & Matching Game</title>
+    
+    <!-- Modern Japanese & Thai Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@500;700;900&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --wood-dark: #4a2e1b;
+            --wood-medium: #8d5524;
+            --wood-light: #fdf6e3;
+            --ramen-red: #d63031;
+            --ramen-red-soft: #ff7675;
+            --matcha-green: #27ae60;
+            --matcha-light: #e8f8f5;
+            --noren-navy: #1e3799;
+            --card-bg: #ffffff;
+            --text-dark: #2d3436;
+            --text-muted: #636e72;
+            --gold: #f1c40f;
+            --shadow: 0 10px 25px rgba(74, 46, 27, 0.15);
+            --radius: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Prompt', 'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif;
+        }
+
+        body {
+            background-color: #f7f1e3;
+            background-image: radial-gradient(#e0d6c3 1.5px, transparent 1.5px);
+            background-size: 30px 30px;
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 20px 10px;
+        }
+
+        /* Noren Curtain Top Banner */
+        .noren-banner {
+            max-width: 1040px;
+            margin: 0 auto 15px auto;
+            display: flex;
+            justify-content: space-around;
+            background: var(--noren-navy);
+            border-bottom: 5px solid var(--wood-dark);
+            border-radius: 12px 12px 0 0;
+            padding: 10px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .noren-tab {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-align: center;
+            border-bottom: 2px dashed rgba(255,255,255,0.4);
+            padding-bottom: 4px;
+        }
+
+        .app-container {
+            max-width: 1040px;
+            margin: 0 auto;
+            background: var(--wood-light);
+            border: 4px solid var(--wood-medium);
+            border-radius: 0 0 28px 28px;
+            padding: 25px 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .restaurant-badge {
+            display: inline-block;
+            background: var(--ramen-red);
+            color: white;
+            padding: 5px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            box-shadow: 0 4px 10px rgba(214, 48, 49, 0.3);
+        }
+
+        h1 {
+            font-size: 2.1rem;
+            color: var(--wood-dark);
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* Main Mode Switcher (Flashcards vs Game) */
+        .mode-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .mode-btn {
+            background: white;
+            border: 2px solid var(--wood-medium);
+            color: var(--wood-dark);
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .mode-btn.active {
+            background: var(--ramen-red);
+            color: white;
+            border-color: var(--ramen-red);
+            box-shadow: 0 6px 15px rgba(214, 48, 49, 0.35);
+            transform: translateY(-2deg);
+        }
+
+        /* Category Nav Tabs */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .nav-tab {
+            background: #ffffff;
+            border: 1.5px solid var(--wood-medium);
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: var(--wood-dark);
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-tab.active {
+            background: var(--matcha-green);
+            color: white;
+            border-color: var(--matcha-green);
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+        }
+
+        /* Stepper & Tools */
+        .stepper-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            padding: 10px 18px;
+            border-radius: var(--radius);
+            border: 1.5px solid #e0d6c3;
+            margin-bottom: 20px;
+        }
+
+        .step-btn {
+            background: var(--wood-light);
+            border: 1.5px solid var(--wood-medium);
+            color: var(--wood-dark);
+            padding: 7px 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .step-btn:hover:not(:disabled) {
+            background: var(--ramen-red);
+            color: white;
+            border-color: var(--ramen-red);
+        }
+
+        .step-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .cat-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--wood-dark);
+        }
+
+        .quick-tools {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tool-chip {
+            background: white;
+            border: 1.5px solid var(--wood-medium);
+            padding: 7px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--wood-dark);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tool-chip:hover {
+            background: var(--matcha-green);
+            color: white;
+            border-color: var(--matcha-green);
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 18px;
+            min-height: 320px;
+        }
+
+        .card {
+            height: 185px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
+            border-radius: var(--radius);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid var(--wood-medium);
+        }
+
+        .card-front {
+            background: white;
+        }
+
+        .jp-hiragana {
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--ramen-red);
+            margin-bottom: 4px;
+        }
+
+        .jp-kanji {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            background: #f1f2f6;
+            padding: 2px 10px;
+            border-radius: 8px;
+        }
+
+        .audio-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: var(--wood-light);
+            color: var(--wood-dark);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .audio-btn:hover {
+            background: var(--ramen-red);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #4a2e1b 0%, #8d5524 100%);
+            color: white;
+            transform: rotateY(180deg);
+            gap: 6px;
+        }
+
+        .visual-icon {
+            font-size: 2.3rem;
+        }
+
+        .th-meaning {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* 🍣 Bento Matching Game Section */
+        .game-container {
+            display: none;
+            background: white;
+            border: 2px dashed var(--wood-medium);
+            border-radius: var(--radius);
+            padding: 25px;
+            text-align: center;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: var(--wood-light);
+            padding: 12px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: var(--wood-dark);
+            border: 1px solid #e0d6c3;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .match-card {
+            background: var(--wood-light);
+            border: 2px solid var(--wood-medium);
+            border-radius: 16px;
+            padding: 15px 10px;
+            min-height: 90px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--wood-dark);
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+            user-select: none;
+        }
+
+        .match-card:hover {
+            transform: translateY(-3deg);
+            border-color: var(--ramen-red);
+        }
+
+        .match-card.selected {
+            background: var(--ramen-red-soft);
+            color: white;
+            border-color: var(--ramen-red);
+            transform: scale(1.03);
+        }
+
+        .match-card.matched {
+            background: var(--matcha-green);
+            color: white;
+            border-color: var(--matcha-green);
+            opacity: 0.6;
+            cursor: default;
+            transform: none;
+        }
+
+        .game-win-msg {
+            display: none;
+            background: #e8f8f5;
+            border: 2px solid var(--matcha-green);
+            color: var(--matcha-green);
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 640px) {
+            .app-container { padding: 15px 10px; }
+            .cards-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+            .card { height: 160px; }
+            .jp-hiragana { font-size: 1.25rem; }
+            .th-meaning { font-size: 1.05rem; }
+            .game-grid { grid-template-columns: repeat(2, 1fr); }
+            .stepper-bar { flex-direction: column; gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Noren Curtain Decor -->
+    <div class="noren-banner">
+        <div class="noren-tab">いらっしゃいませ</div>
+        <div class="noren-tab">🏮 日本料理 🏮</div>
+        <div class="noren-tab">第 4 課</div>
+    </div>
+
+    <div class="app-container">
+        <header>
+            <div class="restaurant-badge">MINNA NO NIHONGO LESSON 4</div>
+            <h1>🍡 คำศัพท์บทที่ 4 🍜</h1>
+        </header>
+
+        <!-- Mode Switcher -->
+        <div class="mode-switcher">
+            <button class="mode-btn active" id="btnModeFlashcards" onclick="switchMode('flashcards')">🍱 บัตรคำศัพท์</button>
+            <button class="mode-btn" id="btnModeGame" onclick="switchMode('game')">🥢 เกมจับคู่ Bento Match</button>
+        </div>
+
+        <!-- FLASHCARDS SECTION -->
+        <div id="flashcardSection">
+            <!-- Category Nav Tabs -->
+            <div class="category-nav" id="categoryNav"></div>
+
+            <!-- Stepper Navigation -->
+            <div class="stepper-bar">
+                <button class="step-btn" id="prevBtn" onclick="navigateCategory(-1)">← หน้าก่อนหน้า</button>
+                <div class="cat-title" id="catTitle">หมวดคำศัพท์</div>
+                <button class="step-btn" id="nextBtn" onclick="navigateCategory(1)">หน้าถัดไป →</button>
+            </div>
+
+            <!-- Quick Action Tools -->
+            <div class="quick-tools">
+                <button class="tool-chip" onclick="shuffleCards()">🔀 สลับการ์ดสุ่มคำ</button>
+                <button class="tool-chip" onclick="resetFlips()">🔄 หงายการ์ดทั้งหมด</button>
+            </div>
+
+            <!-- Flashcards Grid -->
+            <div class="cards-grid" id="cardsGrid"></div>
+        </div>
+
+        <!-- MATCHING GAME SECTION -->
+        <div class="game-container" id="gameSection">
+            <div class="game-stats">
+                <div>🎯 คะแนน: <span id="gameScore">0</span> / 6</div>
+                <div>⏱️ สุ่มคู่คำศัพท์จากบทที่ 4</div>
+                <button class="tool-chip" onclick="startNewGame()" style="background:var(--ramen-red); color:white; border:none;">🔄 เริ่มเกมใหม่</button>
+            </div>
+
+            <div class="game-win-msg" id="winMsg">
+                🎉 ยินดีด้วย! คุณจับคู่ Bento คำศัพท์ถูกต้องทั้งหมด! 🍣🍡
+            </div>
+
+            <div class="game-grid" id="gameGrid"></div>
+        </div>
+
+        <footer>
+            🍵 แตะที่การ์ดเพื่อพลิกดูความหมาย | กดรูป 🔊 เพื่อฟังเสียงอ่านภาษาญี่ปุ่น
+        </footer>
+    </div>
+
+    <script>
+        // Full Lesson 4 Vocabulary Dataset mapped from images & prompt
+        const vocabularyData = [
+            {
+                id: 'verbs',
+                navName: '1. คำกริยา',
+                title: '🌸 หมวดที่ 1: คำกริยา (Verbs)',
+                items: [
+                    { hiragana: "おきます", kanji: "起きます", thai: "ตื่นนอน", icon: "⏰" },
+                    { hiragana: "ねます", kanji: "寝ます", thai: "นอน, เข้านอน", icon: "🛌" },
+                    { hiragana: "はたらきます", kanji: "働きます", thai: "ทำงาน", icon: "💼" },
+                    { hiragana: "やすみます", kanji: "休みにます", thai: "พัก, พักผ่อน, หยุดพัก", icon: "☕" },
+                    { hiragana: "べんきょうします", kanji: "勉強します", thai: "เรียน", icon: "📖" },
+                    { hiragana: "おわります", kanji: "終わります", thai: "เสร็จ, เลิก (งาน/เรียน)", icon: "🔔" }
+                ]
+            },
+            {
+                id: 'places',
+                navName: '2. สถานที่ & เมือง',
+                title: '🏢 หมวดที่ 2: สถานที่ & เมือง (Places & Cities)',
+                items: [
+                    { hiragana: "デパート", kanji: "-", thai: "ห้างสรรพสินค้า", icon: "🛍️" },
+                    { hiragana: "ぎんこう", kanji: "銀行", thai: "ธนาคาร", icon: "🏦" },
+                    { hiragana: "ゆうびんきょく", kanji: "郵便局", thai: "ที่ทำการไปรษณีย์", icon: "📮" },
+                    { hiragana: "としょかん", kanji: "図書館", thai: "ห้องสมุด, หอสมุด", icon: "📚" },
+                    { hiragana: "びじゅつかん", kanji: "美術館", thai: "หอศิลป์, พิพิธภัณฑ์ศิลปะ", icon: "🎨" },
+                    { hiragana: "ニューヨーク", kanji: "-", thai: "นิวยอร์ก", icon: "🗽" },
+                    { hiragana: "ペキン", kanji: "-", thai: "ปักกิ่ง", icon: "🇨🇳" },
+                    { hiragana: "ロサンゼルス", kanji: "-", thai: "ลอสแอนเจลิส", icon: "🌴" },
+                    { hiragana: "ロンドン", kanji: "-", thai: "ลอนดอน", icon: "🎡" }
+                ]
+            },
+            {
+                id: 'time',
+                navName: '3. เวลา',
+                title: '⏰ หมวดที่ 3: เวลา & ช่วงเวลา (Time)',
+                items: [
+                    { hiragana: "いま", kanji: "今", thai: "ตอนนี้, ขณะนี้", icon: "⌚" },
+                    { hiragana: "ーじ", kanji: "―時", thai: "... โมง, ... นาฬิกา", icon: "🕐" },
+                    { hiragana: "ーふん (ーぷん)", kanji: "―分", thai: "... นาที", icon: "⏱️" },
+                    { hiragana: "はん", kanji: "半", thai: "ครึ่ง", icon: "🌗" },
+                    { hiragana: "なんじ", kanji: "何時", thai: "กี่โมง", icon: "❓" },
+                    { hiragana: "なんぷん", kanji: "何分", thai: "กี่นาที", icon: "❓" },
+                    { hiragana: "ごぜん", kanji: "午前", thai: "a.m., ช่วงเช้า", icon: "🌅" },
+                    { hiragana: "ごご", kanji: "午後", thai: "p.m., ช่วงบ่าย", icon: "🌆" },
+                    { hiragana: "あさ", kanji: "朝", thai: "เช้า", icon: "☀️" },
+                    { hiragana: "ひる", kanji: "昼", thai: "กลางวัน, เที่ยง", icon: "🌤️" },
+                    { hiragana: "ばん (よる)", kanji: "晩 (夜)", thai: "เย็น, กลางคืน", icon: "🌙" },
+                    { hiragana: "おととい", kanji: "-", thai: "เมื่อวานซืน", icon: "⏪" },
+                    { hiragana: "きのう", kanji: "-", thai: "เมื่อวานนี้", icon: "◀️" },
+                    { hiragana: "きょう", kanji: "-", thai: "วันนี้", icon: "📍" },
+                    { hiragana: "あした", kanji: "-", thai: "พรุ่งนี้", icon: "▶️" },
+                    { hiragana: "あさって", kanji: "-", thai: "มะรืนนี้", icon: "⏩" },
+                    { hiragana: "けさ", kanji: "-", thai: "เมื่อเช้า", icon: "🥣" },
+                    { hiragana: "こんばん", kanji: "今晩", thai: "คืนนี้, เย็นนี้", icon: "🌃" },
+                    { hiragana: "やすみ", kanji: "休み", thai: "วันหยุด", icon: "🏖️" },
+                    { hiragana: "ひるやすみ", kanji: "昼休み", thai: "พักเที่ยง", icon: "🍱" },
+                    { hiragana: "まいあさ", kanji: "毎朝", thai: "ทุกเช้า", icon: "🔄☀️" },
+                    { hiragana: "まいばん", kanji: "毎晩", thai: "ทุกคืน", icon: "🔄🌙" },
+                    { hiragana: "まいにち", kanji: "毎日", thai: "ทุกวัน", icon: "📅" }
+                ]
+            },
+            {
+                id: 'days',
+                navName: '4. วันในสัปดาห์',
+                title: '📅 หมวดที่ 4: วันในสัปดาห์ (Days of the week)',
+                items: [
+                    { hiragana: "げつようび", kanji: "月曜日", thai: "วันจันทร์", icon: "🟡" },
+                    { hiragana: "かようび", kanji: "火曜日", thai: "วันอังคาร", icon: "🔴" },
+                    { hiragana: "すいようび", kanji: "水曜日", thai: "วันพุธ", icon: "🟢" },
+                    { hiragana: "もくようび", kanji: "木曜日", thai: "วันพฤหัสบดี", icon: "🟠" },
+                    { hiragana: "きんようび", kanji: "金曜日", thai: "วันศุกร์", icon: "🔵" },
+                    { hiragana: "どようび", kanji: "土曜日", thai: "วันเสาร์", icon: "🟣" },
+                    { hiragana: "にちようび", kanji: "日曜日", thai: "วันอาทิตย์", icon: "🔴" },
+                    { hiragana: "なんようび", kanji: "何曜日", thai: "วันอะไร", icon: "❓" }
+                ]
+            },
+            {
+                id: 'expressions',
+                navName: '5. คำเฉพาะ & สำนวน',
+                title: '📝 หมวดที่ 5: คำเฉพาะบท & สำนวน (Expressions)',
+                items: [
+                    { hiragana: "ーから", kanji: "-", thai: "จาก, ตั้งแต่", icon: "🛫" },
+                    { hiragana: "ーまで", kanji: "-", thai: "ถึง, จนถึง", icon: "🛬" },
+                    { hiragana: "ーとー", kanji: "-", thai: "กับ, และ", icon: "🔗" },
+                    { hiragana: "たいへんですね", kanji: "大変ですね", thai: "ลำบากหน่อยนะ, แย่หน่อยนะ", icon: "😅" },
+                    { hiragana: "ばんごう", kanji: "番号", thai: "หมายเลข, เบอร์", icon: "🔢" },
+                    { hiragana: "なんばん", kanji: "何番", thai: "หมายเลขอะไร", icon: "❓" },
+                    { hiragana: "そちら", kanji: "-", thai: "ทางคุณ (คู่สนทนา/สถานที่)", icon: "👉" },
+                    { hiragana: "しけん", kanji: "試験", thai: "การสอบ, ข้อสอบ", icon: "📝" },
+                    { hiragana: "かいぎ", kanji: "会議", thai: "การประชุม", icon: "👥" },
+                    { hiragana: "えいが", kanji: "映画", thai: "ภาพยนตร์, หนัง", icon: "🎬" }
+                ]
+            }
+        ];
+
+        let activeCategoryIndex = 0;
+        let activeItems = [];
+
+        function init() {
+            renderNavTabs();
+            loadCategory(0);
+        }
+
+        // Auto selection of natural Japanese TTS voice
+        function getBestNaturalJapaneseVoice() {
+            if (!('speechSynthesis' in window)) return null;
+            const voices = window.speechSynthesis.getVoices();
+            const jaVoices = voices.filter(v => v.lang.includes('ja') || v.lang.includes('JA'));
+            if (jaVoices.length === 0) return null;
+
+            const naturalKeywords = ['Natural', 'Enhanced', 'Premium', 'Google', 'Kyoko', 'Otoya', 'Nanami', 'Keita', 'Online'];
+            for (let kw of naturalKeywords) {
+                const found = jaVoices.find(v => v.name.includes(kw));
+                if (found) return found;
+            }
+            return jaVoices[0];
+        }
+
+        function playAudio(text) {
+            if ('speechSynthesis' in window) {
+                const cleanText = text.replace(/ー/g, '');
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.lang = 'ja-JP';
+                utterance.rate = 0.85;
+
+                const bestVoice = getBestNaturalJapaneseVoice();
+                if (bestVoice) utterance.voice = bestVoice;
+
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function renderNavTabs() {
+            const nav = document.getElementById('categoryNav');
+            nav.innerHTML = '';
+            vocabularyData.forEach((cat, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `nav-tab ${idx === activeCategoryIndex ? 'active' : ''}`;
+                btn.innerText = cat.navName;
+                btn.onclick = () => loadCategory(idx);
+                nav.appendChild(btn);
+            });
+        }
+
+        function loadCategory(index) {
+            activeCategoryIndex = index;
+            const category = vocabularyData[activeCategoryIndex];
+            activeItems = [...category.items];
+
+            document.getElementById('catTitle').innerText = category.title;
+            document.getElementById('prevBtn').disabled = (activeCategoryIndex === 0);
+            document.getElementById('nextBtn').disabled = (activeCategoryIndex === vocabularyData.length - 1);
+
+            renderNavTabs();
+            renderCards();
+        }
+
+        function navigateCategory(dir) {
+            const nextIdx = activeCategoryIndex + dir;
+            if (nextIdx >= 0 && nextIdx < vocabularyData.length) {
+                loadCategory(nextIdx);
+            }
+        }
+
+        function renderCards() {
+            const grid = document.getElementById('cardsGrid');
+            grid.innerHTML = '';
+
+            activeItems.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = (e) => {
+                    if (e.target.closest('.audio-btn')) return;
+                    card.classList.toggle('flipped');
+                };
+
+                const kanjiMarkup = (item.kanji && item.kanji !== '-') ? `<div class="jp-kanji">${item.kanji}</div>` : '';
+
+                card.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <button class="audio-btn" title="ฟังเสียงอ่าน" onclick="playAudio('${item.hiragana}')">🔊</button>
+                            <div class="jp-hiragana">${item.hiragana}</div>
+                            ${kanjiMarkup}
+                        </div>
+                        <div class="card-back">
+                            <div class="visual-icon">${item.icon}</div>
+                            <div class="th-meaning">${item.thai}</div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function shuffleCards() {
+            for (let i = activeItems.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [activeItems[i], activeItems[j]] = [activeItems[j], activeItems[i]];
+            }
+            renderCards();
+        }
+
+        function resetFlips() {
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('flipped'));
+        }
+
+        function switchMode(mode) {
+            document.getElementById('btnModeFlashcards').classList.toggle('active', mode === 'flashcards');
+            document.getElementById('btnModeGame').classList.toggle('active', mode === 'game');
+
+            document.getElementById('flashcardSection').style.display = (mode === 'flashcards') ? 'block' : 'none';
+            document.getElementById('gameSection').style.display = (mode === 'game') ? 'block' : 'none';
+
+            if (mode === 'game') startNewGame();
+        }
+
+        /* 🥢 Bento Matching Game Logic */
+        let gameSelectedCard = null;
+        let matchedPairs = 0;
+        const totalGamePairs = 6;
+
+        function startNewGame() {
+            matchedPairs = 0;
+            gameSelectedCard = null;
+            document.getElementById('gameScore').innerText = '0';
+            document.getElementById('winMsg').style.display = 'none';
+
+            // Flatten all words and pick 6 random words
+            let allWords = [];
+            vocabularyData.forEach(cat => allWords.push(...cat.items));
+            allWords.sort(() => 0.5 - Math.random());
+            let pickedWords = allWords.slice(0, totalGamePairs);
+
+            // Create cards: 6 Japanese, 6 Thai
+            let gameCards = [];
+            pickedWords.forEach((word, idx) => {
+                const kanjiTxt = (word.kanji && word.kanji !== '-') ? ` (${word.kanji})` : '';
+                gameCards.push({ id: idx, type: 'jp', text: `${word.hiragana}${kanjiTxt}`, voice: word.hiragana });
+                gameCards.push({ id: idx, type: 'th', text: `${word.icon} ${word.thai}` });
+            });
+
+            // Shuffle matching cards
+            gameCards.sort(() => 0.5 - Math.random());
+
+            // Render Game Grid
+            const grid = document.getElementById('gameGrid');
+            grid.innerHTML = '';
+            gameCards.forEach((c) => {
+                const el = document.createElement('div');
+                el.className = 'match-card';
+                el.innerText = c.text;
+                el.dataset.id = c.id;
+                el.dataset.type = c.type;
+                if (c.voice) el.dataset.voice = c.voice;
+
+                el.onclick = () => handleGameCardClick(el);
+                grid.appendChild(el);
+            });
+        }
+
+        function handleGameCardClick(el) {
+            if (el.classList.contains('matched') || el.classList.contains('selected')) return;
+
+            // Play sound if JP card
+            if (el.dataset.voice) playAudio(el.dataset.voice);
+
+            if (!gameSelectedCard) {
+                // First card selected
+                gameSelectedCard = el;
+                el.classList.add('selected');
+            } else {
+                // Second card selected
+                if (gameSelectedCard.dataset.type === el.dataset.type) {
+                    // Cannot pair same side
+                    gameSelectedCard.classList.remove('selected');
+                    gameSelectedCard = el;
+                    el.classList.add('selected');
+                    return;
+                }
+
+                if (gameSelectedCard.dataset.id === el.dataset.id) {
+                    // Correct Pair!
+                    el.classList.add('matched');
+                    gameSelectedCard.classList.add('matched');
+                    gameSelectedCard.classList.remove('selected');
+                    gameSelectedCard = null;
+
+                    matchedPairs++;
+                    document.getElementById('gameScore').innerText = matchedPairs;
+
+                    if (matchedPairs === totalGamePairs) {
+                        document.getElementById('winMsg').style.display = 'block';
+                    }
+                } else {
+                    // Wrong Pair - Shake and deselect
+                    el.classList.add('selected');
+                    setTimeout(() => {
+                        el.classList.remove('selected');
+                        if (gameSelectedCard) gameSelectedCard.classList.remove('selected');
+                        gameSelectedCard = null;
+                    }, 400);
+                }
+            }
+        }
+
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = () => { getBestNaturalJapaneseVoice(); };
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
