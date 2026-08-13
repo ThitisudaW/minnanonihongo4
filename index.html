@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minna no Nihongo Lesson 4 - Japanese Restaurant & 3-Way Matching</title>
+    <title>Minna no Nihongo Lesson 4 - Japanese Restaurant Flashcards, Clock & Games</title>
     
-    <!-- Modern Japanese & Thai Fonts -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@500;700;900&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -106,18 +106,19 @@
         .mode-switcher {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             margin-bottom: 25px;
+            flex-wrap: wrap;
         }
 
         .mode-btn {
             background: white;
             border: 2px solid var(--wood-medium);
             color: var(--wood-dark);
-            padding: 10px 22px;
+            padding: 10px 18px;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
             transition: all 0.25s ease;
         }
@@ -327,7 +328,108 @@
             font-weight: 600;
         }
 
-        /* 🍣 3-WAY BENTO MATCHING GAME SECTION */
+        /* ⏰ INTERACTIVE JAPANESE CLOCK SECTION */
+        .clock-container {
+            display: none;
+            background: white;
+            border: 2px solid var(--wood-medium);
+            border-radius: var(--radius);
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .clock-layout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 35px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .clock-face-wrapper {
+            position: relative;
+            width: 260px;
+            height: 260px;
+        }
+
+        .svg-clock {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+
+        .clock-display-card {
+            background: var(--wood-light);
+            border: 2px solid var(--wood-medium);
+            border-radius: 20px;
+            padding: 20px;
+            min-width: 300px;
+            max-width: 380px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .digital-time {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--wood-dark);
+            letter-spacing: 2px;
+            font-family: 'M PLUS Rounded 1c', monospace;
+            margin-bottom: 10px;
+        }
+
+        .reading-hiragana {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--ramen-red);
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .reading-kanji {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--wood-dark);
+            background: #e0d6c3;
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .clock-sliders {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        .slider-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: var(--wood-dark);
+        }
+
+        .slider-group input[type="range"] {
+            flex: 1;
+            accent-color: var(--ramen-red);
+            cursor: pointer;
+        }
+
+        .preset-btns {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        /* 🍣 3-WAY MATCHING GAME SECTION */
         .game-container {
             display: none;
             background: white;
@@ -400,7 +502,6 @@
             position: relative;
         }
 
-        /* Type Colors */
         .match-card.type-hiragana { border-color: #ff6b8b; }
         .match-card.type-hiragana::before { content: '🌸 อ่าน'; position: absolute; top: 4px; left: 6px; font-size: 0.65rem; color: #ff6b8b; }
 
@@ -410,10 +511,7 @@
         .match-card.type-thai { border-color: var(--matcha-green); }
         .match-card.type-thai::before { content: '💡 แปล'; position: absolute; top: 4px; left: 6px; font-size: 0.65rem; color: var(--matcha-green); }
 
-        .match-card:hover {
-            transform: translateY(-3deg);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-        }
+        .match-card:hover { transform: translateY(-3deg); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
 
         .match-card.selected {
             background: #ffeaa7;
@@ -473,6 +571,8 @@
             .game-grid { grid-template-columns: repeat(3, 1fr); max-height: 480px; }
             .match-card { min-height: 70px; font-size: 0.88rem; padding-top: 18px; }
             .stepper-bar { flex-direction: column; gap: 8px; }
+            .clock-layout { flex-direction: column; }
+            .clock-display-card { min-width: 100%; }
         }
     </style>
 </head>
@@ -494,7 +594,8 @@
         <!-- Mode Switcher -->
         <div class="mode-switcher">
             <button class="mode-btn active" id="btnModeFlashcards" onclick="switchMode('flashcards')">🍱 บัตรคำศัพท์</button>
-            <button class="mode-btn" id="btnModeGame" onclick="switchMode('game')">🥢 เกมจับคู่สาม (Hiragana-Kanji-Thai)</button>
+            <button class="mode-btn" id="btnModeClock" onclick="switchMode('clock')">⏰ หมุนนาฬิกาฝึกอ่านเวลา</button>
+            <button class="mode-btn" id="btnModeGame" onclick="switchMode('game')">🥢 เกมจับคู่สาม</button>
         </div>
 
         <!-- FLASHCARDS SECTION -->
@@ -517,6 +618,81 @@
 
             <!-- Flashcards Grid -->
             <div class="cards-grid" id="cardsGrid"></div>
+        </div>
+
+        <!-- ⏰ INTERACTIVE JAPANESE CLOCK SECTION -->
+        <div class="clock-container" id="clockSection">
+            <h2 style="color:var(--wood-dark); margin-bottom:5px;">⏰ หน้าปัดนาฬิกาฝึกอ่านเวลาภาษาญี่ปุ่น</h2>
+            <p style="color:var(--text-muted); font-size:0.95rem;">หมุนเข็มนาฬิกาหรือเลื่อนสไลเดอร์เพื่อดูคำอ่านภาษาญี่ปุ่นแบบเรียลไทม์</p>
+
+            <div class="clock-layout">
+                <!-- SVG Interactive Clock -->
+                <div class="clock-face-wrapper">
+                    <svg class="svg-clock" viewBox="0 0 200 200" id="clockSvg">
+                        <!-- Outer Dial -->
+                        <circle cx="100" cy="100" r="95" fill="#fdf6e3" stroke="#4a2e1b" stroke-width="8"/>
+                        <circle cx="100" cy="100" r="86" fill="none" stroke="#8d5524" stroke-width="2" stroke-dasharray="2 4"/>
+                        
+                        <!-- Hour Numbers -->
+                        <text x="100" y="28" text-anchor="middle" font-size="14" font-weight="bold" fill="#4a2e1b">12</text>
+                        <text x="138" y="38" text-anchor="middle" font-size="14" font-weight="bold" fill="#4a2e1b">1</text>
+                        <text x="165" y="65" text-anchor="middle" font-size="14" font-weight="bold" fill="#4a2e1b">2</text>
+                        <text x="175" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#4a2e1b">3</text>
+                        <text x="165" y="145" text-anchor="middle" font-size="14" font-weight="bold" fill="#4a2e1b">4</text>
+                        <text x="138" y="172" text-anchor="middle" font-size="14" font-weight="bold" fill="#4a2e1b">5</text>
+                        <text x="100" y="182" text-anchor="middle" font-size="14" font-weight="bold" fill="#4a2e1b">6</text>
+                        <text x="62" y="172" text-anchor="middle" font-size="14" font-weight="bold" fill="#4a2e1b">7</text>
+                        <text x="35" y="145" text-anchor="middle" font-size="14" font-weight="bold" fill="#4a2e1b">8</text>
+                        <text x="25" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#4a2e1b">9</text>
+                        <text x="35" y="65" text-anchor="middle" font-size="14" font-weight="bold" fill="#4a2e1b">10</text>
+                        <text x="62" y="38" text-anchor="middle" font-size="14" font-weight="bold" fill="#4a2e1b">11</text>
+
+                        <!-- Hour Hand (Short & Red) -->
+                        <line id="hourHand" x1="100" y1="100" x2="100" y2="55" stroke="#d63031" stroke-width="7" stroke-linecap="round" />
+
+                        <!-- Minute Hand (Long & Dark) -->
+                        <line id="minuteHand" x1="100" y1="100" x2="100" y2="30" stroke="#1e3799" stroke-width="4" stroke-linecap="round" />
+
+                        <!-- Center Pin -->
+                        <circle cx="100" cy="100" r="6" fill="#4a2e1b" />
+                    </svg>
+                </div>
+
+                <!-- Reading Display Card -->
+                <div class="clock-display-card">
+                    <div class="digital-time" id="clockDigital">03:10</div>
+                    <div class="reading-hiragana" id="clockHiragana">さんじ じゅっぷん</div>
+                    <div class="reading-kanji" id="clockKanji">3時10分</div>
+
+                    <div>
+                        <button class="step-btn" style="background:var(--ramen-red); color:white; border:none; padding:8px 20px; font-size:1rem;" onclick="speakCurrentClockTime()">
+                            🔊 ฟังเสียงอ่านภาษาญี่ปุ่น
+                        </button>
+                    </div>
+
+                    <!-- Sliders for Adjustment -->
+                    <div class="clock-sliders">
+                        <div class="slider-group">
+                            <span>เข็มสั้น (ชั่วโมง):</span>
+                            <input type="range" id="hourSlider" min="1" max="12" value="3" oninput="onClockSliderChange()">
+                            <span id="hourValDisplay" style="min-width:30px;">3</span>
+                        </div>
+                        <div class="slider-group">
+                            <span>เข็มยาว (นาที):</span>
+                            <input type="range" id="minuteSlider" min="0" max="59" value="10" oninput="onClockSliderChange()">
+                            <span id="minValDisplay" style="min-width:30px;">10</span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Preset Buttons -->
+                    <div class="preset-btns">
+                        <button class="tool-chip" onclick="setClockTime(3, 10)">3:10 (さんじじゅっぷん)</button>
+                        <button class="tool-chip" onclick="setClockTime(4, 5)">4:05 (よじごふん)</button>
+                        <button class="tool-chip" onclick="setClockTime(7, 30)">7:30 (しちじはん)</button>
+                        <button class="tool-chip" onclick="setClockTime(9, 0)">9:00 (くじ)</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- 🍱 3-WAY MATCHING GAME SECTION -->
@@ -658,6 +834,8 @@
         function init() {
             renderNavTabs();
             loadCategory(0);
+            setupClockDragging();
+            updateClockUI(3, 10);
         }
 
         function getBestNaturalJapaneseVoice() {
@@ -766,12 +944,150 @@
 
         function switchMode(mode) {
             document.getElementById('btnModeFlashcards').classList.toggle('active', mode === 'flashcards');
+            document.getElementById('btnModeClock').classList.toggle('active', mode === 'clock');
             document.getElementById('btnModeGame').classList.toggle('active', mode === 'game');
 
             document.getElementById('flashcardSection').style.display = (mode === 'flashcards') ? 'block' : 'none';
+            document.getElementById('clockSection').style.display = (mode === 'clock') ? 'block' : 'none';
             document.getElementById('gameSection').style.display = (mode === 'game') ? 'block' : 'none';
 
             if (mode === 'game') startNewGame();
+        }
+
+        /* ⏰ JAPANESE CLOCK LOGIC & TTS READINGS */
+        let currentClockHour = 3;
+        let currentClockMin = 10;
+
+        function getJapaneseTimeReading(hour, min) {
+            // Hour Readings
+            const hoursMap = {
+                1: { hira: "いちじ", kanji: "1時" },
+                2: { hira: "にじ", kanji: "2時" },
+                3: { hira: "さんじ", kanji: "3時" },
+                4: { hira: "よじ", kanji: "4時" }, // Special: Yoji
+                5: { hira: "ごじ", kanji: "5時" },
+                6: { hira: "ろくじ", kanji: "6時" },
+                7: { hira: "しちじ", kanji: "7時" }, // Special: Shichiji
+                8: { hira: "はちじ", kanji: "8時" },
+                9: { hira: "くじ", kanji: "9時" }, // Special: Kuji
+                10: { hira: "じゅうじ", kanji: "10時" },
+                11: { hira: "じゅういちじ", kanji: "11時" },
+                12: { hira: "じゅうにじ", kanji: "12時" }
+            };
+
+            const hObj = hoursMap[hour] || { hira: "", kanji: "" };
+            let mHira = "";
+            let mKanji = "";
+
+            if (min === 0) {
+                mHira = "";
+                mKanji = "";
+            } else if (min === 30) {
+                mHira = " さんじゅっぷん (はん)";
+                mKanji = "30分 (半)";
+            } else {
+                const ones = min % 10;
+                const tens = Math.floor(min / 10);
+
+                const onesMap = {
+                    1: "いっぷん", 2: "にふん", 3: "さんぷん", 4: "よんぷん", 5: "ごふん",
+                    6: "ろっぷん", 7: "ななふん", 8: "はっぷん", 9: "きゅうふん"
+                };
+
+                let tensHira = ["", "じゅう", "にじゅう", "さんじゅう", "よんじゅう", "ごじゅう"][tens];
+                let onesHira = "";
+
+                if (ones === 0) {
+                    // Multiples of 10 (10, 20, 30, 40, 50)
+                    if (min === 10) tensHira = "じゅっぷん";
+                    else tensHira = ["", "", "にじゅっぷん", "さんじゅっぷん", "よんじゅっぷん", "ごじゅっぷん"][tens];
+                } else {
+                    onesHira = onesMap[ones];
+                }
+
+                mHira = " " + tensHira + onesHira;
+                mKanji = min + "分";
+            }
+
+            return {
+                hira: hObj.hira + mHira,
+                kanji: hObj.kanji + mKanji,
+                timeStr: `${String(hour).padStart(2, '0')}:${String(min).padStart(2, '0')}`
+            };
+        }
+
+        function updateClockUI(h, m) {
+            currentClockHour = h;
+            currentClockMin = m;
+
+            // Update Sliders and Displays
+            document.getElementById('hourSlider').value = h;
+            document.getElementById('minuteSlider').value = m;
+            document.getElementById('hourValDisplay').innerText = h;
+            document.getElementById('minValDisplay').innerText = m;
+
+            // Calculate Angles for SVG Clock
+            const minAngle = m * 6; // 360 / 60
+            const hourAngle = (h % 12) * 30 + (m * 0.5); // 360 / 12 + minute fraction
+
+            // Rotate Hands
+            document.getElementById('minuteHand').setAttribute('transform', `rotate(${minAngle} 100 100)`);
+            document.getElementById('hourHand').setAttribute('transform', `rotate(${hourAngle} 100 100)`);
+
+            // Update Readings
+            const readings = getJapaneseTimeReading(h, m);
+            document.getElementById('clockDigital').innerText = readings.timeStr;
+            document.getElementById('clockHiragana').innerText = readings.hira;
+            document.getElementById('clockKanji').innerText = readings.kanji;
+        }
+
+        function onClockSliderChange() {
+            const h = parseInt(document.getElementById('hourSlider').value);
+            const m = parseInt(document.getElementById('minuteSlider').value);
+            updateClockUI(h, m);
+        }
+
+        function setClockTime(h, m) {
+            updateClockUI(h, m);
+            speakCurrentClockTime();
+        }
+
+        function speakCurrentClockTime() {
+            const readings = getJapaneseTimeReading(currentClockHour, currentClockMin);
+            // Clean string for speech synthesis
+            const textToSpeak = readings.hira.replace('(はん)', 'はん').replace(/\s+/g, '');
+            playAudio(textToSpeak);
+        }
+
+        /* Clock SVG Click / Touch Rotation */
+        function setupClockDragging() {
+            const svg = document.getElementById('clockSvg');
+            let isDragging = false;
+
+            const handlePointer = (e) => {
+                const rect = svg.getBoundingClientRect();
+                const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+                if (!clientX || !clientY) return;
+
+                const x = clientX - rect.left - rect.width / 2;
+                const y = clientY - rect.top - rect.height / 2;
+
+                let angle = Math.atan2(y, x) * (180 / Math.PI) + 90;
+                if (angle < 0) angle += 360;
+
+                // Snap angle to 5-minute intervals for smooth dragging
+                let min = Math.round(angle / 6) % 60;
+                updateClockUI(currentClockHour, min);
+            };
+
+            svg.addEventListener('mousedown', (e) => { isDragging = true; handlePointer(e); });
+            window.addEventListener('mousemove', (e) => { if (isDragging) handlePointer(e); });
+            window.addEventListener('mouseup', () => { isDragging = false; });
+
+            svg.addEventListener('touchstart', (e) => { isDragging = true; handlePointer(e); });
+            window.addEventListener('touchmove', (e) => { if (isDragging) handlePointer(e); });
+            window.addEventListener('touchend', () => { isDragging = false; });
         }
 
         /* 🍱 3-WAY MATCHING GAME LOGIC */
@@ -797,38 +1113,16 @@
             totalTriplets = targetWords.length;
             document.getElementById('gameScore').innerText = `0 / ${totalTriplets}`;
 
-            // Generate 3 separate cards for EVERY word: Hiragana, Kanji, Thai
             let allGameCards = [];
             targetWords.forEach((word, wordIndex) => {
-                // Card 1: Hiragana
-                allGameCards.push({
-                    wordId: wordIndex,
-                    type: 'hiragana',
-                    text: word.hiragana,
-                    voice: word.hiragana
-                });
-
-                // Card 2: Kanji (If word has no specific Kanji, display Hiragana/Katakana)
+                allGameCards.push({ wordId: wordIndex, type: 'hiragana', text: word.hiragana, voice: word.hiragana });
                 const kanjiDisplay = (word.kanji && word.kanji !== '-') ? word.kanji : word.hiragana;
-                allGameCards.push({
-                    wordId: wordIndex,
-                    type: 'kanji',
-                    text: kanjiDisplay,
-                    voice: word.hiragana
-                });
-
-                // Card 3: Thai Meaning
-                allGameCards.push({
-                    wordId: wordIndex,
-                    type: 'thai',
-                    text: `${word.icon} ${word.thai}`
-                });
+                allGameCards.push({ wordId: wordIndex, type: 'kanji', text: kanjiDisplay, voice: word.hiragana });
+                allGameCards.push({ wordId: wordIndex, type: 'thai', text: `${word.icon} ${word.thai}` });
             });
 
-            // Randomize order of all cards
             allGameCards.sort(() => 0.5 - Math.random());
 
-            // Render Game Board
             const grid = document.getElementById('gameGrid');
             grid.innerHTML = '';
 
@@ -848,14 +1142,11 @@
         function handleGameCardClick(cardEl) {
             if (cardEl.classList.contains('matched') || cardEl.classList.contains('selected')) return;
 
-            // Play voice
             if (cardEl.dataset.voice) playAudio(cardEl.dataset.voice);
 
-            // Select Card
             cardEl.classList.add('selected');
             selectedGameCards.push(cardEl);
 
-            // Check when 3 cards are selected
             if (selectedGameCards.length === 3) {
                 const [c1, c2, c3] = selectedGameCards;
 
@@ -863,7 +1154,6 @@
                 const has3Types = new Set([c1.dataset.type, c2.dataset.type, c3.dataset.type]).size === 3;
 
                 if (isSameWord && has3Types) {
-                    // Match Success!
                     selectedGameCards.forEach(card => {
                         card.classList.remove('selected');
                         card.classList.add('matched');
@@ -877,7 +1167,6 @@
                     }
                     selectedGameCards = [];
                 } else {
-                    // Match Failed!
                     selectedGameCards.forEach(card => card.classList.add('wrong'));
                     
                     setTimeout(() => {
