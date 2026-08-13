@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minna no Nihongo Lesson 4 - Japanese Restaurant Flashcards & Matching Game</title>
+    <title>Minna no Nihongo Lesson 4 - Japanese Restaurant & 3-Way Matching</title>
     
     <!-- Modern Japanese & Thai Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,12 +18,10 @@
             --ramen-red: #d63031;
             --ramen-red-soft: #ff7675;
             --matcha-green: #27ae60;
-            --matcha-light: #e8f8f5;
             --noren-navy: #1e3799;
             --card-bg: #ffffff;
             --text-dark: #2d3436;
             --text-muted: #636e72;
-            --gold: #f1c40f;
             --shadow: 0 10px 25px rgba(74, 46, 27, 0.15);
             --radius: 20px;
         }
@@ -44,7 +42,7 @@
             padding: 20px 10px;
         }
 
-        /* Noren Curtain Top Banner */
+        /* Noren Curtain Banner */
         .noren-banner {
             max-width: 1040px;
             margin: 0 auto 15px auto;
@@ -75,7 +73,6 @@
             border-radius: 0 0 28px 28px;
             padding: 25px 20px;
             box-shadow: var(--shadow);
-            position: relative;
         }
 
         header {
@@ -105,7 +102,7 @@
             gap: 10px;
         }
 
-        /* Main Mode Switcher (Flashcards vs Game) */
+        /* Mode Switcher */
         .mode-switcher {
             display: flex;
             justify-content: center;
@@ -123,7 +120,6 @@
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.25s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
 
         .mode-btn.active {
@@ -227,7 +223,7 @@
             border-color: var(--matcha-green);
         }
 
-        /* Cards Grid */
+        /* Flashcards Grid */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
@@ -331,7 +327,7 @@
             font-weight: 600;
         }
 
-        /* 🍣 Bento Matching Game Section */
+        /* 🍣 3-WAY BENTO MATCHING GAME SECTION */
         .game-container {
             display: none;
             background: white;
@@ -343,62 +339,110 @@
 
         .game-stats {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
             background: var(--wood-light);
-            padding: 12px;
+            padding: 12px 20px;
             border-radius: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-weight: 700;
             color: var(--wood-dark);
             border: 1px solid #e0d6c3;
         }
 
+        .game-legend {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+
         .game-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
             margin-bottom: 20px;
+            max-height: 520px;
+            overflow-y: auto;
+            padding: 5px;
         }
 
         .match-card {
-            background: var(--wood-light);
+            background: white;
             border: 2px solid var(--wood-medium);
-            border-radius: 16px;
-            padding: 15px 10px;
-            min-height: 90px;
+            border-radius: 14px;
+            padding: 12px 8px;
+            min-height: 80px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             color: var(--wood-dark);
             transition: all 0.2s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
             user-select: none;
+            position: relative;
         }
+
+        /* Type Colors */
+        .match-card.type-hiragana { border-color: #ff6b8b; }
+        .match-card.type-hiragana::before { content: '🌸 อ่าน'; position: absolute; top: 4px; left: 6px; font-size: 0.65rem; color: #ff6b8b; }
+
+        .match-card.type-kanji { border-color: #e67e22; }
+        .match-card.type-kanji::before { content: '⛩️ คันจิ'; position: absolute; top: 4px; left: 6px; font-size: 0.65rem; color: #e67e22; }
+
+        .match-card.type-thai { border-color: var(--matcha-green); }
+        .match-card.type-thai::before { content: '💡 แปล'; position: absolute; top: 4px; left: 6px; font-size: 0.65rem; color: var(--matcha-green); }
 
         .match-card:hover {
             transform: translateY(-3deg);
-            border-color: var(--ramen-red);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
         }
 
         .match-card.selected {
+            background: #ffeaa7;
+            border-color: #f1c40f !important;
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(241, 196, 15, 0.4);
+        }
+
+        .match-card.wrong {
             background: var(--ramen-red-soft);
             color: white;
-            border-color: var(--ramen-red);
-            transform: scale(1.03);
+            border-color: var(--ramen-red) !important;
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
 
         .match-card.matched {
             background: var(--matcha-green);
             color: white;
-            border-color: var(--matcha-green);
-            opacity: 0.6;
+            border-color: var(--matcha-green) !important;
+            opacity: 0.3;
             cursor: default;
             transform: none;
+            pointer-events: none;
         }
 
         .game-win-msg {
@@ -426,7 +470,8 @@
             .card { height: 160px; }
             .jp-hiragana { font-size: 1.25rem; }
             .th-meaning { font-size: 1.05rem; }
-            .game-grid { grid-template-columns: repeat(2, 1fr); }
+            .game-grid { grid-template-columns: repeat(3, 1fr); max-height: 480px; }
+            .match-card { min-height: 70px; font-size: 0.88rem; padding-top: 18px; }
             .stepper-bar { flex-direction: column; gap: 8px; }
         }
     </style>
@@ -449,7 +494,7 @@
         <!-- Mode Switcher -->
         <div class="mode-switcher">
             <button class="mode-btn active" id="btnModeFlashcards" onclick="switchMode('flashcards')">🍱 บัตรคำศัพท์</button>
-            <button class="mode-btn" id="btnModeGame" onclick="switchMode('game')">🥢 เกมจับคู่ Bento Match</button>
+            <button class="mode-btn" id="btnModeGame" onclick="switchMode('game')">🥢 เกมจับคู่สาม (Hiragana-Kanji-Thai)</button>
         </div>
 
         <!-- FLASHCARDS SECTION -->
@@ -474,28 +519,45 @@
             <div class="cards-grid" id="cardsGrid"></div>
         </div>
 
-        <!-- MATCHING GAME SECTION -->
+        <!-- 🍱 3-WAY MATCHING GAME SECTION -->
         <div class="game-container" id="gameSection">
             <div class="game-stats">
-                <div>🎯 คะแนน: <span id="gameScore">0</span> / 6</div>
-                <div>⏱️ สุ่มคู่คำศัพท์จากบทที่ 4</div>
-                <button class="tool-chip" onclick="startNewGame()" style="background:var(--ramen-red); color:white; border:none;">🔄 เริ่มเกมใหม่</button>
+                <div>🎯 จับคู่สำเร็จ: <span id="gameScore">0</span> ชุด</div>
+                <div>
+                    หมวดหมู่: 
+                    <select id="gameCatSelect" onchange="startNewGame()" style="padding:4px 8px; border-radius:8px; border:1px solid var(--wood-medium); font-weight:bold;">
+                        <option value="all">🌟 คำศัพท์ทั้งหมดในบทที่ 4</option>
+                        <option value="verbs">1. คำกริยา</option>
+                        <option value="places">2. สถานที่ & เมือง</option>
+                        <option value="time">3. เวลา & ช่วงเวลา</option>
+                        <option value="days">4. วันในสัปดาห์</option>
+                        <option value="expressions">5. คำเฉพาะ & สำนวน</option>
+                    </select>
+                </div>
+                <button class="tool-chip" onclick="startNewGame()" style="background:var(--ramen-red); color:white; border:none;">🔄 เริ่มเล่นใหม่</button>
+            </div>
+
+            <!-- Legend Info -->
+            <div class="game-legend">
+                <div class="legend-item" style="border-left: 4px solid #ff6b8b;">🌸 1. ฮิรางานะ</div>
+                <div class="legend-item" style="border-left: 4px solid #e67e22;">⛩️ 2. คันจิ</div>
+                <div class="legend-item" style="border-left: 4px solid var(--matcha-green);">💡 3. ความหมายไทย</div>
             </div>
 
             <div class="game-win-msg" id="winMsg">
-                🎉 ยินดีด้วย! คุณจับคู่ Bento คำศัพท์ถูกต้องทั้งหมด! 🍣🍡
+                🎉 ยินดีด้วย! คุณจับคู่ 3 ฝั่ง (ฮิรางานะ + คันจิ + ความหมาย) ถูกต้องทั้งหมด! 🍣🍡
             </div>
 
             <div class="game-grid" id="gameGrid"></div>
         </div>
 
         <footer>
-            🍵 แตะที่การ์ดเพื่อพลิกดูความหมาย | กดรูป 🔊 เพื่อฟังเสียงอ่านภาษาญี่ปุ่น
+            🍵 แตะการ์ดเพื่อพลิกดูความหมาย | กดรูป 🔊 เพื่อฟังเสียงอ่านภาษาญี่ปุ่น
         </footer>
     </div>
 
     <script>
-        // Full Lesson 4 Vocabulary Dataset mapped from images & prompt
+        // Full Lesson 4 Dataset
         const vocabularyData = [
             {
                 id: 'verbs',
@@ -505,9 +567,9 @@
                     { hiragana: "おきます", kanji: "起きます", thai: "ตื่นนอน", icon: "⏰" },
                     { hiragana: "ねます", kanji: "寝ます", thai: "นอน, เข้านอน", icon: "🛌" },
                     { hiragana: "はたらきます", kanji: "働きます", thai: "ทำงาน", icon: "💼" },
-                    { hiragana: "やすみます", kanji: "休みにます", thai: "พัก, พักผ่อน, หยุดพัก", icon: "☕" },
+                    { hiragana: "やすみます", kanji: "休みます", thai: "พัก, พักผ่อน", icon: "☕" },
                     { hiragana: "べんきょうします", kanji: "勉強します", thai: "เรียน", icon: "📖" },
-                    { hiragana: "おわります", kanji: "終わります", thai: "เสร็จ, เลิก (งาน/เรียน)", icon: "🔔" }
+                    { hiragana: "おわります", kanji: "終わります", thai: "เสร็จ, เลิก", icon: "🔔" }
                 ]
             },
             {
@@ -515,15 +577,15 @@
                 navName: '2. สถานที่ & เมือง',
                 title: '🏢 หมวดที่ 2: สถานที่ & เมือง (Places & Cities)',
                 items: [
-                    { hiragana: "デパート", kanji: "-", thai: "ห้างสรรพสินค้า", icon: "🛍️" },
+                    { hiragana: "デパート", kanji: "デパート", thai: "ห้างสรรพสินค้า", icon: "🛍️" },
                     { hiragana: "ぎんこう", kanji: "銀行", thai: "ธนาคาร", icon: "🏦" },
-                    { hiragana: "ゆうびんきょく", kanji: "郵便局", thai: "ที่ทำการไปรษณีย์", icon: "📮" },
-                    { hiragana: "としょかん", kanji: "図書館", thai: "ห้องสมุด, หอสมุด", icon: "📚" },
-                    { hiragana: "びじゅつかん", kanji: "美術館", thai: "หอศิลป์, พิพิธภัณฑ์ศิลปะ", icon: "🎨" },
-                    { hiragana: "ニューヨーク", kanji: "-", thai: "นิวยอร์ก", icon: "🗽" },
-                    { hiragana: "ペキン", kanji: "-", thai: "ปักกิ่ง", icon: "🇨🇳" },
-                    { hiragana: "ロサンゼルス", kanji: "-", thai: "ลอสแอนเจลิส", icon: "🌴" },
-                    { hiragana: "ロンドン", kanji: "-", thai: "ลอนดอน", icon: "🎡" }
+                    { hiragana: "ゆうびんきょく", kanji: "郵便局", thai: "ไปรษณีย์", icon: "📮" },
+                    { hiragana: "としょかん", kanji: "図書館", thai: "ห้องสมุด", icon: "📚" },
+                    { hiragana: "びじゅつかん", kanji: "美術館", thai: "หอศิลป์", icon: "🎨" },
+                    { hiragana: "ニューヨーク", kanji: "ニューヨーク", thai: "นิวยอร์ก", icon: "🗽" },
+                    { hiragana: "ペキン", kanji: "ペキン", thai: "ปักกิ่ง", icon: "🇨🇳" },
+                    { hiragana: "ロサンゼルス", kanji: "ロサンゼルス", thai: "ลอสแอนเจลิส", icon: "🌴" },
+                    { hiragana: "ロンドン", kanji: "ロンドン", thai: "ลอนดอน", icon: "🎡" }
                 ]
             },
             {
@@ -531,24 +593,24 @@
                 navName: '3. เวลา',
                 title: '⏰ หมวดที่ 3: เวลา & ช่วงเวลา (Time)',
                 items: [
-                    { hiragana: "いま", kanji: "今", thai: "ตอนนี้, ขณะนี้", icon: "⌚" },
-                    { hiragana: "ーじ", kanji: "―時", thai: "... โมง, ... นาฬิกา", icon: "🕐" },
+                    { hiragana: "いま", kanji: "今", thai: "ตอนนี้", icon: "⌚" },
+                    { hiragana: "ーじ", kanji: "―時", thai: "... โมง", icon: "🕐" },
                     { hiragana: "ーふん (ーぷん)", kanji: "―分", thai: "... นาที", icon: "⏱️" },
                     { hiragana: "はん", kanji: "半", thai: "ครึ่ง", icon: "🌗" },
                     { hiragana: "なんじ", kanji: "何時", thai: "กี่โมง", icon: "❓" },
                     { hiragana: "なんぷん", kanji: "何分", thai: "กี่นาที", icon: "❓" },
-                    { hiragana: "ごぜん", kanji: "午前", thai: "a.m., ช่วงเช้า", icon: "🌅" },
-                    { hiragana: "ごご", kanji: "午後", thai: "p.m., ช่วงบ่าย", icon: "🌆" },
+                    { hiragana: "ごぜん", kanji: "午前", thai: "ช่วงเช้า (a.m.)", icon: "🌅" },
+                    { hiragana: "ごご", kanji: "午後", thai: "ช่วงบ่าย (p.m.)", icon: "🌆" },
                     { hiragana: "あさ", kanji: "朝", thai: "เช้า", icon: "☀️" },
-                    { hiragana: "ひる", kanji: "昼", thai: "กลางวัน, เที่ยง", icon: "🌤️" },
+                    { hiragana: "ひる", kanji: "昼", thai: "กลางวัน", icon: "🌤️" },
                     { hiragana: "ばん (よる)", kanji: "晩 (夜)", thai: "เย็น, กลางคืน", icon: "🌙" },
-                    { hiragana: "おととい", kanji: "-", thai: "เมื่อวานซืน", icon: "⏪" },
-                    { hiragana: "きのう", kanji: "-", thai: "เมื่อวานนี้", icon: "◀️" },
-                    { hiragana: "きょう", kanji: "-", thai: "วันนี้", icon: "📍" },
-                    { hiragana: "あした", kanji: "-", thai: "พรุ่งนี้", icon: "▶️" },
-                    { hiragana: "あさって", kanji: "-", thai: "มะรืนนี้", icon: "⏩" },
-                    { hiragana: "けさ", kanji: "-", thai: "เมื่อเช้า", icon: "🥣" },
-                    { hiragana: "こんばん", kanji: "今晩", thai: "คืนนี้, เย็นนี้", icon: "🌃" },
+                    { hiragana: "おととい", kanji: "一瞬間", thai: "เมื่อวานซืน", icon: "⏪" },
+                    { hiragana: "きのう", kanji: "昨日", thai: "เมื่อวานนี้", icon: "◀️" },
+                    { hiragana: "きょう", kanji: "今日", thai: "วันนี้", icon: "📍" },
+                    { hiragana: "あした", kanji: "明日", thai: "พรุ่งนี้", icon: "▶️" },
+                    { hiragana: "あさって", kanji: "明後日", thai: "มะรืนนี้", icon: "⏩" },
+                    { hiragana: "けさ", kanji: "今朝", thai: "เมื่อเช้า", icon: "🥣" },
+                    { hiragana: "こんばん", kanji: "今晩", thai: "คืนนี้", icon: "🌃" },
                     { hiragana: "やすみ", kanji: "休み", thai: "วันหยุด", icon: "🏖️" },
                     { hiragana: "ひるやすみ", kanji: "昼休み", thai: "พักเที่ยง", icon: "🍱" },
                     { hiragana: "まいあさ", kanji: "毎朝", thai: "ทุกเช้า", icon: "🔄☀️" },
@@ -559,7 +621,7 @@
             {
                 id: 'days',
                 navName: '4. วันในสัปดาห์',
-                title: '📅 หมวดที่ 4: วันในสัปดาห์ (Days of the week)',
+                title: '📅 หมวดที่ 4: วันในสัปดาห์ (Days)',
                 items: [
                     { hiragana: "げつようび", kanji: "月曜日", thai: "วันจันทร์", icon: "🟡" },
                     { hiragana: "かようび", kanji: "火曜日", thai: "วันอังคาร", icon: "🔴" },
@@ -576,16 +638,16 @@
                 navName: '5. คำเฉพาะ & สำนวน',
                 title: '📝 หมวดที่ 5: คำเฉพาะบท & สำนวน (Expressions)',
                 items: [
-                    { hiragana: "ーから", kanji: "-", thai: "จาก, ตั้งแต่", icon: "🛫" },
-                    { hiragana: "ーまで", kanji: "-", thai: "ถึง, จนถึง", icon: "🛬" },
-                    { hiragana: "ーとー", kanji: "-", thai: "กับ, และ", icon: "🔗" },
-                    { hiragana: "たいへんですね", kanji: "大変ですね", thai: "ลำบากหน่อยนะ, แย่หน่อยนะ", icon: "😅" },
+                    { hiragana: "ーから", kanji: "―から", thai: "จาก, ตั้งแต่", icon: "🛫" },
+                    { hiragana: "ーまで", kanji: "―まで", thai: "ถึง, จนถึง", icon: "🛬" },
+                    { hiragana: "ーとー", kanji: "―と―", thai: "กับ, และ", icon: "🔗" },
+                    { hiragana: "たいへんですね", kanji: "大変ですね", thai: "ลำบากหน่อยนะ", icon: "😅" },
                     { hiragana: "ばんごう", kanji: "番号", thai: "หมายเลข, เบอร์", icon: "🔢" },
                     { hiragana: "なんばん", kanji: "何番", thai: "หมายเลขอะไร", icon: "❓" },
-                    { hiragana: "そちら", kanji: "-", thai: "ทางคุณ (คู่สนทนา/สถานที่)", icon: "👉" },
-                    { hiragana: "しけん", kanji: "試験", thai: "การสอบ, ข้อสอบ", icon: "📝" },
+                    { hiragana: "そちら", kanji: "そちら", thai: "ทางคุณ", icon: "👉" },
+                    { hiragana: "しけん", kanji: "試験", thai: "การสอบ", icon: "📝" },
                     { hiragana: "かいぎ", kanji: "会議", thai: "การประชุม", icon: "👥" },
-                    { hiragana: "えいが", kanji: "映画", thai: "ภาพยนตร์, หนัง", icon: "🎬" }
+                    { hiragana: "えいが", kanji: "映画", thai: "ภาพยนตร์", icon: "🎬" }
                 ]
             }
         ];
@@ -598,7 +660,6 @@
             loadCategory(0);
         }
 
-        // Auto selection of natural Japanese TTS voice
         function getBestNaturalJapaneseVoice() {
             if (!('speechSynthesis' in window)) return null;
             const voices = window.speechSynthesis.getVoices();
@@ -672,7 +733,7 @@
                     card.classList.toggle('flipped');
                 };
 
-                const kanjiMarkup = (item.kanji && item.kanji !== '-') ? `<div class="jp-kanji">${item.kanji}</div>` : '';
+                const kanjiMarkup = (item.kanji && item.kanji !== item.hiragana && item.kanji !== '-') ? `<div class="jp-kanji">${item.kanji}</div>` : '';
 
                 card.innerHTML = `
                     <div class="card-inner">
@@ -713,91 +774,118 @@
             if (mode === 'game') startNewGame();
         }
 
-        /* 🥢 Bento Matching Game Logic */
-        let gameSelectedCard = null;
-        let matchedPairs = 0;
-        const totalGamePairs = 6;
+        /* 🍱 3-WAY MATCHING GAME LOGIC */
+        let selectedGameCards = [];
+        let matchedTriplets = 0;
+        let totalTriplets = 0;
 
         function startNewGame() {
-            matchedPairs = 0;
-            gameSelectedCard = null;
-            document.getElementById('gameScore').innerText = '0';
+            matchedTriplets = 0;
+            selectedGameCards = [];
             document.getElementById('winMsg').style.display = 'none';
 
-            // Flatten all words and pick 6 random words
-            let allWords = [];
-            vocabularyData.forEach(cat => allWords.push(...cat.items));
-            allWords.sort(() => 0.5 - Math.random());
-            let pickedWords = allWords.slice(0, totalGamePairs);
+            const selectedCat = document.getElementById('gameCatSelect').value;
+            let targetWords = [];
 
-            // Create cards: 6 Japanese, 6 Thai
-            let gameCards = [];
-            pickedWords.forEach((word, idx) => {
-                const kanjiTxt = (word.kanji && word.kanji !== '-') ? ` (${word.kanji})` : '';
-                gameCards.push({ id: idx, type: 'jp', text: `${word.hiragana}${kanjiTxt}`, voice: word.hiragana });
-                gameCards.push({ id: idx, type: 'th', text: `${word.icon} ${word.thai}` });
+            if (selectedCat === 'all') {
+                vocabularyData.forEach(cat => targetWords.push(...cat.items));
+            } else {
+                const found = vocabularyData.find(c => c.id === selectedCat);
+                if (found) targetWords = [...found.items];
+            }
+
+            totalTriplets = targetWords.length;
+            document.getElementById('gameScore').innerText = `0 / ${totalTriplets}`;
+
+            // Generate 3 separate cards for EVERY word: Hiragana, Kanji, Thai
+            let allGameCards = [];
+            targetWords.forEach((word, wordIndex) => {
+                // Card 1: Hiragana
+                allGameCards.push({
+                    wordId: wordIndex,
+                    type: 'hiragana',
+                    text: word.hiragana,
+                    voice: word.hiragana
+                });
+
+                // Card 2: Kanji (If word has no specific Kanji, display Hiragana/Katakana)
+                const kanjiDisplay = (word.kanji && word.kanji !== '-') ? word.kanji : word.hiragana;
+                allGameCards.push({
+                    wordId: wordIndex,
+                    type: 'kanji',
+                    text: kanjiDisplay,
+                    voice: word.hiragana
+                });
+
+                // Card 3: Thai Meaning
+                allGameCards.push({
+                    wordId: wordIndex,
+                    type: 'thai',
+                    text: `${word.icon} ${word.thai}`
+                });
             });
 
-            // Shuffle matching cards
-            gameCards.sort(() => 0.5 - Math.random());
+            // Randomize order of all cards
+            allGameCards.sort(() => 0.5 - Math.random());
 
-            // Render Game Grid
+            // Render Game Board
             const grid = document.getElementById('gameGrid');
             grid.innerHTML = '';
-            gameCards.forEach((c) => {
-                const el = document.createElement('div');
-                el.className = 'match-card';
-                el.innerText = c.text;
-                el.dataset.id = c.id;
-                el.dataset.type = c.type;
-                if (c.voice) el.dataset.voice = c.voice;
 
-                el.onclick = () => handleGameCardClick(el);
-                grid.appendChild(el);
+            allGameCards.forEach((c) => {
+                const cardEl = document.createElement('div');
+                cardEl.className = `match-card type-${c.type}`;
+                cardEl.innerText = c.text;
+                cardEl.dataset.wordId = c.wordId;
+                cardEl.dataset.type = c.type;
+                if (c.voice) cardEl.dataset.voice = c.voice;
+
+                cardEl.onclick = () => handleGameCardClick(cardEl);
+                grid.appendChild(cardEl);
             });
         }
 
-        function handleGameCardClick(el) {
-            if (el.classList.contains('matched') || el.classList.contains('selected')) return;
+        function handleGameCardClick(cardEl) {
+            if (cardEl.classList.contains('matched') || cardEl.classList.contains('selected')) return;
 
-            // Play sound if JP card
-            if (el.dataset.voice) playAudio(el.dataset.voice);
+            // Play voice
+            if (cardEl.dataset.voice) playAudio(cardEl.dataset.voice);
 
-            if (!gameSelectedCard) {
-                // First card selected
-                gameSelectedCard = el;
-                el.classList.add('selected');
-            } else {
-                // Second card selected
-                if (gameSelectedCard.dataset.type === el.dataset.type) {
-                    // Cannot pair same side
-                    gameSelectedCard.classList.remove('selected');
-                    gameSelectedCard = el;
-                    el.classList.add('selected');
-                    return;
-                }
+            // Select Card
+            cardEl.classList.add('selected');
+            selectedGameCards.push(cardEl);
 
-                if (gameSelectedCard.dataset.id === el.dataset.id) {
-                    // Correct Pair!
-                    el.classList.add('matched');
-                    gameSelectedCard.classList.add('matched');
-                    gameSelectedCard.classList.remove('selected');
-                    gameSelectedCard = null;
+            // Check when 3 cards are selected
+            if (selectedGameCards.length === 3) {
+                const [c1, c2, c3] = selectedGameCards;
 
-                    matchedPairs++;
-                    document.getElementById('gameScore').innerText = matchedPairs;
+                const isSameWord = (c1.dataset.wordId === c2.dataset.wordId) && (c2.dataset.wordId === c3.dataset.wordId);
+                const has3Types = new Set([c1.dataset.type, c2.dataset.type, c3.dataset.type]).size === 3;
 
-                    if (matchedPairs === totalGamePairs) {
+                if (isSameWord && has3Types) {
+                    // Match Success!
+                    selectedGameCards.forEach(card => {
+                        card.classList.remove('selected');
+                        card.classList.add('matched');
+                    });
+
+                    matchedTriplets++;
+                    document.getElementById('gameScore').innerText = `${matchedTriplets} / ${totalTriplets}`;
+
+                    if (matchedTriplets === totalTriplets) {
                         document.getElementById('winMsg').style.display = 'block';
                     }
+                    selectedGameCards = [];
                 } else {
-                    // Wrong Pair - Shake and deselect
-                    el.classList.add('selected');
+                    // Match Failed!
+                    selectedGameCards.forEach(card => card.classList.add('wrong'));
+                    
                     setTimeout(() => {
-                        el.classList.remove('selected');
-                        if (gameSelectedCard) gameSelectedCard.classList.remove('selected');
-                        gameSelectedCard = null;
-                    }, 400);
+                        selectedGameCards.forEach(card => {
+                            card.classList.remove('selected', 'wrong');
+                        });
+                        selectedGameCards = [];
+                    }, 450);
                 }
             }
         }
