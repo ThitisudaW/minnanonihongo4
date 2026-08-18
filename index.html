@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minna no Nihongo Lesson 4 - Modern Animated Japanese Studio</title>
     
+    <!-- Google Fonts: Klee One, Noto Sans JP, Prompt, Zen Maru Gothic -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@600;700;800&family=Prompt:wght@300;400;500;600;700&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
@@ -57,7 +58,7 @@
             height: 200%;
             z-index: -2;
             opacity: 0.12;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30"><path d="M0 15 A15 15 0 0 1 30 15 A15 15 0 0 1 60 15 A15 15 0 0 1 30 15 A15 15 0 0 1 0 15 Z" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 0 A15 15 0 0 1 15 0 A15 15 0 0 1 45 0 A15 15 0 0 1 75 0" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 30 A15 15 0 0 1 15 30 A15 15 0 0 1 45 30 A15 15 0 0 1 75 30" fill="none" stroke="%234338ca" stroke-width="1.5"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30"><path d="M0 15 A15 15 0 0 1 30 15 A15 15 0 0 1 60 15 A15 15 0 0 1 0 15 Z" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 0 A15 15 0 0 1 15 0 A15 15 0 0 1 45 0 A15 15 0 0 1 75 0" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 30 A15 15 0 0 1 15 30 A15 15 0 0 1 45 30 A15 15 0 0 1 75 30" fill="none" stroke="%234338ca" stroke-width="1.5"/></svg>');
             animation: panPattern 45s linear infinite;
         }
 
@@ -491,7 +492,7 @@
             margin-left: 6px;
         }
 
-        /* 🌸 CUTE FLOWER SCALLOPED JAPANESE CLOCK */
+        /* 🌸 CUTE FLOWER SCALLOPED CLOCK (STANDARD ACCURATE DIAL) */
         .clock-container {
             display: none;
             background: #ffffff;
@@ -513,8 +514,8 @@
 
         .clock-face-wrapper {
             position: relative;
-            width: 290px;
-            height: 290px;
+            width: 270px;
+            height: 270px;
             user-select: none;
         }
 
@@ -522,7 +523,7 @@
             width: 100%;
             height: 100%;
             touch-action: none;
-            filter: drop-shadow(0 14px 28px rgba(255, 107, 139, 0.18));
+            filter: drop-shadow(0 14px 28px rgba(255, 107, 139, 0.16));
             cursor: pointer;
         }
 
@@ -1081,32 +1082,50 @@
             </div>
         </div>
 
+        <!-- 🌸 CUTE FLOWER CLOCK WITH STANDARD 200x200 PROPORTIONS & CLEAR MINUTE TICKS -->
         <div class="clock-container" id="clockSection">
             <h2 style="color:var(--text-dark); margin-bottom:6px;">⏰ หน้าปัดนาฬิกาฝึกอ่านเวลาภาษาญี่ปุ่น</h2>
-            <p style="text-align:center; color:var(--text-muted); font-size:0.95rem;">แตะที่จุดนาทีบนกลีบดอกไม้ หรือลาก <strong>เข็มสั้น (สีชมพู)</strong> และ <strong>เข็มยาว (สีม่วง)</strong> ได้อย่างแม่นยำ</p>
+            <p style="text-align:center; color:var(--text-muted); font-size:0.95rem;">แตะที่ขีดนาทีบนหน้าปัด หรือลาก <strong>เข็มสั้น (สีชมพู)</strong> และ <strong>เข็มยาว (สีม่วง)</strong> เพื่อปรับเวลา</p>
 
             <div class="clock-layout">
                 <div class="clock-face-wrapper">
-                    <svg class="svg-clock" viewBox="0 0 240 240" id="clockSvg">
+                    <svg class="svg-clock" viewBox="0 0 200 200" id="clockSvg">
+                        <!-- 12 Scalloped Cute Flower Petals -->
                         <g id="clockPetals"></g>
 
-                        <circle cx="120" cy="120" r="98" fill="#ffffff" stroke="#ffccd5" stroke-width="2"/>
-                        <circle cx="120" cy="120" r="92" fill="#fffafb" stroke="#ffe3e8" stroke-width="1.5"/>
+                        <!-- Main Inner White Dial -->
+                        <circle cx="100" cy="100" r="82" fill="#ffffff" stroke="#ffccd5" stroke-width="2.5"/>
+                        <circle cx="100" cy="100" r="76" fill="#fffafb" stroke="#ffe3e8" stroke-width="1"/>
 
+                        <!-- 60 Standard Minute Ticks -->
                         <g id="clockMinuteTicks"></g>
 
-                        <g id="clockHourNumbers"></g>
+                        <!-- 12 Standard Hour Numbers -->
+                        <text x="100" y="44" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">12</text>
+                        <text x="129" y="52" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">1</text>
+                        <text x="150" y="73" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">2</text>
+                        <text x="158" y="105" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">3</text>
+                        <text x="150" y="137" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">4</text>
+                        <text x="129" y="158" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">5</text>
+                        <text x="100" y="166" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">6</text>
+                        <text x="71" y="158" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">7</text>
+                        <text x="50" y="137" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">8</text>
+                        <text x="42" y="105" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">9</text>
+                        <text x="50" y="73" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">10</text>
+                        <text x="71" y="52" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">11</text>
 
+                        <!-- Hour Hand (Soft Pink) -->
                         <g id="hourHandGroup">
-                            <line id="hourHand" class="clock-hand" x1="120" y1="120" x2="120" y2="65" stroke="#ff6b8b" stroke-width="7" stroke-linecap="round" />
+                            <line id="hourHand" class="clock-hand" x1="100" y1="100" x2="100" y2="58" stroke="#ff6b8b" stroke-width="6" stroke-linecap="round" />
                         </g>
                         
+                        <!-- Minute Hand (Indigo pointing directly at minute ring) -->
                         <g id="minuteHandGroup">
-                            <line id="minuteHand" class="clock-hand" x1="120" y1="120" x2="120" y2="35" stroke="#6366f1" stroke-width="4.5" stroke-linecap="round" />
-                            <circle cx="120" cy="35" r="4" fill="#6366f1" stroke="#ffffff" stroke-width="1.5" />
+                            <line id="minuteHand" class="clock-hand" x1="100" y1="100" x2="100" y2="28" stroke="#6366f1" stroke-width="4" stroke-linecap="round" />
                         </g>
                         
-                        <circle cx="120" cy="120" r="7" fill="#2d3436" stroke="#ffffff" stroke-width="2.5"/>
+                        <!-- Center Pin -->
+                        <circle cx="100" cy="100" r="6" fill="#2d3436" stroke="#ffffff" stroke-width="2"/>
                     </svg>
                 </div>
 
@@ -1144,6 +1163,7 @@
             </div>
         </div>
 
+        <!-- 🔢 NUMBER TABLES SECTION -->
         <div class="numbers-container" id="numbersSection">
             <h2 style="color:var(--text-dark); text-align:center; margin-bottom:6px;">🔢 ตารางคำอ่านตัวเลขภาษาญี่ปุ่น</h2>
             <p style="text-align:center; color:var(--text-muted); font-size:0.95rem; margin-bottom:25px;">เลือกหมวดการนับเลขทางซ้าย พร้อมไฮไลต์จุดที่ <strong style="color:var(--accent-rose);">เสียงเปลี่ยน/คำพิเศษ</strong></p>
@@ -1457,67 +1477,51 @@
             switchMode(savedMode);
         }
 
-        /* 🌸 BUILD CUTE FLOWER PETALS & PRECISE 60-MINUTE DOTS */
+        /* 🌸 BUILD CUTE FLOWER PETALS & PRECISE 60-MINUTE STANDARD TICKS */
         function buildCuteFlowerClock() {
             const petalsGroup = document.getElementById('clockPetals');
             const ticksGroup = document.getElementById('clockMinuteTicks');
-            const hourNumbersGroup = document.getElementById('clockHourNumbers');
-
             petalsGroup.innerHTML = '';
             ticksGroup.innerHTML = '';
-            hourNumbersGroup.innerHTML = '';
+            const cx = 100, cy = 100;
 
-            const cx = 120, cy = 120;
-
-            // 1. Generate 12 Cute Scalloped Flower Petals around the clock
+            // 1. 12 Scalloped Cute Flower Petals around edge
             for (let i = 0; i < 12; i++) {
                 const angleRad = (i * 30 - 90) * (Math.PI / 180);
-                const px = cx + 96 * Math.cos(angleRad);
-                const py = cy + 96 * Math.sin(angleRad);
+                const px = cx + 80 * Math.cos(angleRad);
+                const py = cy + 80 * Math.sin(angleRad);
 
                 const petal = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
                 petal.setAttribute('cx', px);
                 petal.setAttribute('cy', py);
-                petal.setAttribute('r', '22');
+                petal.setAttribute('r', '17');
                 petal.setAttribute('fill', '#ffe8ed');
                 petal.setAttribute('stroke', '#ffccd5');
-                petal.setAttribute('stroke-width', '2');
+                petal.setAttribute('stroke-width', '1.5');
                 petalsGroup.appendChild(petal);
             }
 
-            // 2. Generate 60 Exact Minute Dots (จุดเข็มยาวครบ 60 จุด)
+            // 2. 60 Standard Minute Ticks for clear minute targeting
             for (let m = 0; m < 60; m++) {
                 const angleRad = (m * 6 - 90) * (Math.PI / 180);
                 const isMajor = (m % 5 === 0);
-                const rDot = 85;
-                const tx = cx + rDot * Math.cos(angleRad);
-                const ty = cy + rDot * Math.sin(angleRad);
+                const rInner = isMajor ? 69 : 72;
+                const rOuter = 75;
 
-                const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                dot.setAttribute('cx', tx);
-                dot.setAttribute('cy', ty);
-                dot.setAttribute('r', isMajor ? '3.2' : '1.8');
-                dot.setAttribute('fill', isMajor ? '#ff6b8b' : '#cbd5e1');
-                ticksGroup.appendChild(dot);
-            }
+                const x1 = cx + rInner * Math.cos(angleRad);
+                const y1 = cy + rInner * Math.sin(angleRad);
+                const x2 = cx + rOuter * Math.cos(angleRad);
+                const y2 = cy + rOuter * Math.sin(angleRad);
 
-            // 3. Generate 12 Cute Japanese Hour Numbers
-            for (let h = 1; h <= 12; h++) {
-                const angleRad = (h * 30 - 90) * (Math.PI / 180);
-                const rHour = 65;
-                const tx = cx + rHour * Math.cos(angleRad);
-                const ty = cy + rHour * Math.sin(angleRad) + 5.5;
-
-                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                text.setAttribute('x', tx);
-                text.setAttribute('y', ty);
-                text.setAttribute('text-anchor', 'middle');
-                text.setAttribute('font-size', '16');
-                text.setAttribute('font-weight', '800');
-                text.setAttribute('fill', '#2d3436');
-                text.setAttribute('font-family', "'Zen Maru Gothic', sans-serif");
-                text.textContent = h;
-                hourNumbersGroup.appendChild(text);
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', x1);
+                line.setAttribute('y1', y1);
+                line.setAttribute('x2', x2);
+                line.setAttribute('y2', y2);
+                line.setAttribute('stroke', isMajor ? '#6366f1' : '#cbd5e1');
+                line.setAttribute('stroke-width', isMajor ? '2' : '1');
+                line.setAttribute('stroke-linecap', 'round');
+                ticksGroup.appendChild(line);
             }
         }
 
@@ -1759,8 +1763,8 @@
             const minAngle = m * 6;
             const hourAngle = (h % 12) * 30 + (m * 0.5);
 
-            document.getElementById('minuteHandGroup').setAttribute('transform', `rotate(${minAngle} 120 120)`);
-            document.getElementById('hourHandGroup').setAttribute('transform', `rotate(${hourAngle} 120 120)`);
+            document.getElementById('minuteHandGroup').setAttribute('transform', `rotate(${minAngle} 100 100)`);
+            document.getElementById('hourHandGroup').setAttribute('transform', `rotate(${hourAngle} 100 100)`);
 
             const readings = getJapaneseTimeReading(h, m);
             document.getElementById('clockDigital').innerText = readings.timeStr;
@@ -1785,7 +1789,7 @@
             playAudio(textToSpeak);
         }
 
-        /* 🌸 PRECISE FLOWER CLOCK INTERACTION */
+        /* 🌸 SMOOTH & PRECISE 1-MINUTE DRAGGING / TOUCH INTERACTION */
         function setupClockDragging() {
             const svg = document.getElementById('clockSvg');
             const hourHand = document.getElementById('hourHand');
@@ -1842,7 +1846,7 @@
             hourHand.addEventListener('touchstart', (e) => startDrag(e, 'hour'));
             minuteHand.addEventListener('touchstart', (e) => startDrag(e, 'minute'));
 
-            // Click or tap anywhere on the flower face to immediately set the minute hand directly
+            // Click or tap anywhere to immediately set minute hand accurately
             svg.addEventListener('mousedown', (e) => {
                 if (e.target !== hourHand && e.target !== minuteHand) {
                     const angle = getAngleFromCenter(e);
