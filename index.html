@@ -53,7 +53,6 @@
             overflow-x: hidden;
         }
 
-        /* Animated Japanese Traditional Pattern Background */
         .jp-pattern-bg {
             position: fixed;
             top: -50%;
@@ -71,7 +70,6 @@
             100% { transform: translate(-120px, -60deg) rotate(2deg); }
         }
 
-        /* Ambient Aurora Glow */
         .aurora-bg {
             position: fixed;
             top: 0;
@@ -138,7 +136,6 @@
             font-family: var(--font-jp);
         }
 
-        /* Modern Segmented Navigation Bar */
         .mode-switcher {
             display: flex;
             justify-content: center;
@@ -186,7 +183,6 @@
             font-weight: 700;
         }
 
-        /* Category Pill Tabs */
         .category-nav {
             display: flex;
             justify-content: center;
@@ -205,6 +201,9 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .nav-tab.active {
@@ -214,7 +213,6 @@
             box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
         }
 
-        /* Toolbar & Controls */
         .stepper-bar {
             display: flex;
             align-items: center;
@@ -254,6 +252,9 @@
             font-size: 1.1rem;
             font-weight: 700;
             color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .quick-tools {
@@ -290,7 +291,6 @@
             background: rgba(99, 102, 241, 0.08);
         }
 
-        /* 🎴 Flashcards Grid & Animated Entry */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
@@ -425,7 +425,6 @@
 
         .th-meaning { font-size: 1.25rem; font-weight: 600; }
 
-        /* 🍣 VERB GROUPING SECTION */
         .verbs-container {
             display: none;
             background: #ffffff;
@@ -524,7 +523,6 @@
             margin-left: 6px;
         }
 
-        /* 🌸 CUTE FLOWER SCALLOPED CLOCK */
         .clock-container {
             display: none;
             background: #ffffff;
@@ -639,7 +637,6 @@
             margin-top: 18px;
         }
 
-        /* 🔢 NUMBER TABLES SECTION (USES MAIN PAGE SCROLL) */
         .numbers-container {
             display: none;
             background: #ffffff;
@@ -823,7 +820,6 @@
             transform: scale(1.15);
         }
 
-        /* 🎯 BIG 2-SIDED DRAG & DROP GAME (USES MAIN PAGE SCROLL) */
         .game-section {
             display: none;
             background: #ffffff;
@@ -1078,7 +1074,7 @@
         </div>
 
         <div class="verbs-container" id="verbsSection">
-            <h2 style="color:var(--text-dark); text-align:center; margin-bottom:8px;">🍣 หลักการแบ่งกลุ่มคำกริยาภาษาญี่ปุ่น (3 กลุ่ม)</h2>
+            <h2 style="color:var(--text-dark); text-align:center; margin-bottom:8px;">หลักการแบ่งกลุ่มคำกริยาภาษาญี่ปุ่น (3 กลุ่ม)</h2>
             <p style="text-align:center; color:var(--text-muted); margin-bottom:25px; font-size:0.95rem;">สังเกตเสียงอักษรฮิรางานะที่อยู่ **หน้าคำว่า ます** เพื่อแบ่งกลุ่ม</p>
 
             <div class="verb-rule-grid">
@@ -1106,7 +1102,7 @@
                 </div>
             </div>
 
-            <h3 style="color:var(--text-dark); margin-bottom:18px; text-align:center;">🍱 สรุปกลุ่มคำกริยาในบทที่ 4</h3>
+            <h3 style="color:var(--text-dark); margin-bottom:18px; text-align:center;">สรุปกลุ่มคำกริยาในบทที่ 4</h3>
             
             <div class="verb-columns">
                 <div class="verb-col g1">
@@ -1185,7 +1181,7 @@
 
         <!-- 🌸 CUTE FLOWER CLOCK WITH STANDARD PROPORTIONS -->
         <div class="clock-container" id="clockSection">
-            <h2 style="color:var(--text-dark); margin-bottom:6px;">⏰ หน้าปัดนาฬิกาฝึกอ่านเวลาภาษาญี่ปุ่น</h2>
+            <h2 style="color:var(--text-dark); margin-bottom:6px;">หน้าปัดนาฬิกาฝึกอ่านเวลาภาษาญี่ปุ่น</h2>
             <p style="text-align:center; color:var(--text-muted); font-size:0.95rem;">แตะที่ขีดนาทีบนหน้าปัด หรือลาก <strong>เข็มสั้น (สีชมพู)</strong> และ <strong>เข็มยาว (สีม่วง)</strong> เพื่อปรับเวลา</p>
 
             <div class="clock-layout">
@@ -1259,7 +1255,7 @@
 
         <!-- 🔢 NUMBER TABLES SECTION -->
         <div class="numbers-container" id="numbersSection">
-            <h2 style="color:var(--text-dark); text-align:center; margin-bottom:6px;">🔢 ตารางคำอ่านตัวเลขภาษาญี่ปุ่น</h2>
+            <h2 style="color:var(--text-dark); text-align:center; margin-bottom:6px;">ตารางคำอ่านตัวเลขภาษาญี่ปุ่น</h2>
             <p style="text-align:center; color:var(--text-muted); font-size:0.95rem; margin-bottom:25px;">เลือกหมวดการนับเลขทางซ้าย พร้อมไฮไลต์จุดที่ <strong style="color:var(--accent-rose);">เสียงเปลี่ยน/คำพิเศษ</strong></p>
 
             <div class="numbers-layout">
@@ -1286,8 +1282,8 @@
 
                 <div class="num-content">
                     <div class="num-content-header">
-                        <h3 id="numCategoryTitle" style="color:var(--text-dark);">🔢 การนับเลขปกติ (หลักร้อย/พัน/หมื่น)</h3>
-                        <span style="font-size:0.85rem; color:var(--accent-rose); font-weight:700;">✨ กล่องสีชมพู = เสียงเปลี่ยน/อ่านพิเศษ</span>
+                        <h3 id="numCategoryTitle" style="color:var(--text-dark);">การนับเลขปกติ (หลักร้อย/พัน/หมื่น)</h3>
+                        <span style="font-size:0.85rem; color:var(--accent-rose); font-weight:700;">กล่องสีชมพู = เสียงเปลี่ยน/อ่านพิเศษ</span>
                     </div>
 
                     <div class="num-grid" id="numGrid"></div>
@@ -1299,11 +1295,11 @@
         <div class="game-section" id="gameSection">
             <div class="game-header">
                 <div class="game-stats">
-                    <span>🎯 คะแนน: <span id="gameScore">0</span> / <span id="gameTotal">0</span></span>
+                    <span>คะแนน: <span id="gameScore">0</span> / <span id="gameTotal">0</span></span>
                 </div>
                 <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
                     <select id="gameCatSelect" onchange="startNewGame()" style="padding:6px 12px; border-radius:10px; border:1px solid #cbd5e1; font-weight:bold; color:var(--text-dark);">
-                        <option value="all">🌟 คำศัพท์ทั้งหมดในบทที่ 4</option>
+                        <option value="all">คำศัพท์ทั้งหมดในบทที่ 4</option>
                         <option value="verbs">1. คำกริยา</option>
                         <option value="places">2. สถานที่ & เมือง</option>
                         <option value="time">3. เวลา & ช่วงเวลา</option>
@@ -1334,7 +1330,7 @@
             {
                 id: 'verbs',
                 navName: '1. คำกริยา',
-                title: '🌸 หมวดที่ 1: คำกริยา (Verbs)',
+                title: 'หมวดที่ 1: คำกริยา (Verbs)',
                 items: [
                     { hiragana: "おきます", kanji: "起きます", thai: "ตื่นนอน", icon: "alarm-clock" },
                     { hiragana: "ねます", kanji: "寝ます", thai: "นอน, เข้านอน", icon: "bed-double" },
@@ -1347,7 +1343,7 @@
             {
                 id: 'places',
                 navName: '2. สถานที่ & เมือง',
-                title: '🏢 หมวดที่ 2: สถานที่ & เมือง (Places & Cities)',
+                title: 'หมวดที่ 2: สถานที่ & เมือง (Places & Cities)',
                 items: [
                     { hiragana: "デパート", kanji: "デパート", thai: "ห้างสรรพสินค้า", icon: "shopping-bag" },
                     { hiragana: "ぎんこう", kanji: "銀行", thai: "ธนาคาร", icon: "landmark" },
@@ -1363,7 +1359,7 @@
             {
                 id: 'time',
                 navName: '3. เวลา',
-                title: '⏰ หมวดที่ 3: เวลา & ช่วงเวลา (Time)',
+                title: 'หมวดที่ 3: เวลา & ช่วงเวลา (Time)',
                 items: [
                     { hiragana: "いま", kanji: "今", thai: "ตอนนี้", icon: "clock" },
                     { hiragana: "ーじ", kanji: "―時", thai: "... โมง", icon: "watch" },
@@ -1393,7 +1389,7 @@
             {
                 id: 'days',
                 navName: '4. วันในสัปดาห์',
-                title: '📅 หมวดที่ 4: วันในสัปดาห์ (Days)',
+                title: 'หมวดที่ 4: วันในสัปดาห์ (Days)',
                 items: [
                     { hiragana: "げつようび", kanji: "月曜日", thai: "วันจันทร์", icon: "moon" },
                     { hiragana: "かようび", kanji: "火曜日", thai: "วันอังคาร", icon: "flame" },
@@ -1408,12 +1404,12 @@
             {
                 id: 'expressions',
                 navName: '5. คำเฉพาะ & สำนวน',
-                title: '📝 หมวดที่ 5: คำเฉพาะบท & สำนวน (Expressions)',
+                title: 'หมวดที่ 5: คำเฉพาะบท & สำนวน (Expressions)',
                 items: [
                     { hiragana: "しけん", kanji: "試験", thai: "การสอบ", icon: "file-text" },
                     { hiragana: "かいぎ", kanji: "会議", thai: "การประชุม", icon: "users" },
                     { hiragana: "えいが", kanji: "映画", thai: "ภาพยนตร์", icon: "film" },
-                    { hiragana: "ーから", kanji: "―จาก", thai: "จาก, ตั้งแต่", icon: "plane-takeoff" },
+                    { hiragana: "ーから", kanji: "―から", thai: "จาก, ตั้งแต่", icon: "plane-takeoff" },
                     { hiragana: "ーまで", kanji: "―จนถึง", thai: "ถึง, จนถึง", icon: "plane-landing" },
                     { hiragana: "ーとー", kanji: "―と―", thai: "กับ, และ", icon: "link" },
                     { hiragana: "たいへんですね", kanji: "大変ですね", thai: "ลำบากหน่อยนะ", icon: "smile-plus" },
@@ -1427,7 +1423,7 @@
         /* 🔢 Numbers Dataset */
         const numbersData = {
             regular: {
-                title: "🔢 การนับเลขปกติ (1-10, หลักร้อย, พัน, หมื่น)",
+                title: "การนับเลขปกติ (1-10, หลักร้อย, พัน, หมื่น)",
                 items: [
                     { digit: "1", hira: "いち", kanji: "一", thai: "หนึ่ง" },
                     { digit: "2", hira: "に", kanji: "二", thai: "สอง" },
@@ -1454,7 +1450,7 @@
                 ]
             },
             age: {
-                title: "🎂 การนับอายุ (〜さい / 才・歳)",
+                title: "การนับอายุ (〜さい / 才・歳)",
                 items: [
                     { digit: "1 ขวบ", hira: "いっさい", kanji: "1才", thai: "1 ขวบ/ปี", irregular: true, tag: "いっ" },
                     { digit: "2 ขวบ", hira: "にさい", kanji: "2才", thai: "2 ขวบ/ปี" },
@@ -1473,7 +1469,7 @@
                 ]
             },
             floor: {
-                title: "🏢 การนับชั้น (〜かい / 〜がい / 階)",
+                title: "การนับชั้น (〜かい / 〜がい / 階)",
                 items: [
                     { digit: "ชั้น 1", hira: "いっかい", kanji: "1階", thai: "ชั้น 1", irregular: true, tag: "いっ" },
                     { digit: "ชั้น 2", hira: "にかい", kanji: "2階", thai: "ชั้น 2" },
@@ -1490,7 +1486,7 @@
                 ]
             },
             hours: {
-                title: "⏰ การนับชั่วโมง / โมง (〜じ / 時)",
+                title: "การนับชั่วโมง / โมง (〜じ / 時)",
                 items: [
                     { digit: "1 โมง", hira: "いちじ", kanji: "1時", thai: "1 โมง / ตี 1 / บ่ายโมง" },
                     { digit: "2 โมง", hira: "にじ", kanji: "2時", thai: "2 โมง / ตี 2 / บ่าย 2" },
@@ -1508,7 +1504,7 @@
                 ]
             },
             minutes: {
-                title: "⏱️ การนับนาที (〜ふん / 〜ぷん / 分)",
+                title: "การนับนาที (〜ふん / 〜ぷん / 分)",
                 items: [
                     { digit: "1 นาที", hira: "いっぷん", kanji: "1分", thai: "1 นาที", irregular: true, tag: "っぷん" },
                     { digit: "2 นาที", hira: "にふん", kanji: "2分", thai: "2 นาที" },
@@ -1528,7 +1524,7 @@
                 ]
             },
             days: {
-                title: "📅 การนับวัน / วันที่ (〜にち / 日)",
+                title: "การนับวัน / วันที่ (〜にち / 日)",
                 items: [
                     { digit: "วันที่ 1", hira: "ついたち", kanji: "1日", thai: "วันที่ 1 (1 วัน ใช้ いちにち)", irregular: true, tag: "คำพิเศษ" },
                     { digit: "วันที่ 2", hira: "ふつか", kanji: "2日", thai: "วันที่ 2 / 2 วัน", irregular: true, tag: "คำพิเศษ" },
@@ -1736,10 +1732,8 @@
         function toggleAllFlips() {
             const flippedCards = document.querySelectorAll('.cards-grid .card.flipped');
             if (flippedCards.length > 0) {
-                // If some cards are showing meaning, flip ONLY those back to Japanese
                 flippedCards.forEach(c => c.classList.remove('flipped'));
             } else {
-                // If all are showing Japanese, flip all to show Thai meaning
                 document.querySelectorAll('.cards-grid .card').forEach(c => c.classList.add('flipped'));
             }
             updateToggleFlipBtn();
@@ -1750,7 +1744,7 @@
             if (!btn) return;
             const flippedCards = document.querySelectorAll('.cards-grid .card.flipped');
             if (flippedCards.length > 0) {
-                btn.innerHTML = `<i data-lucide="rotate-ccw"></i> พลิกกลับหน้าศัพท์`;
+                btn.innerHTML = `<i data-lucide="rotate-ccw"></i> พลิกกลับหน้าศัพท์ (${flippedCards.length})`;
             } else {
                 btn.innerHTML = `<i data-lucide="rotate-cw"></i> หงายคำแปลทั้งหมด`;
             }
