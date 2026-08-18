@@ -1563,7 +1563,8 @@
                     <div class="card-inner">
                         <div class="card-front">
                             <button class="audio-btn" title="ฟังเสียงอ่าน" onclick="playAudio('${item.hiragana}')">🔊</button>
-                            <div class="jp-hiragana">${item.hiragana}</div>${kanjiMarkup}
+                            <div class="jp-hiragana">${item.hiragana}</div>
+                            ${kanjiMarkup}
                         </div>
                         <div class="card-back">
                             <div class="visual-icon">${item.icon}</div>
@@ -1639,3 +1640,297 @@
                     ${badgeHtml}
                     <div>
                         <div class="num-digit">${item.digit}</div>
+                        <div class="num-hira">${item.hira}</div>
+                        <div class="num-kanji">${item.kanji}</div>
+                        <div class="num-th">${item.thai}</div>
+                    </div>
+                    <button class="num-audio-btn" title="ฟังเสียงอ่าน" onclick="playAudio('${item.hira.split('/')[0].trim()}')">🔊</button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        /* ⏰ JAPANESE CLOCK LOGIC */
+        let currentClockHour = 3;
+        let currentClockMin = 10;
+
+        function getJapaneseTimeReading(hour, min) {
+            const hoursMap = {
+                1: { hira: "いちじ", kanji: "1時" },
+                2: { hira: "にじ", kanji: "2時" },
+                3: { hira: "さんじ", kanji: "3時" },
+                4: { hira: "よじ", kanji: "4時" },
+                5: { hira: "ごじ", kanji: "5時" },
+                6: { hira: "ろくじ", kanji: "6時" },
+                7: { hira: "しちじ", kanji: "7時" },
+                8: { hira: "はちじ", kanji: "8時" },
+                9: { hira: "くじ", kanji: "9時" },
+                10: { hira: "じゅうじ", kanji: "10時" },
+                11: { hira: "じゅういちじ", kanji: "11時" },
+                12: { hira: "じゅうにじ", kanji: "12時" }
+            };
+
+            const hObj = hoursMap[hour] || { hira: "", kanji: "" };
+            let mHira = "";
+            let mKanji = "";
+
+            if (min === 0) {
+                mHira = ""; mKanji = "";
+            } else if (min === 30) {
+                mHira = " さんじゅっぷん (はん)";
+                mKanji = "30分 (半)";
+            } else {
+                const ones = min % 10;
+                const tens = Math.floor(min / 10);
+
+                const onesMap = {
+                    1: "いっぷん", 2: "にふん", 3: "さんぷん", 4: "よんぷん", 5: "ごふん",
+                    6: "ろっぷん", 7: "ななふん", 8: "はっぷん", 9: "きゅうふん"
+                };
+
+                let tensHira = ["", "じゅう", "にじゅう", "さんじゅう", "よんじゅう", "ごじゅう"][tens];
+                let onesHira = "";
+
+                if (ones === 0) {
+                    if (min === 10) tensHira = "じゅっぷん";
+                    else tensHira = ["", "", "にじゅっぷん", "さんじゅっぷん", "よんじゅっぷん", "ごじゅっぷん"][tens];
+                } else {
+                    onesHira = onesMap[ones];
+                }
+
+                mHira = " " + tensHira + onesHira;
+                mKanji = min + "分";
+            }
+
+            return {
+                hira: hObj.hira + mHira,
+                kanji: hObj.kanji + mKanji,
+                timeStr: `${String(hour).padStart(2, '0')}:${String(min).padStart(2, '0')}`
+            };
+        }
+
+        function updateClockUI(h, m) {
+            currentClockHour = h;
+            currentClockMin = m;
+
+            document.getElementById('hourSlider').value = h;
+            document.getElementById('minuteSlider').value = m;
+            document.getElementById('hourValDisplay').innerText = h;
+            document.getElementById('minValDisplay').innerText = m;
+
+            const minAngle = m * 6;
+            const hourAngle = (h % 12) * 30 + (m * 0.5);
+
+            document.getElementById('minuteHandGroup').setAttribute('transform', `rotate(${minAngle} 100 100)`);
+            document.getElementById('hourHandGroup').setAttribute('transform', `rotate(${hourAngle} 100 100)`);
+
+            const readings = getJapaneseTimeReading(h, m);
+            document.getElementById('clockDigital').innerText = readings.timeStr;
+            document.getElementById('clockHiragana').innerText = readings.hira;
+            document.getElementById('clockKanji').innerText = readings.kanji;
+        }
+
+        function onClockSliderChange() {
+            const h = parseInt(document.getElementById('hourSlider').value);
+            const m = parseInt(document.getElementById('minuteSlider').value);
+            updateClockUI(h, m);
+        }
+
+        function setClockTime(h, m) {
+            updateClockUI(h, m);
+            speakCurrentClockTime();
+        }
+
+        function speakCurrentClockTime() {
+            const readings = getJapaneseTimeReading(currentClockHour, currentClockMin);
+            const textToSpeak = readings.hira.replace('(はん)', 'はん').replace(/\s+/g, '');
+            playAudio(textToSpeak);
+        }
+
+        /* 🌸 CUTE & SMOOTH CLOCK DRAGGING & TAP SELECTION */
+        function setupClockDragging() {
+            const svg = document.getElementById('clockSvg');
+            const hourHand = document.getElementById('hourHand');
+            const minuteHand = document.getElementById('minuteHand');
+            let draggingHand = null;
+
+            const getAngleFromCenter = (e) => {
+                const rect = svg.getBoundingClientRect();
+                const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+                if (clientX === undefined || clientY === undefined) return null;
+
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height / 2;
+                const x = clientX - cx;
+                const y = clientY - cy;
+
+                let angle = Math.atan2(y, x) * (180 / Math.PI) + 90;
+                if (angle < 0) angle += 360;
+                return angle;
+            };
+
+            const startDrag = (e, hand) => {
+                e.preventDefault();
+                draggingHand = hand;
+                if (hand === 'hour') hourHand.classList.add('active');
+                if (hand === 'minute') minuteHand.classList.add('active');
+                handlePointerMove(e);
+            };
+
+            const handlePointerMove = (e) => {
+                if (!draggingHand) return;
+                const angle = getAngleFromCenter(e);
+                if (angle === null) return;
+
+                if (draggingHand === 'minute') {
+                    // Smart Snap to nearest 5 minutes for easy clicking
+                    let rawMin = Math.round(angle / 6);
+                    let min = (Math.round(rawMin / 5) * 5) % 60;
+                    updateClockUI(currentClockHour, min);
+                } else if (draggingHand === 'hour') {
+                    let h = Math.round(angle / 30);
+                    if (h === 0) h = 12;
+                    updateClockUI(h, currentClockMin);
+                }
+            };
+
+            const stopDrag = () => {
+                draggingHand = null;
+                hourHand.classList.remove('active');
+                minuteHand.classList.remove('active');
+            };
+
+            hourHand.addEventListener('mousedown', (e) => startDrag(e, 'hour'));
+            minuteHand.addEventListener('mousedown', (e) => startDrag(e, 'minute'));
+            hourHand.addEventListener('touchstart', (e) => startDrag(e, 'hour'));
+            minuteHand.addEventListener('touchstart', (e) => startDrag(e, 'minute'));
+
+            // Easy Click/Tap anywhere on the face to snap directly to that minute position
+            svg.addEventListener('mousedown', (e) => {
+                if (e.target !== hourHand && e.target !== minuteHand) {
+                    const angle = getAngleFromCenter(e);
+                    if (angle !== null) {
+                        let rawMin = Math.round(angle / 6);
+                        let min = (Math.round(rawMin / 5) * 5) % 60;
+                        updateClockUI(currentClockHour, min);
+                        startDrag(e, 'minute');
+                    }
+                }
+            });
+
+            svg.addEventListener('touchstart', (e) => {
+                if (e.target !== hourHand && e.target !== minuteHand) {
+                    const angle = getAngleFromCenter(e);
+                    if (angle !== null) {
+                        let rawMin = Math.round(angle / 6);
+                        let min = (Math.round(rawMin / 5) * 5) % 60;
+                        updateClockUI(currentClockHour, min);
+                        startDrag(e, 'minute');
+                    }
+                }
+            });
+
+            window.addEventListener('mousemove', handlePointerMove);
+            window.addEventListener('touchmove', handlePointerMove);
+            window.addEventListener('mouseup', stopDrag);
+            window.addEventListener('touchend', stopDrag);
+        }
+
+        /* 🍱 3-WAY MATCHING GAME LOGIC */
+        let selectedGameCards = [];
+        let matchedTriplets = 0;
+        let totalTriplets = 0;
+
+        function startNewGame() {
+            matchedTriplets = 0;
+            selectedGameCards = [];
+            document.getElementById('winMsg').style.display = 'none';
+
+            const selectedCat = document.getElementById('gameCatSelect').value;
+            let targetWords = [];
+
+            if (selectedCat === 'all') {
+                vocabularyData.forEach(cat => targetWords.push(...cat.items));
+            } else {
+                const found = vocabularyData.find(c => c.id === selectedCat);
+                if (found) targetWords = [...found.items];
+            }
+
+            totalTriplets = targetWords.length;
+            document.getElementById('gameScore').innerText = `0 / ${totalTriplets}`;
+
+            let allGameCards = [];
+            targetWords.forEach((word, wordIndex) => {
+                allGameCards.push({ wordId: wordIndex, type: 'hiragana', text: word.hiragana, voice: word.hiragana });
+                const kanjiDisplay = (word.kanji && word.kanji !== '-') ? word.kanji : word.hiragana;
+                allGameCards.push({ wordId: wordIndex, type: 'kanji', text: kanjiDisplay, voice: word.hiragana });
+                allGameCards.push({ wordId: wordIndex, type: 'thai', text: `${word.icon} ${word.thai}` });
+            });
+
+            allGameCards.sort(() => 0.5 - Math.random());
+
+            const grid = document.getElementById('gameGrid');
+            grid.innerHTML = '';
+
+            allGameCards.forEach((c) => {
+                const cardEl = document.createElement('div');
+                cardEl.className = `match-card type-${c.type}`;
+                cardEl.innerText = c.text;
+                cardEl.dataset.wordId = c.wordId;
+                cardEl.dataset.type = c.type;
+                if (c.voice) cardEl.dataset.voice = c.voice;
+
+                cardEl.onclick = () => handleGameCardClick(cardEl);
+                grid.appendChild(cardEl);
+            });
+        }
+
+        function handleGameCardClick(cardEl) {
+            if (cardEl.classList.contains('matched') || cardEl.classList.contains('selected')) return;
+
+            if (cardEl.dataset.voice) playAudio(cardEl.dataset.voice);
+
+            cardEl.classList.add('selected');
+            selectedGameCards.push(cardEl);
+
+            if (selectedGameCards.length === 3) {
+                const [c1, c2, c3] = selectedGameCards;
+
+                const isSameWord = (c1.dataset.wordId === c2.dataset.wordId) && (c2.dataset.wordId === c3.dataset.wordId);
+                const has3Types = new Set([c1.dataset.type, c2.dataset.type, c3.dataset.type]).size === 3;
+
+                if (isSameWord && has3Types) {
+                    selectedGameCards.forEach(card => {
+                        card.classList.remove('selected');
+                        card.classList.add('matched');
+                    });
+
+                    matchedTriplets++;
+                    document.getElementById('gameScore').innerText = `${matchedTriplets} / ${totalTriplets}`;
+
+                    if (matchedTriplets === totalTriplets) {
+                        document.getElementById('winMsg').style.display = 'block';
+                    }
+                    selectedGameCards = [];
+                } else {
+                    selectedGameCards.forEach(card => card.classList.add('wrong'));
+                    
+                    setTimeout(() => {
+                        selectedGameCards.forEach(card => {
+                            card.classList.remove('selected', 'wrong');
+                        });
+                        selectedGameCards = [];
+                    }, 450);
+                }
+            }
+        }
+
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = () => { getBestNaturalJapaneseVoice(); };
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
