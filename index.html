@@ -32,6 +32,7 @@
             --radius-lg: 20px;
             --radius-md: 12px;
             
+            /* UD Digi Kyokasho N Font Stack */
             --font-jp: "UD Digi Kyokasho N", "UD デジタル教科書体 N", "Zen Maru Gothic", "Klee One", "Noto Sans JP", sans-serif;
             --font-th: 'Prompt', sans-serif;
         }
@@ -638,7 +639,7 @@
             margin-top: 18px;
         }
 
-        /* 🔢 NUMBER TABLES SECTION */
+        /* 🔢 NUMBER TABLES SECTION (USES MAIN PAGE SCROLL) */
         .numbers-container {
             display: none;
             background: #ffffff;
@@ -822,7 +823,7 @@
             transform: scale(1.15);
         }
 
-        /* 🎯 BIG 2-SIDED DRAG & DROP GAME */
+        /* 🎯 BIG 2-SIDED DRAG & DROP GAME (USES MAIN PAGE SCROLL) */
         .game-section {
             display: none;
             background: #ffffff;
@@ -1412,7 +1413,7 @@
                     { hiragana: "しけん", kanji: "試験", thai: "การสอบ", icon: "file-text" },
                     { hiragana: "かいぎ", kanji: "会議", thai: "การประชุม", icon: "users" },
                     { hiragana: "えいが", kanji: "映画", thai: "ภาพยนตร์", icon: "film" },
-                    { hiragana: "ーから", kanji: "―から", thai: "จาก, ตั้งแต่", icon: "plane-takeoff" },
+                    { hiragana: "ーから", kanji: "―จาก", thai: "จาก, ตั้งแต่", icon: "plane-takeoff" },
                     { hiragana: "ーまで", kanji: "―จนถึง", thai: "ถึง, จนถึง", icon: "plane-landing" },
                     { hiragana: "ーとー", kanji: "―と―", thai: "กับ, และ", icon: "link" },
                     { hiragana: "たいへんですね", kanji: "大変ですね", thai: "ลำบากหน่อยนะ", icon: "smile-plus" },
@@ -1667,7 +1668,7 @@
 
             renderNavTabs();
             renderCards();
-            updateToggleFlipBtn(false);
+            updateToggleFlipBtn();
         }
 
         function navigateCategory(dir) {
@@ -1687,6 +1688,7 @@
                 card.onclick = (e) => {
                     if (e.target.closest('.audio-btn')) return;
                     card.classList.toggle('flipped');
+                    updateToggleFlipBtn();
                 };
 
                 const kanjiMarkup = (item.kanji && item.kanji !== item.hiragana && item.kanji !== '-') ? `<div class="jp-kanji">${item.kanji}</div>` : '';
@@ -1727,29 +1729,27 @@
                     [activeItems[i], activeItems[j]] = [activeItems[j], activeItems[i]];
                 }
                 renderCards();
-                updateToggleFlipBtn(false);
+                updateToggleFlipBtn();
             }, 300);
         }
 
         function toggleAllFlips() {
-            const cards = document.querySelectorAll('.cards-grid .card');
-            const anyUnflipped = Array.from(cards).some(c => !c.classList.contains('flipped'));
-            
-            cards.forEach(c => {
-                if (anyUnflipped) {
-                    c.classList.add('flipped');
-                } else {
-                    c.classList.remove('flipped');
-                }
-            });
-
-            updateToggleFlipBtn(anyUnflipped);
+            const flippedCards = document.querySelectorAll('.cards-grid .card.flipped');
+            if (flippedCards.length > 0) {
+                // If some cards are showing meaning, flip ONLY those back to Japanese
+                flippedCards.forEach(c => c.classList.remove('flipped'));
+            } else {
+                // If all are showing Japanese, flip all to show Thai meaning
+                document.querySelectorAll('.cards-grid .card').forEach(c => c.classList.add('flipped'));
+            }
+            updateToggleFlipBtn();
         }
 
-        function updateToggleFlipBtn(isFlipped) {
+        function updateToggleFlipBtn() {
             const btn = document.getElementById('toggleFlipBtn');
             if (!btn) return;
-            if (isFlipped) {
+            const flippedCards = document.querySelectorAll('.cards-grid .card.flipped');
+            if (flippedCards.length > 0) {
                 btn.innerHTML = `<i data-lucide="rotate-ccw"></i> พลิกกลับหน้าศัพท์`;
             } else {
                 btn.innerHTML = `<i data-lucide="rotate-cw"></i> หงายคำแปลทั้งหมด`;
