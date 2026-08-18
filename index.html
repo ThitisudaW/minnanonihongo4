@@ -10,25 +10,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@600;700;800&family=Prompt:wght@300;400;500;600;700&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
     
+    <!-- Lucide Modern Vector Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
         :root {
             --primary-indigo: #6366f1;
+            --primary-indigo-light: #818cf8;
             --primary-teal: #14b8a6;
             --accent-rose: #ff6b8b;
             --accent-amber: #f59e0b;
             --bg-dark: #0f172a;
             --text-dark: #2d3436;
             --text-muted: #64748b;
-            --glass-bg: rgba(255, 255, 255, 0.78);
-            --glass-card: rgba(255, 255, 255, 0.9);
+            --glass-bg: rgba(255, 255, 255, 0.82);
+            --glass-card: rgba(255, 255, 255, 0.92);
             --glass-border: rgba(255, 255, 255, 0.9);
-            --shadow-glow: 0 20px 40px rgba(99, 102, 241, 0.15);
+            --shadow-glow: 0 20px 40px rgba(99, 102, 241, 0.12);
             --shadow-card: 0 10px 25px rgba(0, 0, 0, 0.04);
             --radius-xl: 32px;
             --radius-lg: 20px;
             --radius-md: 12px;
             
-            /* UD Digi Kyokasho N Font Stack */
             --font-jp: "UD Digi Kyokasho N", "UD デジタル教科書体 N", "Zen Maru Gothic", "Klee One", "Noto Sans JP", sans-serif;
             --font-th: 'Prompt', sans-serif;
         }
@@ -49,7 +52,7 @@
             overflow-x: hidden;
         }
 
-        /* 🌊 Animated Japanese Traditional Seigaiha Pattern Background */
+        /* Animated Japanese Traditional Pattern Background */
         .jp-pattern-bg {
             position: fixed;
             top: -50%;
@@ -57,8 +60,8 @@
             width: 200%;
             height: 200%;
             z-index: -2;
-            opacity: 0.12;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30"><path d="M0 15 A15 15 0 0 1 30 15 A15 15 0 0 1 60 15 A15 15 0 0 1 0 15 Z" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 0 A15 15 0 0 1 15 0 A15 15 0 0 1 45 0 A15 15 0 0 1 75 0" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 30 A15 15 0 0 1 15 30 A15 15 0 0 1 45 30 A15 15 0 0 1 75 30" fill="none" stroke="%234338ca" stroke-width="1.5"/></svg>');
+            opacity: 0.09;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30"><path d="M0 15 A15 15 0 0 1 30 15 A15 15 0 0 1 60 15 A15 15 0 0 1 30 15 A15 15 0 0 1 0 15 Z" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 0 A15 15 0 0 1 15 0 A15 15 0 0 1 45 0 A15 15 0 0 1 75 0" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 30 A15 15 0 0 1 15 30 A15 15 0 0 1 45 30 A15 15 0 0 1 75 30" fill="none" stroke="%234338ca" stroke-width="1.5"/></svg>');
             animation: panPattern 45s linear infinite;
         }
 
@@ -67,7 +70,7 @@
             100% { transform: translate(-120px, -60deg) rotate(2deg); }
         }
 
-        /* Ambient Animated Colorful Aurora Glows */
+        /* Ambient Aurora Glow */
         .aurora-bg {
             position: fixed;
             top: 0;
@@ -76,9 +79,9 @@
             height: 100vh;
             z-index: -1;
             background: 
-                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.22) 0%, transparent 45%),
-                radial-gradient(circle at 90% 15%, rgba(244, 63, 94, 0.18) 0%, transparent 40%),
-                radial-gradient(circle at 50% 85%, rgba(20, 184, 166, 0.2) 0%, transparent 50%);
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.2) 0%, transparent 45%),
+                radial-gradient(circle at 90% 15%, rgba(255, 107, 139, 0.16) 0%, transparent 40%),
+                radial-gradient(circle at 50% 85%, rgba(20, 184, 166, 0.18) 0%, transparent 50%);
             filter: blur(50px);
             animation: pulseGlow 10s ease-in-out infinite alternate;
         }
@@ -86,23 +89,6 @@
         @keyframes pulseGlow {
             0% { opacity: 0.7; transform: scale(1); }
             100% { opacity: 1; transform: scale(1.08); }
-        }
-
-        /* Floating Japanese Elements */
-        .floating-element {
-            position: fixed;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.15;
-            animation: floatUp 14s linear infinite;
-            font-size: 2.2rem;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(105vh) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.25; }
-            80% { opacity: 0.25; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
         .app-container {
@@ -121,23 +107,22 @@
 
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 28px;
         }
 
         .brand-pill {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(99, 102, 241, 0.12);
+            background: rgba(99, 102, 241, 0.1);
             color: var(--primary-indigo);
-            padding: 6px 20px;
+            padding: 6px 18px;
             border-radius: 50px;
             font-size: 0.85rem;
             font-weight: 700;
             letter-spacing: 0.5px;
             margin-bottom: 12px;
-            border: 1px solid rgba(99, 102, 241, 0.25);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
         }
 
         h1 {
@@ -156,22 +141,22 @@
         .mode-switcher {
             display: flex;
             justify-content: center;
-            background: rgba(203, 213, 225, 0.5);
+            background: rgba(226, 232, 240, 0.65);
             padding: 6px;
             border-radius: 50px;
             gap: 6px;
             margin-bottom: 30px;
-            max-width: 920px;
+            max-width: 940px;
             margin-left: auto;
             margin-right: auto;
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
             flex-wrap: wrap;
         }
 
         .mode-btn {
             flex: 1;
-            min-width: 140px;
+            min-width: 145px;
             background: transparent;
             border: none;
             color: var(--text-muted);
@@ -180,15 +165,23 @@
             font-weight: 600;
             font-size: 0.88rem;
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: center;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             white-space: nowrap;
+        }
+
+        .mode-btn svg {
+            width: 17px;
+            height: 17px;
         }
 
         .mode-btn.active {
             background: #ffffff;
             color: var(--primary-indigo);
-            box-shadow: 0 4px 18px rgba(99, 102, 241, 0.18);
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.16);
             font-weight: 700;
         }
 
@@ -279,7 +272,15 @@
             color: var(--text-muted);
             cursor: pointer;
             transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .tool-chip svg {
+            width: 15px;
+            height: 15px;
         }
 
         .tool-chip:hover {
@@ -373,8 +374,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
             transition: all 0.2s;
+        }
+
+        .audio-btn svg {
+            width: 16px;
+            height: 16px;
         }
 
         .audio-btn:hover {
@@ -387,10 +392,28 @@
             background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
             color: white;
             transform: rotateY(180deg);
-            gap: 8px;
+            gap: 10px;
         }
 
-        .visual-icon { font-size: 2.5rem; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15)); }
+        .vector-icon-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+            color: #ffffff;
+        }
+
+        .vector-icon-badge svg {
+            width: 26px;
+            height: 26px;
+            stroke-width: 2.2px;
+        }
+
         .th-meaning { font-size: 1.25rem; font-weight: 600; }
 
         /* 🍣 VERB GROUPING SECTION */
@@ -492,7 +515,7 @@
             margin-left: 6px;
         }
 
-        /* 🌸 CUTE FLOWER SCALLOPED CLOCK (STANDARD ACCURATE DIAL) */
+        /* 🌸 CUTE FLOWER SCALLOPED CLOCK */
         .clock-container {
             display: none;
             background: #ffffff;
@@ -607,7 +630,7 @@
             margin-top: 18px;
         }
 
-        /* 🔢 NUMBER TABLES SECTION */
+        /* 🔢 NUMBER TABLES SECTION (USES MAIN PAGE SCROLL) */
         .numbers-container {
             display: none;
             background: #ffffff;
@@ -632,6 +655,8 @@
             padding: 15px;
             border-radius: var(--radius-lg);
             border: 1px solid #e2e8f0;
+            position: sticky;
+            top: 20px;
         }
 
         .num-tab-btn {
@@ -641,13 +666,18 @@
             padding: 12px 16px;
             border-radius: 14px;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             cursor: pointer;
             text-align: left;
             transition: all 0.25s ease;
             display: flex;
             align-items: center;
             justify-content: space-between;
+        }
+
+        .num-tab-btn svg {
+            width: 16px;
+            height: 16px;
         }
 
         .num-tab-btn:hover {
@@ -686,9 +716,6 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 12px;
-            max-height: 520px;
-            overflow-y: auto;
-            padding-right: 4px;
         }
 
         .num-card {
@@ -772,8 +799,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
+            color: var(--text-muted);
             transition: all 0.2s;
+        }
+
+        .num-audio-btn svg {
+            width: 14px;
+            height: 14px;
         }
 
         .num-audio-btn:hover {
@@ -782,18 +814,17 @@
             transform: scale(1.15);
         }
 
-        /* 🥢 3-WAY MATCHING GAME SECTION */
-        .game-container {
+        /* 🎯 BIG 2-SIDED DRAG & DROP GAME (USES MAIN PAGE SCROLL) */
+        .game-section {
             display: none;
             background: #ffffff;
             border-radius: var(--radius-lg);
-            padding: 30px 20px;
+            padding: 25px 20px;
             border: 1px solid #f1f5f9;
             box-shadow: var(--shadow-card);
-            text-align: center;
         }
 
-        .game-stats {
+        .game-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -801,113 +832,177 @@
             gap: 12px;
             background: #f8fafc;
             padding: 14px 22px;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            font-weight: 700;
-            color: var(--text-dark);
+            border-radius: 18px;
+            margin-bottom: 22px;
             border: 1px solid #e2e8f0;
         }
 
-        .game-legend {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            font-size: 0.88rem;
-            font-weight: 600;
-        }
-
-        .legend-item {
+        .game-stats {
+            font-weight: 700;
+            color: var(--text-dark);
+            font-size: 1.05rem;
             display: flex;
             align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            border-radius: 10px;
-            background: #f1f5f9;
+            gap: 15px;
         }
 
-        .game-grid {
+        .game-board {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
-            max-height: 520px;
-            overflow-y: auto;
-            padding: 5px;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
 
-        .match-card {
+        .drag-pool, .drop-slots {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            padding: 4px;
+        }
+
+        .drag-card {
             background: #ffffff;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 14px 8px;
-            min-height: 85px;
+            border: 2px solid #cbd5e1;
+            border-radius: 20px;
+            padding: 16px;
+            min-height: 105px;
+            font-family: var(--font-jp) !important;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-indigo);
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            font-family: var(--font-jp);
-            font-size: 1.1rem;
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.08);
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            text-align: center;
+            line-height: 1.25;
+        }
+
+        .drag-card * {
+            font-family: var(--font-jp) !important;
+        }
+
+        .drag-card:hover {
+            transform: translateY(-3deg);
+            box-shadow: 0 10px 22px rgba(99, 102, 241, 0.2);
+            border-color: var(--primary-indigo);
+        }
+
+        .drag-card.dragging {
+            opacity: 0.35;
+            cursor: grabbing;
+        }
+
+        .drag-clone {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+            transform: translate(-50%, -50%) scale(1.04);
+            background: #ffffff;
+            border: 2.5px solid var(--primary-indigo);
+            border-radius: 20px;
+            padding: 16px;
+            font-family: var(--font-jp) !important;
+            font-size: 1.6rem;
             font-weight: 700;
-            color: var(--text-dark);
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-            user-select: none;
+            color: var(--primary-indigo);
+            box-shadow: 0 16px 32px rgba(99, 102, 241, 0.35);
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .drag-clone * {
+            font-family: var(--font-jp) !important;
+        }
+
+        .drop-zone {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 20px;
+            padding: 14px 18px;
+            min-height: 105px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.25s ease;
             position: relative;
         }
 
-        .match-card.type-hiragana { border-color: #818cf8; }
-        .match-card.type-hiragana::before { content: '🌸 อ่าน'; position: absolute; top: 4px; left: 8px; font-size: 0.65rem; color: #6366f1; font-family: var(--font-th); }
-
-        .match-card.type-kanji { border-color: #fb923c; }
-        .match-card.type-kanji::before { content: '⛩️ คันจิ'; position: absolute; top: 4px; left: 8px; font-size: 0.65rem; color: #f97316; font-family: var(--font-th); }
-
-        .match-card.type-thai { border-color: #2dd4bf; font-family: var(--font-th); }
-        .match-card.type-thai::before { content: '💡 แปล'; position: absolute; top: 4px; left: 8px; font-size: 0.65rem; color: #14b8a6; font-family: var(--font-th); }
-
-        .match-card:hover { transform: translateY(-3deg); box-shadow: 0 8px 16px rgba(0,0,0,0.06); }
-
-        .match-card.selected {
-            background: #fef3c7;
-            border-color: #f59e0b !important;
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+        .drop-zone-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary-indigo);
+            margin-right: 10px;
         }
 
-        .match-card.wrong {
-            background: #fecdd3;
-            color: #9f1239;
-            border-color: #f43f5e !important;
-            animation: shake 0.3s ease;
+        .drop-zone-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2.2px;
+        }
+
+        .drop-zone-label {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drop-zone.hovered {
+            background: #eef2ff;
+            border-color: var(--primary-indigo);
+            border-style: solid;
+            transform: scale(1.02);
+        }
+
+        .drop-zone.correct {
+            background: #e6fffa;
+            border-color: var(--primary-teal);
+            border-style: solid;
+        }
+
+        .drop-zone.wrong-flash {
+            background: #ffe4e6;
+            border-color: var(--accent-rose);
+            animation: shake 0.35s ease;
         }
 
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
         }
 
-        .match-card.matched {
-            background: #ccfbf1;
-            color: #0f766e;
-            border-color: #14b8a6 !important;
-            opacity: 0.35;
-            cursor: default;
-            transform: none;
-            pointer-events: none;
-        }
-
-        .game-win-msg {
+        .game-win-banner {
             display: none;
-            background: #ccfbf1;
-            border: 1px solid #14b8a6;
+            background: #e6fffa;
+            border: 2px solid var(--primary-teal);
             color: #0f766e;
-            padding: 16px;
-            border-radius: 16px;
-            font-size: 1.2rem;
-            font-weight: 700;
+            padding: 18px;
+            border-radius: 18px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 800;
             margin-bottom: 20px;
+            animation: popIn 0.35s ease;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         footer {
@@ -920,17 +1015,19 @@
         @media (max-width: 768px) {
             .app-container { padding: 20px 15px; }
             .numbers-layout { grid-template-columns: 1fr; }
-            .num-sidebar { flex-direction: row; overflow-x: auto; padding: 10px; }
+            .num-sidebar { flex-direction: row; overflow-x: auto; padding: 10px; position: static; }
             .num-tab-btn { min-width: 140px; }
             .cards-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
             .card { height: 165px; }
             .jp-hiragana { font-size: 1.45rem; }
             .th-meaning { font-size: 1.05rem; }
-            .game-grid { grid-template-columns: repeat(3, 1fr); max-height: 480px; }
-            .match-card { min-height: 75px; font-size: 0.92rem; padding-top: 18px; }
             .stepper-bar { flex-direction: column; gap: 10px; }
             .clock-layout { flex-direction: column; }
             .clock-display-card { min-width: 100%; }
+            .game-board { grid-template-columns: 1fr; gap: 15px; }
+            .drag-card, .drop-zone { min-height: 90px; }
+            .drag-card { font-size: 1.3rem; }
+            .drop-zone-label { font-size: 1.05rem; }
         }
     </style>
 </head>
@@ -940,23 +1037,18 @@
 
     <div class="aurora-bg"></div>
 
-    <div class="floating-element" style="left: 10%; animation-duration: 16s; animation-delay: 0s;">🌸</div>
-    <div class="floating-element" style="left: 85%; animation-duration: 20s; animation-delay: 3s;">🎐</div>
-    <div class="floating-element" style="left: 70%; animation-duration: 18s; animation-delay: 6s;">⛩️</div>
-    <div class="floating-element" style="left: 20%; animation-duration: 22s; animation-delay: 9s;">🍵</div>
-
     <div class="app-container">
         <header>
-            <div class="brand-pill">MINNA NO NIHONGO • LESSON 4</div>
+            <div class="brand-pill"><i data-lucide="sparkles" style="width:14px;height:14px;"></i> MINNA NO NIHONGO • LESSON 4</div>
             <h1><span>みんなの日本語</span> บทที่ 4</h1>
         </header>
 
         <div class="mode-switcher">
-            <button class="mode-btn active" id="btnModeFlashcards" onclick="switchMode('flashcards')">🍱 บัตรคำศัพท์</button>
-            <button class="mode-btn" id="btnModeVerbs" onclick="switchMode('verbs')">🍣 กลุ่มกริยา 3 กลุ่ม</button>
-            <button class="mode-btn" id="btnModeClock" onclick="switchMode('clock')">⏰ หมุนนาฬิกาฝึกอ่าน</button>
-            <button class="mode-btn" id="btnModeNumbers" onclick="switchMode('numbers')">🔢 ตารางตัวเลข</button>
-            <button class="mode-btn" id="btnModeGame" onclick="switchMode('game')">🥢 เกมจับคู่สาม</button>
+            <button class="mode-btn active" id="btnModeFlashcards" onclick="switchMode('flashcards')"><i data-lucide="layers"></i> บัตรคำศัพท์</button>
+            <button class="mode-btn" id="btnModeVerbs" onclick="switchMode('verbs')"><i data-lucide="sparkles"></i> กลุ่มกริยา 3 กลุ่ม</button>
+            <button class="mode-btn" id="btnModeClock" onclick="switchMode('clock')"><i data-lucide="clock"></i> หมุนนาฬิกาฝึกอ่าน</button>
+            <button class="mode-btn" id="btnModeNumbers" onclick="switchMode('numbers')"><i data-lucide="hash"></i> ตารางตัวเลข</button>
+            <button class="mode-btn" id="btnModeGame" onclick="switchMode('game')"><i data-lucide="target"></i> เกมลากจับคู่คำศัพท์</button>
         </div>
 
         <div id="flashcardSection">
@@ -969,8 +1061,8 @@
             </div>
 
             <div class="quick-tools">
-                <button class="tool-chip" onclick="shuffleCards()">🔀 สลับการ์ดสุ่มคำ</button>
-                <button class="tool-chip" onclick="resetFlips()">🔄 หงายการ์ดทั้งหมด</button>
+                <button class="tool-chip" onclick="shuffleCards()"><i data-lucide="shuffle"></i> สลับการ์ดสุ่มคำ</button>
+                <button class="tool-chip" onclick="resetFlips()"><i data-lucide="rotate-cw"></i> หงายการ์ดทั้งหมด</button>
             </div>
 
             <div class="cards-grid" id="cardsGrid"></div>
@@ -982,21 +1074,21 @@
 
             <div class="verb-rule-grid">
                 <div class="verb-rule-card g1">
-                    <h3>กลุ่มที่ 1 (I類) <span>🔵</span></h3>
+                    <h3>กลุ่มที่ 1 (I類) <i data-lucide="circle-dot"></i></h3>
                     <div class="rule-desc">
                         อักษรหน้า <code>ます</code> เป็นเสียงแถว <strong>[ い (i) ]</strong><br>
                         (เช่น き, し, ち, に, ひ, み, り, い)
                     </div>
                 </div>
                 <div class="verb-rule-card g2">
-                    <h3>กลุ่มที่ 2 (II類) <span>🟠</span></h3>
+                    <h3>กลุ่มที่ 2 (II類) <i data-lucide="circle-dot"></i></h3>
                     <div class="rule-desc">
                         อักษรหน้า <code>ます</code> เป็นเสียงแถว <strong>[ え (e) ]</strong><br>
                         *(รวมถึงคำกริยายกเว้นเสียง [い] เช่น 起きます)*
                     </div>
                 </div>
                 <div class="verb-rule-card g3">
-                    <h3>กลุ่มที่ 3 (III類) <span>🟣</span></h3>
+                    <h3>กลุ่มที่ 3 (III類) <i data-lucide="circle-dot"></i></h3>
                     <div class="rule-desc">
                         กริยาพิเศษ มี 2 คำหลัก:<br>
                         • <strong>きます</strong> (มา)<br>
@@ -1017,7 +1109,7 @@
                         </div>
                         <div style="text-align:right;">
                             <div class="verb-item-th">ทำงาน</div>
-                            <button class="audio-btn" style="position:static;" onclick="playAudio('はたらきます')">🔊</button>
+                            <button class="audio-btn" style="position:static;" onclick="playAudio('はたらきます')"><i data-lucide="volume-2"></i></button>
                         </div>
                     </div>
                     <div class="verb-item-box">
@@ -1027,7 +1119,7 @@
                         </div>
                         <div style="text-align:right;">
                             <div class="verb-item-th">พัก, พักผ่อน</div>
-                            <button class="audio-btn" style="position:static;" onclick="playAudio('やすみます')">🔊</button>
+                            <button class="audio-btn" style="position:static;" onclick="playAudio('やすみます')"><i data-lucide="volume-2"></i></button>
                         </div>
                     </div>
                     <div class="verb-item-box">
@@ -1037,7 +1129,7 @@
                         </div>
                         <div style="text-align:right;">
                             <div class="verb-item-th">เสร็จ, เลิก</div>
-                            <button class="audio-btn" style="position:static;" onclick="playAudio('おわります')">🔊</button>
+                            <button class="audio-btn" style="position:static;" onclick="playAudio('おわります')"><i data-lucide="volume-2"></i></button>
                         </div>
                     </div>
                 </div>
@@ -1051,7 +1143,7 @@
                         </div>
                         <div style="text-align:right;">
                             <div class="verb-item-th">นอน</div>
-                            <button class="audio-btn" style="position:static;" onclick="playAudio('ねます')">🔊</button>
+                            <button class="audio-btn" style="position:static;" onclick="playAudio('ねます')"><i data-lucide="volume-2"></i></button>
                         </div>
                     </div>
                     <div class="verb-item-box" style="border: 1.5px dashed var(--accent-rose);">
@@ -1061,7 +1153,7 @@
                         </div>
                         <div style="text-align:right;">
                             <div class="verb-item-th">ตื่นนอน</div>
-                            <button class="audio-btn" style="position:static;" onclick="playAudio('おきます')">🔊</button>
+                            <button class="audio-btn" style="position:static;" onclick="playAudio('おきます')"><i data-lucide="volume-2"></i></button>
                         </div>
                     </div>
                 </div>
@@ -1075,14 +1167,14 @@
                         </div>
                         <div style="text-align:right;">
                             <div class="verb-item-th">เรียน</div>
-                            <button class="audio-btn" style="position:static;" onclick="playAudio('べんきょうします')">🔊</button>
+                            <button class="audio-btn" style="position:static;" onclick="playAudio('べんきょうします')"><i data-lucide="volume-2"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 🌸 CUTE FLOWER CLOCK WITH STANDARD 200x200 PROPORTIONS & CLEAR MINUTE TICKS -->
+        <!-- 🌸 CUTE FLOWER CLOCK WITH STANDARD PROPORTIONS -->
         <div class="clock-container" id="clockSection">
             <h2 style="color:var(--text-dark); margin-bottom:6px;">⏰ หน้าปัดนาฬิกาฝึกอ่านเวลาภาษาญี่ปุ่น</h2>
             <p style="text-align:center; color:var(--text-muted); font-size:0.95rem;">แตะที่ขีดนาทีบนหน้าปัด หรือลาก <strong>เข็มสั้น (สีชมพู)</strong> และ <strong>เข็มยาว (สีม่วง)</strong> เพื่อปรับเวลา</p>
@@ -1090,17 +1182,13 @@
             <div class="clock-layout">
                 <div class="clock-face-wrapper">
                     <svg class="svg-clock" viewBox="0 0 200 200" id="clockSvg">
-                        <!-- 12 Scalloped Cute Flower Petals -->
                         <g id="clockPetals"></g>
 
-                        <!-- Main Inner White Dial -->
                         <circle cx="100" cy="100" r="82" fill="#ffffff" stroke="#ffccd5" stroke-width="2.5"/>
                         <circle cx="100" cy="100" r="76" fill="#fffafb" stroke="#ffe3e8" stroke-width="1"/>
 
-                        <!-- 60 Standard Minute Ticks -->
                         <g id="clockMinuteTicks"></g>
 
-                        <!-- 12 Standard Hour Numbers -->
                         <text x="100" y="44" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">12</text>
                         <text x="129" y="52" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">1</text>
                         <text x="150" y="73" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">2</text>
@@ -1114,17 +1202,14 @@
                         <text x="50" y="73" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">10</text>
                         <text x="71" y="52" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">11</text>
 
-                        <!-- Hour Hand (Soft Pink) -->
                         <g id="hourHandGroup">
                             <line id="hourHand" class="clock-hand" x1="100" y1="100" x2="100" y2="58" stroke="#ff6b8b" stroke-width="6" stroke-linecap="round" />
                         </g>
                         
-                        <!-- Minute Hand (Indigo pointing directly at minute ring) -->
                         <g id="minuteHandGroup">
                             <line id="minuteHand" class="clock-hand" x1="100" y1="100" x2="100" y2="28" stroke="#6366f1" stroke-width="4" stroke-linecap="round" />
                         </g>
                         
-                        <!-- Center Pin -->
                         <circle cx="100" cy="100" r="6" fill="#2d3436" stroke="#ffffff" stroke-width="2"/>
                     </svg>
                 </div>
@@ -1135,8 +1220,8 @@
                     <div class="reading-kanji" id="clockKanji">3時10分</div>
 
                     <div>
-                        <button class="step-btn" style="background:var(--primary-indigo); color:white; border:none; padding:10px 22px; font-size:0.95rem; border-radius:12px; margin: 0 auto;" onclick="speakCurrentClockTime()">
-                            🔊 ฟังเสียงอ่านภาษาญี่ปุ่น
+                        <button class="step-btn" style="background:var(--primary-indigo); color:white; border:none; padding:10px 22px; font-size:0.95rem; border-radius:12px; margin: 0 auto; display:flex; align-items:center; gap:8px;" onclick="speakCurrentClockTime()">
+                            <i data-lucide="volume-2"></i> ฟังเสียงอ่านภาษาญี่ปุ่น
                         </button>
                     </div>
 
@@ -1171,22 +1256,22 @@
             <div class="numbers-layout">
                 <div class="num-sidebar">
                     <button class="num-tab-btn active" onclick="switchNumTab('regular', this)">
-                        <span>🔢 1. การนับเลขปกติ</span> <span>→</span>
+                        <span style="display:flex;align-items:center;gap:8px;"><i data-lucide="hash"></i> 1. การนับเลขปกติ</span> <span>→</span>
                     </button>
                     <button class="num-tab-btn" onclick="switchNumTab('age', this)">
-                        <span>🎂 2. การนับอายุ (〜才)</span> <span>→</span>
+                        <span style="display:flex;align-items:center;gap:8px;"><i data-lucide="cake"></i> 2. การนับอายุ (〜才)</span> <span>→</span>
                     </button>
                     <button class="num-tab-btn" onclick="switchNumTab('floor', this)">
-                        <span>🏢 3. การนับชั้น (〜階)</span> <span>→</span>
+                        <span style="display:flex;align-items:center;gap:8px;"><i data-lucide="building"></i> 3. การนับชั้น (〜階)</span> <span>→</span>
                     </button>
                     <button class="num-tab-btn" onclick="switchNumTab('hours', this)">
-                        <span>⏰ 4. การนับชั่วโมง (〜時)</span> <span>→</span>
+                        <span style="display:flex;align-items:center;gap:8px;"><i data-lucide="clock"></i> 4. การนับชั่วโมง (〜時)</span> <span>→</span>
                     </button>
                     <button class="num-tab-btn" onclick="switchNumTab('minutes', this)">
-                        <span>⏱️ 5. การนับนาที (〜分)</span> <span>→</span>
+                        <span style="display:flex;align-items:center;gap:8px;"><i data-lucide="timer"></i> 5. การนับนาที (〜分)</span> <span>→</span>
                     </button>
                     <button class="num-tab-btn" onclick="switchNumTab('days', this)">
-                        <span>📅 6. การนับวัน (〜日)</span> <span>→</span>
+                        <span style="display:flex;align-items:center;gap:8px;"><i data-lucide="calendar"></i> 6. การนับวัน (〜日)</span> <span>→</span>
                     </button>
                 </div>
 
@@ -1201,12 +1286,14 @@
             </div>
         </div>
 
-        <div class="game-container" id="gameSection">
-            <div class="game-stats">
-                <div>🎯 จับคู่สำเร็จ: <span id="gameScore">0</span> ชุด</div>
-                <div>
-                    หมวดหมู่: 
-                    <select id="gameCatSelect" onchange="startNewGame()" style="padding:6px 12px; border-radius:10px; border:1px solid #e2e8f0; font-weight:bold; color:var(--text-dark);">
+        <!-- 🎯 BIG 2-SIDED DRAG & DROP MATCHING GAME SECTION -->
+        <div class="game-section" id="gameSection">
+            <div class="game-header">
+                <div class="game-stats">
+                    <span>🎯 คะแนน: <span id="gameScore">0</span> / <span id="gameTotal">0</span></span>
+                </div>
+                <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                    <select id="gameCatSelect" onchange="startNewGame()" style="padding:6px 12px; border-radius:10px; border:1px solid #cbd5e1; font-weight:bold; color:var(--text-dark);">
                         <option value="all">🌟 คำศัพท์ทั้งหมดในบทที่ 4</option>
                         <option value="verbs">1. คำกริยา</option>
                         <option value="places">2. สถานที่ & เมือง</option>
@@ -1214,25 +1301,22 @@
                         <option value="days">4. วันในสัปดาห์</option>
                         <option value="expressions">5. คำเฉพาะ & สำนวน</option>
                     </select>
+                    <button class="tool-chip" onclick="startNewGame()" style="background:var(--primary-indigo); color:white; border:none;"><i data-lucide="rotate-ccw"></i> เริ่มใหม่</button>
                 </div>
-                <button class="tool-chip" onclick="startNewGame()" style="background:var(--primary-indigo); color:white; border:none;">🔄 เริ่มเล่นใหม่</button>
             </div>
 
-            <div class="game-legend">
-                <div class="legend-item" style="border-left: 4px solid #6366f1;">🌸 1. ฮิรางานะ</div>
-                <div class="legend-item" style="border-left: 4px solid #f97316;">⛩️ 2. คันจิ</div>
-                <div class="legend-item" style="border-left: 4px solid #14b8a6;">💡 3. ความหมายไทย</div>
+            <div class="game-win-banner" id="gameWinBanner">
+                🎉 おめでとうございます！ คุณจับคู่คำศัพท์บทที่ 4 ถูกต้องทั้งหมด! 🌸✨
             </div>
 
-            <div class="game-win-msg" id="winMsg">
-                🎉 ยินดีด้วย! คุณจับคู่ 3 ฝั่ง (ฮิรางานะ + คันจิ + ความหมาย) ถูกต้องทั้งหมด! 🍣✨
+            <div class="game-board">
+                <div class="drag-pool" id="dragPool"></div>
+                <div class="drop-slots" id="dropSlots"></div>
             </div>
-
-            <div class="game-grid" id="gameGrid"></div>
         </div>
 
         <footer>
-            💡 แตะการ์ดเพื่อพลิกดูความหมาย | กดรูป 🔊 เพื่อฟังเสียงอ่านภาษาญี่ปุ่น
+            💡 แตะการ์ดเพื่อพลิกดูความหมาย | กดปุ่มเสียงเพื่อฟังเสียงอ่านภาษาญี่ปุ่น
         </footer>
     </div>
 
@@ -1243,12 +1327,12 @@
                 navName: '1. คำกริยา',
                 title: '🌸 หมวดที่ 1: คำกริยา (Verbs)',
                 items: [
-                    { hiragana: "おきます", kanji: "起きます", thai: "ตื่นนอน", icon: "⏰" },
-                    { hiragana: "ねます", kanji: "寝ます", thai: "นอน, เข้านอน", icon: "🛌" },
-                    { hiragana: "はたらきます", kanji: "働きます", thai: "ทำงาน", icon: "💼" },
-                    { hiragana: "やすみます", kanji: "休みます", thai: "พัก, พักผ่อน", icon: "☕" },
-                    { hiragana: "べんきょうします", kanji: "勉強します", thai: "เรียน", icon: "📖" },
-                    { hiragana: "おわります", kanji: "終わります", thai: "เสร็จ, เลิก", icon: "🔔" }
+                    { hiragana: "おきます", kanji: "起きます", thai: "ตื่นนอน", icon: "alarm-clock" },
+                    { hiragana: "ねます", kanji: "寝ます", thai: "นอน, เข้านอน", icon: "bed-double" },
+                    { hiragana: "はたらきます", kanji: "働きます", thai: "ทำงาน", icon: "briefcase" },
+                    { hiragana: "やすみます", kanji: "休みます", thai: "พัก, พักผ่อน", icon: "coffee" },
+                    { hiragana: "べんきょうします", kanji: "勉強します", thai: "เรียน", icon: "book-open" },
+                    { hiragana: "おわります", kanji: "終わります", thai: "เสร็จ, เลิก", icon: "check-circle-2" }
                 ]
             },
             {
@@ -1256,15 +1340,15 @@
                 navName: '2. สถานที่ & เมือง',
                 title: '🏢 หมวดที่ 2: สถานที่ & เมือง (Places & Cities)',
                 items: [
-                    { hiragana: "デパート", kanji: "デパート", thai: "ห้างสรรพสินค้า", icon: "🛍️" },
-                    { hiragana: "ぎんこう", kanji: "銀行", thai: "ธนาคาร", icon: "🏦" },
-                    { hiragana: "ゆうびんきょく", kanji: "郵便局", thai: "ไปรษณีย์", icon: "📮" },
-                    { hiragana: "としょかん", kanji: "図書館", thai: "ห้องสมุด", icon: "📚" },
-                    { hiragana: "びじゅつかん", kanji: "美術館", thai: "หอศิลป์", icon: "🎨" },
-                    { hiragana: "ニューヨーク", kanji: "ニューヨーク", thai: "นิวยอร์ก", icon: "🗽" },
-                    { hiragana: "ペキン", kanji: "ペキン", thai: "ปักกิ่ง", icon: "🇨🇳" },
-                    { hiragana: "ロサンゼルス", kanji: "ロサンゼルス", thai: "ลอสแอนเจลิส", icon: "🌴" },
-                    { hiragana: "ロンドン", kanji: "ロンドン", thai: "ลอนดอน", icon: "🎡" }
+                    { hiragana: "デパート", kanji: "デパート", thai: "ห้างสรรพสินค้า", icon: "shopping-bag" },
+                    { hiragana: "ぎんこう", kanji: "銀行", thai: "ธนาคาร", icon: "landmark" },
+                    { hiragana: "ゆうびんきょく", kanji: "郵便局", thai: "ไปรษณีย์", icon: "mail" },
+                    { hiragana: "としょかん", kanji: "図書館", thai: "ห้องสมุด", icon: "library" },
+                    { hiragana: "びじゅつかん", kanji: "美術館", thai: "หอศิลป์", icon: "palette" },
+                    { hiragana: "ニューヨーク", kanji: "ニューヨーク", thai: "นิวยอร์ก", icon: "building-2" },
+                    { hiragana: "ペキン", kanji: "ペキン", thai: "ปักกิ่ง", icon: "compass" },
+                    { hiragana: "ロサンゼルス", kanji: "ロサンゼルス", thai: "ลอสแอนเจลิส", icon: "sun" },
+                    { hiragana: "ロンドン", kanji: "ロンドン", thai: "ลอนดอน", icon: "navigation" }
                 ]
             },
             {
@@ -1272,29 +1356,29 @@
                 navName: '3. เวลา',
                 title: '⏰ หมวดที่ 3: เวลา & ช่วงเวลา (Time)',
                 items: [
-                    { hiragana: "いま", kanji: "今", thai: "ตอนนี้", icon: "⌚" },
-                    { hiragana: "ーじ", kanji: "―時", thai: "... โมง", icon: "🕐" },
-                    { hiragana: "ーふん (ーぷん)", kanji: "―分", thai: "... นาที", icon: "⏱️" },
-                    { hiragana: "はん", kanji: "半", thai: "ครึ่ง", icon: "🌗" },
-                    { hiragana: "なんじ", kanji: "何時", thai: "กี่โมง", icon: "❓" },
-                    { hiragana: "なんぷん", kanji: "何分", thai: "กี่นาที", icon: "❓" },
-                    { hiragana: "ごぜん", kanji: "午前", thai: "ช่วงเช้า (a.m.)", icon: "🌅" },
-                    { hiragana: "ごご", kanji: "午後", thai: "ช่วงบ่าย (p.m.)", icon: "🌆" },
-                    { hiragana: "あさ", kanji: "朝", thai: "เช้า", icon: "☀️" },
-                    { hiragana: "ひる", kanji: "昼", thai: "กลางวัน", icon: "🌤️" },
-                    { hiragana: "ばん (よる)", kanji: "晩 (夜)", thai: "เย็น, กลางคืน", icon: "🌙" },
-                    { hiragana: "おととい", kanji: "-", thai: "เมื่อวานซืน", icon: "⏪" },
-                    { hiragana: "きのう", kanji: "昨日", thai: "เมื่อวานนี้", icon: "◀️" },
-                    { hiragana: "きょう", kanji: "今日", thai: "วันนี้", icon: "📍" },
-                    { hiragana: "あした", kanji: "明日", thai: "พรุ่งนี้", icon: "▶️" },
-                    { hiragana: "あさって", kanji: "明後日", thai: "มะรืนนี้", icon: "⏩" },
-                    { hiragana: "けさ", kanji: "今朝", thai: "เมื่อเช้า", icon: "🥣" },
-                    { hiragana: "こんばん", kanji: "今晩", thai: "คืนนี้", icon: "🌃" },
-                    { hiragana: "やすみ", kanji: "休み", thai: "วันหยุด", icon: "🏖️" },
-                    { hiragana: "ひるやすみ", kanji: "昼休み", thai: "พักเที่ยง", icon: "🍱" },
-                    { hiragana: "まいあさ", kanji: "毎朝", thai: "ทุกเช้า", icon: "🔄☀️" },
-                    { hiragana: "まいばん", kanji: "毎晩", thai: "ทุกคืน", icon: "🔄🌙" },
-                    { hiragana: "まいにち", kanji: "毎日", thai: "ทุกวัน", icon: "📅" }
+                    { hiragana: "いま", kanji: "今", thai: "ตอนนี้", icon: "clock" },
+                    { hiragana: "ーじ", kanji: "―時", thai: "... โมง", icon: "watch" },
+                    { hiragana: "ーふん (ーぷん)", kanji: "―分", thai: "... นาที", icon: "timer" },
+                    { hiragana: "はん", kanji: "半", thai: "ครึ่ง", icon: "pie-chart" },
+                    { hiragana: "なんじ", kanji: "何時", thai: "กี่โมง", icon: "help-circle" },
+                    { hiragana: "なんぷん", kanji: "何分", thai: "กี่นาที", icon: "help-circle" },
+                    { hiragana: "ごぜん", kanji: "午前", thai: "ช่วงเช้า (a.m.)", icon: "sunrise" },
+                    { hiragana: "ごご", kanji: "午後", thai: "ช่วงบ่าย (p.m.)", icon: "sunset" },
+                    { hiragana: "あさ", kanji: "朝", thai: "เช้า", icon: "sun-medium" },
+                    { hiragana: "ひる", kanji: "昼", thai: "กลางวัน", icon: "sun" },
+                    { hiragana: "ばん (よる)", kanji: "晩 (夜)", thai: "เย็น, กลางคืน", icon: "moon-star" },
+                    { hiragana: "おととい", kanji: "-", thai: "เมื่อวานซืน", icon: "chevrons-left" },
+                    { hiragana: "きのう", kanji: "昨日", thai: "เมื่อวานนี้", icon: "chevron-left" },
+                    { hiragana: "きょう", kanji: "今日", thai: "วันนี้", icon: "calendar-check" },
+                    { hiragana: "あした", kanji: "明日", thai: "พรุ่งนี้", icon: "chevron-right" },
+                    { hiragana: "あさって", kanji: "明後日", thai: "มะรืนนี้", icon: "chevrons-right" },
+                    { hiragana: "けさ", kanji: "今朝", thai: "เมื่อเช้า", icon: "coffee" },
+                    { hiragana: "こんばん", kanji: "今晩", thai: "คืนนี้", icon: "moon" },
+                    { hiragana: "やすみ", kanji: "休み", thai: "วันหยุด", icon: "palmtree" },
+                    { hiragana: "ひるやすみ", kanji: "昼休み", thai: "พักเที่ยง", icon: "utensils" },
+                    { hiragana: "まいあさ", kanji: "毎朝", thai: "ทุกเช้า", icon: "repeat" },
+                    { hiragana: "まいばん", kanji: "毎晩", thai: "ทุกคืน", icon: "repeat" },
+                    { hiragana: "まいにち", kanji: "毎日", thai: "ทุกวัน", icon: "calendar-range" }
                 ]
             },
             {
@@ -1302,14 +1386,14 @@
                 navName: '4. วันในสัปดาห์',
                 title: '📅 หมวดที่ 4: วันในสัปดาห์ (Days)',
                 items: [
-                    { hiragana: "げつようび", kanji: "月曜日", thai: "วันจันทร์", icon: "🟡" },
-                    { hiragana: "かようび", kanji: "火曜日", thai: "วันอังคาร", icon: "🔴" },
-                    { hiragana: "すいようび", kanji: "水曜日", thai: "วันพุธ", icon: "🟢" },
-                    { hiragana: "もくようび", kanji: "木曜日", thai: "วันพฤหัสบดี", icon: "🟠" },
-                    { hiragana: "きんようび", kanji: "金曜日", thai: "วันศุกร์", icon: "🔵" },
-                    { hiragana: "どようび", kanji: "土曜日", thai: "วันเสาร์", icon: "🟣" },
-                    { hiragana: "にちようび", kanji: "日曜日", thai: "วันอาทิตย์", icon: "🔴" },
-                    { hiragana: "なんようび", kanji: "何曜日", thai: "วันอะไร", icon: "❓" }
+                    { hiragana: "げつようび", kanji: "月曜日", thai: "วันจันทร์", icon: "moon" },
+                    { hiragana: "かようび", kanji: "火曜日", thai: "วันอังคาร", icon: "flame" },
+                    { hiragana: "すいようび", kanji: "水曜日", thai: "วันพุธ", icon: "droplets" },
+                    { hiragana: "もくようび", kanji: "木曜日", thai: "วันพฤหัสบดี", icon: "tree-pine" },
+                    { hiragana: "きんようび", kanji: "金曜日", thai: "วันศุกร์", icon: "sparkles" },
+                    { hiragana: "どようび", kanji: "土曜日", thai: "วันเสาร์", icon: "mountain" },
+                    { hiragana: "にちようび", kanji: "日曜日", thai: "วันอาทิตย์", icon: "sun" },
+                    { hiragana: "なんようび", kanji: "何曜日", thai: "วันอะไร", icon: "help-circle" }
                 ]
             },
             {
@@ -1317,21 +1401,21 @@
                 navName: '5. คำเฉพาะ & สำนวน',
                 title: '📝 หมวดที่ 5: คำเฉพาะบท & สำนวน (Expressions)',
                 items: [
-                    { hiragana: "しけん", kanji: "試験", thai: "การสอบ", icon: "📝" },
-                    { hiragana: "かいぎ", kanji: "会議", thai: "การประชุม", icon: "👥" },
-                    { hiragana: "えいが", kanji: "映画", thai: "ภาพยนตร์", icon: "🎬" },
-                    { hiragana: "ーから", kanji: "―から", thai: "จาก, ตั้งแต่", icon: "🛫" },
-                    { hiragana: "ーまで", kanji: "―まで", thai: "ถึง, จนถึง", icon: "🛬" },
-                    { hiragana: "ーとー", kanji: "―と―", thai: "กับ, และ", icon: "🔗" },
-                    { hiragana: "たいへんですね", kanji: "大変ですね", thai: "ลำบากหน่อยนะ", icon: "😅" },
-                    { hiragana: "ばんごう", kanji: "番号", thai: "หมายเลข, เบอร์", icon: "🔢" },
-                    { hiragana: "なんばん", kanji: "何番", thai: "หมายเลขอะไร", icon: "❓" },
-                    { hiragana: "そちら", kanji: "そちら", thai: "ทางคุณ", icon: "👉" }
+                    { hiragana: "しけん", kanji: "試験", thai: "การสอบ", icon: "file-text" },
+                    { hiragana: "かいぎ", kanji: "会議", thai: "การประชุม", icon: "users" },
+                    { hiragana: "えいが", kanji: "映画", thai: "ภาพยนตร์", icon: "film" },
+                    { hiragana: "ーから", kanji: "―から", thai: "จาก, ตั้งแต่", icon: "plane-takeoff" },
+                    { hiragana: "ーまで", kanji: "―จนถึง", thai: "ถึง, จนถึง", icon: "plane-landing" },
+                    { hiragana: "ーとー", kanji: "―と―", thai: "กับ, และ", icon: "link" },
+                    { hiragana: "たいへんですね", kanji: "大変ですね", thai: "ลำบากหน่อยนะ", icon: "smile-plus" },
+                    { hiragana: "ばんごう", kanji: "番号", thai: "หมายเลข, เบอร์", icon: "hash" },
+                    { hiragana: "なんばん", kanji: "何番", thai: "หมายเลขอะไร", icon: "help-circle" },
+                    { hiragana: "そちら", kanji: "そちら", thai: "ทางคุณ", icon: "arrow-right-circle" }
                 ]
             }
         ];
 
-        /* 🔢 Comprehensive Numbers Dataset */
+        /* 🔢 Numbers Dataset */
         const numbersData = {
             regular: {
                 title: "🔢 การนับเลขปกติ (1-10, หลักร้อย, พัน, หมื่น)",
@@ -1347,14 +1431,14 @@
                     { digit: "9", hira: "きゅう / く", kanji: "九", thai: "เก้า" },
                     { digit: "10", hira: "じゅう", kanji: "十", thai: "สิบ" },
                     { digit: "100", hira: "ひゃく", kanji: "百", thai: "หนึ่งร้อย" },
-                    { digit: "300", hira: "さんびゃく", kanji: "三百", thai: "สามร้อย", irregular: true, tag: "⚠️ เสียง びゃく" },
-                    { digit: "600", hira: "ろっぴゃく", kanji: "六百", thai: "หกร้อย", irregular: true, tag: "⚠️ เสียง ろっぴゃく" },
-                    { digit: "800", hira: "はっぴゃく", kanji: "八百", thai: "แปดร้อย", irregular: true, tag: "⚠️ เสียง はっぴゃく" },
-                    { digit: "กี่ร้อย", hira: "なんびゃく", kanji: "何百", thai: "กี่ร้อย", irregular: true, tag: "⚠️ เสียง びゃく" },
+                    { digit: "300", hira: "さんびゃく", kanji: "三百", thai: "สามร้อย", irregular: true, tag: "เสียง びゃく" },
+                    { digit: "600", hira: "ろっぴゃく", kanji: "六百", thai: "หกร้อย", irregular: true, tag: "เสียง ろっぴゃく" },
+                    { digit: "800", hira: "はっぴゃく", kanji: "八百", thai: "แปดร้อย", irregular: true, tag: "เสียง はっぴゃく" },
+                    { digit: "กี่ร้อย", hira: "なんびゃく", kanji: "何百", thai: "กี่ร้อย", irregular: true, tag: "เสียง びゃく" },
                     { digit: "1,000", hira: "せん", kanji: "千", thai: "หนึ่งพัน" },
-                    { digit: "3,000", hira: "さんぜん", kanji: "三千", thai: "สามพัน", irregular: true, tag: "⚠️ เสียง ぜん" },
-                    { digit: "8,000", hira: "はっせん", kanji: "八千", thai: "แปดพัน", irregular: true, tag: "⚠️ เสียง はっせん" },
-                    { digit: "กี่พัน", hira: "なんぜん", kanji: "何千", thai: "กี่พัน", irregular: true, tag: "⚠️ เสียง ぜん" },
+                    { digit: "3,000", hira: "さんぜん", kanji: "三千", thai: "สามพัน", irregular: true, tag: "เสียง ぜん" },
+                    { digit: "8,000", hira: "はっせん", kanji: "八千", thai: "แปดพัน", irregular: true, tag: "เสียง はっせん" },
+                    { digit: "กี่พัน", hira: "なんぜん", kanji: "何千", thai: "กี่พัน", irregular: true, tag: "เสียง ぜん" },
                     { digit: "10,000", hira: "いちまん", kanji: "一万", thai: "หนึ่งหมื่น" },
                     { digit: "100,000", hira: "じゅうまん", kanji: "十万", thai: "หนึ่งแสน" },
                     { digit: "1,000,000", hira: "ひゃくまん", kanji: "百万", thai: "หนึ่งล้าน" }
@@ -1363,37 +1447,37 @@
             age: {
                 title: "🎂 การนับอายุ (〜さい / 才・歳)",
                 items: [
-                    { digit: "1 ขวบ", hira: "いっさい", kanji: "1才", thai: "1 ขวบ/ปี", irregular: true, tag: "⚠️ いっ" },
+                    { digit: "1 ขวบ", hira: "いっさい", kanji: "1才", thai: "1 ขวบ/ปี", irregular: true, tag: "いっ" },
                     { digit: "2 ขวบ", hira: "にさい", kanji: "2才", thai: "2 ขวบ/ปี" },
                     { digit: "3 ขวบ", hira: "さんさい", kanji: "3才", thai: "3 ขวบ/ปี" },
                     { digit: "4 ขวบ", hira: "よんさい", kanji: "4才", thai: "4 ขวบ/ปี" },
                     { digit: "5 ขวบ", hira: "ごさい", kanji: "5才", thai: "5 ขวบ/ปี" },
                     { digit: "6 ขวบ", hira: "ろくさい", kanji: "6才", thai: "6 ขวบ/ปี" },
                     { digit: "7 ขวบ", hira: "ななさい", kanji: "7才", thai: "7 ขวบ/ปี" },
-                    { digit: "8 ขวบ", hira: "はっさい", kanji: "8才", thai: "8 ขวบ/ปี", irregular: true, tag: "⚠️ はっ" },
+                    { digit: "8 ขวบ", hira: "はっさい", kanji: "8才", thai: "8 ขวบ/ปี", irregular: true, tag: "はっ" },
                     { digit: "9 ขวบ", hira: "きゅうさい", kanji: "9才", thai: "9 ขวบ/ปี" },
-                    { digit: "10 ขวบ", hira: "じゅっさい", kanji: "10才", thai: "10 ขวบ/ปี", irregular: true, tag: "⚠️ じゅっ" },
-                    { digit: "11 ขวบ", hira: "じゅういっさい", kanji: "11才", thai: "11 ขวบ/ปี", irregular: true, tag: "⚠️ いっ" },
-                    { digit: "18 ขวบ", hira: "じゅうはっさい", kanji: "18才", thai: "18 ขวบ/ปี", irregular: true, tag: "⚠️ はっ" },
-                    { digit: "20 ปี", hira: "はたち", kanji: "二十歳 (20才)", thai: "20 ปี (บรรลุนิติภาวะ)", irregular: true, tag: "✨ คำพิเศษ ไม่ใส่ さい" },
+                    { digit: "10 ขวบ", hira: "じゅっさい", kanji: "10才", thai: "10 ขวบ/ปี", irregular: true, tag: "じゅっ" },
+                    { digit: "11 ขวบ", hira: "じゅういっさい", kanji: "11才", thai: "11 ขวบ/ปี", irregular: true, tag: "いっ" },
+                    { digit: "18 ขวบ", hira: "じゅうはっさい", kanji: "18才", thai: "18 ขวบ/ปี", irregular: true, tag: "はっ" },
+                    { digit: "20 ปี", hira: "はたち", kanji: "二十歳 (20才)", thai: "20 ปี (บรรลุนิติภาวะ)", irregular: true, tag: "คำพิเศษ" },
                     { digit: "อายุเท่าไร", hira: "なんさい (おいくつ)", kanji: "何才", thai: "อายุเท่าไร (สุภาพ: おいくつ)" }
                 ]
             },
             floor: {
                 title: "🏢 การนับชั้น (〜かい / 〜がい / 階)",
                 items: [
-                    { digit: "ชั้น 1", hira: "いっかい", kanji: "1階", thai: "ชั้น 1", irregular: true, tag: "⚠️ いっ" },
+                    { digit: "ชั้น 1", hira: "いっかい", kanji: "1階", thai: "ชั้น 1", irregular: true, tag: "いっ" },
                     { digit: "ชั้น 2", hira: "にかい", kanji: "2階", thai: "ชั้น 2" },
-                    { digit: "ชั้น 3", hira: "さんがい", kanji: "3階", thai: "ชั้น 3", irregular: true, tag: "⚠️ เสียง がい" },
+                    { digit: "ชั้น 3", hira: "さんがい", kanji: "3階", thai: "ชั้น 3", irregular: true, tag: "เสียง がい" },
                     { digit: "ชั้น 4", hira: "よんかい", kanji: "4階", thai: "ชั้น 4" },
                     { digit: "ชั้น 5", hira: "ごかい", kanji: "5階", thai: "ชั้น 5" },
-                    { digit: "ชั้น 6", hira: "ろっかい", kanji: "6階", thai: "ชั้น 6", irregular: true, tag: "⚠️ ろっ" },
+                    { digit: "ชั้น 6", hira: "ろっかい", kanji: "6階", thai: "ชั้น 6", irregular: true, tag: "ろっ" },
                     { digit: "ชั้น 7", hira: "ななかい", kanji: "7階", thai: "ชั้น 7" },
-                    { digit: "ชั้น 8", hira: "はっかい", kanji: "8階", thai: "ชั้น 8", irregular: true, tag: "⚠️ はっ" },
+                    { digit: "ชั้น 8", hira: "はっかい", kanji: "8階", thai: "ชั้น 8", irregular: true, tag: "はっ" },
                     { digit: "ชั้น 9", hira: "きゅうかい", kanji: "9階", thai: "ชั้น 9" },
-                    { digit: "ชั้น 10", hira: "じゅっかい", kanji: "10階", thai: "ชั้น 10", irregular: true, tag: "⚠️ じゅっ" },
-                    { digit: "ชั้น B1", hira: "ちかいっかい", kanji: "地下1階", thai: "ชั้นใต้ดิน 1 (B1)", irregular: true, tag: "⚠️ いっ" },
-                    { digit: "ชั้นอะไร", hira: "なんがい", kanji: "何階", thai: "ชั้นอะไร / ชั้นไหน", irregular: true, tag: "⚠️ นิยม がい" }
+                    { digit: "ชั้น 10", hira: "じゅっかい", kanji: "10階", thai: "ชั้น 10", irregular: true, tag: "じゅっ" },
+                    { digit: "ชั้น B1", hira: "ちかいっかい", kanji: "地下1階", thai: "ชั้นใต้ดิน 1 (B1)", irregular: true, tag: "อัต" },
+                    { digit: "ชั้นอะไร", hira: "なんがい", kanji: "何階", thai: "ชั้นอะไร / ชั้นไหน", irregular: true, tag: "นิยม がい" }
                 ]
             },
             hours: {
@@ -1402,12 +1486,12 @@
                     { digit: "1 โมง", hira: "いちじ", kanji: "1時", thai: "1 โมง / ตี 1 / บ่ายโมง" },
                     { digit: "2 โมง", hira: "にじ", kanji: "2時", thai: "2 โมง / ตี 2 / บ่าย 2" },
                     { digit: "3 โมง", hira: "さんじ", kanji: "3時", thai: "3 โมง / ตี 3 / บ่าย 3" },
-                    { digit: "4 โมง", hira: "よじ", kanji: "4時", thai: "4 โมง / ตี 4 / บ่าย 4", irregular: true, tag: "⚠️ よじ (ไม่ใช้ よん/し)" },
+                    { digit: "4 โมง", hira: "よじ", kanji: "4時", thai: "4 โมง / ตี 4 / บ่าย 4", irregular: true, tag: "よじ" },
                     { digit: "5 โมง", hira: "ごじ", kanji: "5時", thai: "5 โมง / ตี 5 / 5 โมงเย็น" },
                     { digit: "6 โมง", hira: "ろくじ", kanji: "6時", thai: "6 โมงเช้า / 6 โมงเย็น" },
-                    { digit: "7 โมง", hira: "しちじ", kanji: "7時", thai: "7 โมงเช้า / 1 ทุ่ม", irregular: true, tag: "⚠️ นิยม しちじ" },
+                    { digit: "7 โมง", hira: "しちじ", kanji: "7時", thai: "7 โมงเช้า / 1 ทุ่ม", irregular: true, tag: "นิยม しちじ" },
                     { digit: "8 โมง", hira: "はちじ", kanji: "8時", thai: "8 โมงเช้า / 2 ทุ่ม" },
-                    { digit: "9 โมง", hira: "くじ", kanji: "9時", thai: "9 โมงเช้า / 3 ทุ่ม", irregular: true, tag: "⚠️ くじ (ไม่ใช้ きゅう)" },
+                    { digit: "9 โมง", hira: "くじ", kanji: "9時", thai: "9 โมงเช้า / 3 ทุ่ม", irregular: true, tag: "くじ" },
                     { digit: "10 โมง", hira: "じゅうじ", kanji: "10時", thai: "10 โมงเช้า / 4 ทุ่ม" },
                     { digit: "11 โมง", hira: "じゅういちじ", kanji: "11時", thai: "11 โมงเช้า / 5 ทุ่ม" },
                     { digit: "12 โมง", hira: "じゅうにじ", kanji: "12時", thai: "12 โมง (เที่ยง/เที่ยงคืน)" },
@@ -1417,39 +1501,39 @@
             minutes: {
                 title: "⏱️ การนับนาที (〜ふん / 〜ぷん / 分)",
                 items: [
-                    { digit: "1 นาที", hira: "いっぷん", kanji: "1分", thai: "1 นาที", irregular: true, tag: "⚠️ っぷん" },
+                    { digit: "1 นาที", hira: "いっぷん", kanji: "1分", thai: "1 นาที", irregular: true, tag: "っぷん" },
                     { digit: "2 นาที", hira: "にふん", kanji: "2分", thai: "2 นาที" },
-                    { digit: "3 นาที", hira: "さんぷん", kanji: "3分", thai: "3 นาที", irregular: true, tag: "⚠️ ぷん" },
-                    { digit: "4 นาที", hira: "よんぷん", kanji: "4分", thai: "4 นาที", irregular: true, tag: "⚠️ ぷん" },
+                    { digit: "3 นาที", hira: "さんぷん", kanji: "3分", thai: "3 นาที", irregular: true, tag: "ぷん" },
+                    { digit: "4 นาที", hira: "よんぷん", kanji: "4分", thai: "4 นาที", irregular: true, tag: "ぷん" },
                     { digit: "5 นาที", hira: "ごふん", kanji: "5分", thai: "5 นาที" },
-                    { digit: "6 นาที", hira: "ろっぷん", kanji: "6分", thai: "6 นาที", irregular: true, tag: "⚠️ っぷん" },
+                    { digit: "6 นาที", hira: "ろっぷん", kanji: "6分", thai: "6 นาที", irregular: true, tag: "っぷん" },
                     { digit: "7 นาที", hira: "ななふん", kanji: "7分", thai: "7 นาที" },
-                    { digit: "8 นาที", hira: "はっぷん (はちふん)", kanji: "8分", thai: "8 นาที", irregular: true, tag: "⚠️ นิยม はっぷん" },
+                    { digit: "8 นาที", hira: "はっぷん (はちふん)", kanji: "8分", thai: "8 นาที", irregular: true, tag: "นิยม はっぷん" },
                     { digit: "9 นาที", hira: "きゅうふん", kanji: "9分", thai: "9 นาที" },
-                    { digit: "10 นาที", hira: "じゅっぷん (じっぷん)", kanji: "10分", thai: "10 นาที", irregular: true, tag: "⚠️ っぷん" },
+                    { digit: "10 นาที", hira: "じゅっぷん (じっぷん)", kanji: "10分", thai: "10 นาที", irregular: true, tag: "っぷん" },
                     { digit: "15 นาที", hira: "じゅうごふん", kanji: "15分", thai: "15 นาที" },
-                    { digit: "20 นาที", hira: "にじゅっぷん", kanji: "20分", thai: "20 นาที", irregular: true, tag: "⚠️ っぷん" },
-                    { digit: "30 นาที", hira: "さんじゅっぷん / はん", kanji: "30分 / 半", thai: "30 นาที / ครึ่ง", irregular: true, tag: "✨ ครึ่ง = 半 (はん)" },
+                    { digit: "20 นาที", hira: "にじゅっぷん", kanji: "20分", thai: "20 นาที", irregular: true, tag: "っぷん" },
+                    { digit: "30 นาที", hira: "さんじゅっぷん / はん", kanji: "30分 / 半", thai: "30 นาที / ครึ่ง", irregular: true, tag: "ครึ่ง = 半" },
                     { digit: "45 นาที", hira: "よんじゅうごふん", kanji: "45分", thai: "45 นาที" },
-                    { digit: "กี่นาที", hira: "なんぷん", kanji: "何分", thai: "กี่นาที", irregular: true, tag: "⚠️ なんぷん" }
+                    { digit: "กี่นาที", hira: "なんぷん", kanji: "何分", thai: "กี่นาที", irregular: true, tag: "なんぷん" }
                 ]
             },
             days: {
                 title: "📅 การนับวัน / วันที่ (〜にち / 日)",
                 items: [
-                    { digit: "วันที่ 1", hira: "ついたち", kanji: "1日", thai: "วันที่ 1 (1 วัน ใช้ いちにち)", irregular: true, tag: "✨ คำพิเศษ" },
-                    { digit: "วันที่ 2", hira: "ふつか", kanji: "2日", thai: "วันที่ 2 / 2 วัน", irregular: true, tag: "✨ คำพิเศษ" },
-                    { digit: "วันที่ 3", hira: "みっか", kanji: "3日", thai: "วันที่ 3 / 3 วัน", irregular: true, tag: "✨ คำพิเศษ" },
-                    { digit: "วันที่ 4", hira: "よっか", kanji: "4日", thai: "วันที่ 4 / 4 วัน", irregular: true, tag: "✨ คำพิเศษ" },
-                    { digit: "วันที่ 5", hira: "いつか", kanji: "5日", thai: "วันที่ 5 / 5 วัน", irregular: true, tag: "✨ คำพิเศษ" },
-                    { digit: "วันที่ 6", hira: "むいか", kanji: "6日", thai: "วันที่ 6 / 6 วัน", irregular: true, tag: "✨ คำพิเศษ" },
-                    { digit: "วันที่ 7", hira: "なのか", kanji: "7日", thai: "วันที่ 7 / 7 วัน", irregular: true, tag: "✨ คำพิเศษ" },
-                    { digit: "วันที่ 8", hira: "ようか", kanji: "8日", thai: "วันที่ 8 / 8 วัน", irregular: true, tag: "✨ คำพิเศษ" },
-                    { digit: "วันที่ 9", hira: "ここのか", kanji: "9日", thai: "วันที่ 9 / 9 วัน", irregular: true, tag: "✨ คำพิเศษ" },
-                    { digit: "วันที่ 10", hira: "とおか", kanji: "10日", thai: "วันที่ 10 / 10 วัน", irregular: true, tag: "✨ คำพิเศษ" },
-                    { digit: "วันที่ 14", hira: "じゅうよっか", kanji: "14日", thai: "วันที่ 14 / 14 วัน", irregular: true, tag: "⚠️ よっか" },
-                    { digit: "วันที่ 20", hira: "はつか", kanji: "20日", thai: "วันที่ 20 / 20 วัน", irregular: true, tag: "✨ คำพิเศษ" },
-                    { digit: "วันที่ 24", hira: "にじゅうよっか", kanji: "24日", thai: "วันที่ 24 / 24 วัน", irregular: true, tag: "⚠️ よっか" },
+                    { digit: "วันที่ 1", hira: "ついたち", kanji: "1日", thai: "วันที่ 1 (1 วัน ใช้ いちにち)", irregular: true, tag: "คำพิเศษ" },
+                    { digit: "วันที่ 2", hira: "ふつか", kanji: "2日", thai: "วันที่ 2 / 2 วัน", irregular: true, tag: "คำพิเศษ" },
+                    { digit: "วันที่ 3", hira: "みっか", kanji: "3日", thai: "วันที่ 3 / 3 วัน", irregular: true, tag: "คำพิเศษ" },
+                    { digit: "วันที่ 4", hira: "よっか", kanji: "4日", thai: "วันที่ 4 / 4 วัน", irregular: true, tag: "คำพิเศษ" },
+                    { digit: "วันที่ 5", hira: "いつか", kanji: "5日", thai: "วันที่ 5 / 5 วัน", irregular: true, tag: "คำพิเศษ" },
+                    { digit: "วันที่ 6", hira: "むいか", kanji: "6日", thai: "วันที่ 6 / 6 วัน", irregular: true, tag: "คำพิเศษ" },
+                    { digit: "วันที่ 7", hira: "なのか", kanji: "7日", thai: "วันที่ 7 / 7 วัน", irregular: true, tag: "คำพิเศษ" },
+                    { digit: "วันที่ 8", hira: "ようか", kanji: "8日", thai: "วันที่ 8 / 8 วัน", irregular: true, tag: "คำพิเศษ" },
+                    { digit: "วันที่ 9", hira: "ここのか", kanji: "9日", thai: "วันที่ 9 / 9 วัน", irregular: true, tag: "คำพิเศษ" },
+                    { digit: "วันที่ 10", hira: "とおか", kanji: "10日", thai: "วันที่ 10 / 10 วัน", irregular: true, tag: "คำพิเศษ" },
+                    { digit: "วันที่ 14", hira: "じゅうよっか", kanji: "14日", thai: "วันที่ 14 / 14 วัน", irregular: true, tag: "よっか" },
+                    { digit: "วันที่ 20", hira: "はつか", kanji: "20日", thai: "วันที่ 20 / 20 วัน", irregular: true, tag: "คำพิเศษ" },
+                    { digit: "วันที่ 24", hira: "にじゅうよっか", kanji: "24日", thai: "วันที่ 24 / 24 วัน", irregular: true, tag: "よっか" },
                     { digit: "วันที่...", hira: "ーにち", kanji: "―日", thai: "วันที่... / ...วัน" },
                     { digit: "วันที่เท่าไร", hira: "なんにち", kanji: "何日", thai: "วันที่เท่าไร / กี่วัน" }
                 ]
@@ -1477,7 +1561,6 @@
             switchMode(savedMode);
         }
 
-        /* 🌸 BUILD CUTE FLOWER PETALS & PRECISE 60-MINUTE STANDARD TICKS */
         function buildCuteFlowerClock() {
             const petalsGroup = document.getElementById('clockPetals');
             const ticksGroup = document.getElementById('clockMinuteTicks');
@@ -1485,7 +1568,6 @@
             ticksGroup.innerHTML = '';
             const cx = 100, cy = 100;
 
-            // 1. 12 Scalloped Cute Flower Petals around edge
             for (let i = 0; i < 12; i++) {
                 const angleRad = (i * 30 - 90) * (Math.PI / 180);
                 const px = cx + 80 * Math.cos(angleRad);
@@ -1501,7 +1583,6 @@
                 petalsGroup.appendChild(petal);
             }
 
-            // 2. 60 Standard Minute Ticks for clear minute targeting
             for (let m = 0; m < 60; m++) {
                 const angleRad = (m * 6 - 90) * (Math.PI / 180);
                 const isMajor = (m % 5 === 0);
@@ -1604,18 +1685,20 @@
                 card.innerHTML = `
                     <div class="card-inner">
                         <div class="card-front">
-                            <button class="audio-btn" title="ฟังเสียงอ่าน" onclick="playAudio('${item.hiragana}')">🔊</button>
+                            <button class="audio-btn" title="ฟังเสียงอ่าน" onclick="playAudio('${item.hiragana}')"><i data-lucide="volume-2"></i></button>
                             <div class="jp-hiragana">${item.hiragana}</div>
                             ${kanjiMarkup}
                         </div>
                         <div class="card-back">
-                            <div class="visual-icon">${item.icon}</div>
+                            <div class="vector-icon-badge"><i data-lucide="${item.icon}"></i></div>
                             <div class="th-meaning">${item.thai}</div>
                         </div>
                     </div>
                 `;
                 grid.appendChild(card);
             });
+
+            if (window.lucide) lucide.createIcons();
         }
 
         function shuffleCards() {
@@ -1646,6 +1729,7 @@
             document.getElementById('gameSection').style.display = (mode === 'game') ? 'block' : 'none';
 
             if (mode === 'game') startNewGame();
+            if (window.lucide) lucide.createIcons();
         }
 
         /* 🔢 NUMBER TABLE FUNCTIONS */
@@ -1686,10 +1770,12 @@
                         <div class="num-kanji">${item.kanji}</div>
                         <div class="num-th">${item.thai}</div>
                     </div>
-                    <button class="num-audio-btn" title="ฟังเสียงอ่าน" onclick="playAudio('${item.hira.split('/')[0].trim()}')">🔊</button>
+                    <button class="num-audio-btn" title="ฟังเสียงอ่าน" onclick="playAudio('${item.hira.split('/')[0].trim()}')"><i data-lucide="volume-2"></i></button>
                 `;
                 grid.appendChild(card);
             });
+
+            if (window.lucide) lucide.createIcons();
         }
 
         /* ⏰ JAPANESE CLOCK LOGIC */
@@ -1789,7 +1875,6 @@
             playAudio(textToSpeak);
         }
 
-        /* 🌸 SMOOTH & PRECISE 1-MINUTE DRAGGING / TOUCH INTERACTION */
         function setupClockDragging() {
             const svg = document.getElementById('clockSvg');
             const hourHand = document.getElementById('hourHand');
@@ -1846,7 +1931,6 @@
             hourHand.addEventListener('touchstart', (e) => startDrag(e, 'hour'));
             minuteHand.addEventListener('touchstart', (e) => startDrag(e, 'minute'));
 
-            // Click or tap anywhere to immediately set minute hand accurately
             svg.addEventListener('mousedown', (e) => {
                 if (e.target !== hourHand && e.target !== minuteHand) {
                     const angle = getAngleFromCenter(e);
@@ -1875,93 +1959,157 @@
             window.addEventListener('touchend', stopDrag);
         }
 
-        /* 🍱 3-WAY MATCHING GAME LOGIC */
-        let selectedGameCards = [];
-        let matchedTriplets = 0;
-        let totalTriplets = 0;
+        /* 🎯 BIG 2-SIDED DRAG & DROP GAME LOGIC */
+        let gameScore = 0;
+        let gameTotalWords = 0;
+        let activeDragCard = null;
+        let dragCloneEl = null;
 
         function startNewGame() {
-            matchedTriplets = 0;
-            selectedGameCards = [];
-            document.getElementById('winMsg').style.display = 'none';
+            gameScore = 0;
+            document.getElementById('gameWinBanner').style.display = 'none';
 
-            const selectedCat = document.getElementById('gameCatSelect').value;
-            let targetWords = [];
+            const selectedCatId = document.getElementById('gameCatSelect').value;
+            let words = [];
 
-            if (selectedCat === 'all') {
-                vocabularyData.forEach(cat => targetWords.push(...cat.items));
+            if (selectedCatId === 'all') {
+                vocabularyData.forEach(cat => words.push(...cat.items));
             } else {
-                const found = vocabularyData.find(c => c.id === selectedCat);
-                if (found) targetWords = [...found.items];
+                const categoryObj = vocabularyData.find(cat => cat.id === selectedCatId);
+                if (categoryObj) words = [...categoryObj.items];
             }
 
-            totalTriplets = targetWords.length;
-            document.getElementById('gameScore').innerText = `0 / ${totalTriplets}`;
+            words.sort(() => 0.5 - Math.random());
 
-            let allGameCards = [];
-            targetWords.forEach((word, wordIndex) => {
-                allGameCards.push({ wordId: wordIndex, type: 'hiragana', text: word.hiragana, voice: word.hiragana });
-                const kanjiDisplay = (word.kanji && word.kanji !== '-') ? word.kanji : word.hiragana;
-                allGameCards.push({ wordId: wordIndex, type: 'kanji', text: kanjiDisplay, voice: word.hiragana });
-                allGameCards.push({ wordId: wordIndex, type: 'thai', text: `${word.icon} ${word.thai}` });
+            gameTotalWords = words.length;
+            document.getElementById('gameScore').innerText = '0';
+            document.getElementById('gameTotal').innerText = gameTotalWords;
+
+            // Render Japanese Big Drag Cards
+            const poolEl = document.getElementById('dragPool');
+            poolEl.innerHTML = '';
+            const shuffledJp = [...words].sort(() => 0.5 - Math.random());
+
+            shuffledJp.forEach((word) => {
+                const card = document.createElement('div');
+                card.className = 'drag-card';
+                card.dataset.id = word.hiragana;
+                card.dataset.hiragana = word.hiragana;
+
+                const kanjiTxt = (word.kanji && word.kanji !== '-') ? `<div style="font-size:1rem; opacity:0.8; font-weight:normal; margin-top:2px;">(${word.kanji})</div>` : '';
+                card.innerHTML = `<div>${word.hiragana}</div>${kanjiTxt}`;
+
+                card.onpointerdown = (e) => onDragStart(e, card);
+                poolEl.appendChild(card);
             });
 
-            allGameCards.sort(() => 0.5 - Math.random());
+            // Render Thai Big Drop Slots with Lucide Icons
+            const slotsEl = document.getElementById('dropSlots');
+            slotsEl.innerHTML = '';
+            const shuffledThai = [...words].sort(() => 0.5 - Math.random());
 
-            const grid = document.getElementById('gameGrid');
-            grid.innerHTML = '';
+            shuffledThai.forEach((word) => {
+                const slot = document.createElement('div');
+                slot.className = 'drop-zone';
+                slot.dataset.id = word.hiragana;
+                slot.innerHTML = `
+                    <div class="drop-zone-label">
+                        <span class="drop-zone-icon"><i data-lucide="${word.icon}"></i></span>
+                        <span>${word.thai}</span>
+                    </div>
+                `;
+                slotsEl.appendChild(slot);
+            });
 
-            allGameCards.forEach((c) => {
-                const cardEl = document.createElement('div');
-                cardEl.className = `match-card type-${c.type}`;
-                cardEl.innerText = c.text;
-                cardEl.dataset.wordId = c.wordId;
-                cardEl.dataset.type = c.type;
-                if (c.voice) cardEl.dataset.voice = c.voice;
+            if (window.lucide) lucide.createIcons();
+        }
 
-                cardEl.onclick = () => handleGameCardClick(cardEl);
-                grid.appendChild(cardEl);
+        function onDragStart(e, card) {
+            if (card.parentElement.classList.contains('drop-zone')) return;
+
+            e.preventDefault();
+            activeDragCard = card;
+            card.classList.add('dragging');
+
+            playAudio(card.dataset.hiragana);
+
+            dragCloneEl = card.cloneNode(true);
+            dragCloneEl.className = 'drag-clone';
+            document.body.appendChild(dragCloneEl);
+
+            moveClone(e.clientX, e.clientY);
+
+            window.onpointermove = onDragMove;
+            window.onpointerup = onDragEnd;
+        }
+
+        function moveClone(x, y) {
+            if (dragCloneEl) {
+                dragCloneEl.style.left = `${x}px`;
+                dragCloneEl.style.top = `${y}px`;
+            }
+        }
+
+        function onDragMove(e) {
+            if (!activeDragCard) return;
+            moveClone(e.clientX, e.clientY);
+
+            document.querySelectorAll('.drop-zone:not(.correct)').forEach(zone => {
+                const rect = zone.getBoundingClientRect();
+                if (e.clientX >= rect.left && e.clientX <= rect.right &&
+                    e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                    zone.classList.add('hovered');
+                } else {
+                    zone.classList.remove('hovered');
+                }
             });
         }
 
-        function handleGameCardClick(cardEl) {
-            if (cardEl.classList.contains('matched') || cardEl.classList.contains('selected')) return;
+        function onDragEnd(e) {
+            if (!activeDragCard) return;
 
-            if (cardEl.dataset.voice) playAudio(cardEl.dataset.voice);
+            window.onpointermove = null;
+            window.onpointerup = null;
 
-            cardEl.classList.add('selected');
-            selectedGameCards.push(cardEl);
+            if (dragCloneEl) {
+                dragCloneEl.remove();
+                dragCloneEl = null;
+            }
 
-            if (selectedGameCards.length === 3) {
-                const [c1, c2, c3] = selectedGameCards;
+            let droppedZone = null;
+            document.querySelectorAll('.drop-zone:not(.correct)').forEach(zone => {
+                zone.classList.remove('hovered');
+                const rect = zone.getBoundingClientRect();
+                if (e.clientX >= rect.left && e.clientX <= rect.right &&
+                    e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                    droppedZone = zone;
+                }
+            });
 
-                const isSameWord = (c1.dataset.wordId === c2.dataset.wordId) && (c2.dataset.wordId === c3.dataset.wordId);
-                const has3Types = new Set([c1.dataset.type, c2.dataset.type, c3.dataset.type]).size === 3;
+            if (droppedZone) {
+                if (droppedZone.dataset.id === activeDragCard.dataset.id) {
+                    droppedZone.classList.add('correct');
+                    droppedZone.appendChild(activeDragCard);
+                    activeDragCard.style.border = 'none';
+                    activeDragCard.style.boxShadow = 'none';
+                    activeDragCard.style.padding = '0';
+                    activeDragCard.style.background = 'transparent';
+                    activeDragCard.style.minHeight = 'auto';
 
-                if (isSameWord && has3Types) {
-                    selectedGameCards.forEach(card => {
-                        card.classList.remove('selected');
-                        card.classList.add('matched');
-                    });
+                    gameScore++;
+                    document.getElementById('gameScore').innerText = gameScore;
 
-                    matchedTriplets++;
-                    document.getElementById('gameScore').innerText = `${matchedTriplets} / ${totalTriplets}`;
-
-                    if (matchedTriplets === totalTriplets) {
-                        document.getElementById('winMsg').style.display = 'block';
+                    if (gameScore === gameTotalWords) {
+                        document.getElementById('gameWinBanner').style.display = 'block';
                     }
-                    selectedGameCards = [];
                 } else {
-                    selectedGameCards.forEach(card => card.classList.add('wrong'));
-                    
-                    setTimeout(() => {
-                        selectedGameCards.forEach(card => {
-                            card.classList.remove('selected', 'wrong');
-                        });
-                        selectedGameCards = [];
-                    }, 450);
+                    droppedZone.classList.add('wrong-flash');
+                    setTimeout(() => droppedZone.classList.remove('wrong-flash'), 400);
                 }
             }
+
+            activeDragCard.classList.remove('dragging');
+            activeDragCard = null;
         }
 
         if ('speechSynthesis' in window) {
