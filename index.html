@@ -1388,4 +1388,583 @@
                     { digit: "7 โมง", hira: "しちじ", kanji: "7時", thai: "7 โมงเช้า / 1 ทุ่ม", irregular: true, tag: "⚠️ นิยม しちじ" },
                     { digit: "8 โมง", hira: "はちじ", kanji: "8時", thai: "8 โมงเช้า / 2 ทุ่ม" },
                     { digit: "9 โมง", hira: "くじ", kanji: "9時", thai: "9 โมงเช้า / 3 ทุ่ม", irregular: true, tag: "⚠️ くじ (ไม่ใช้ きゅう)" },
-                    { digit: "10 โมง", hira: "じゅうじ", kanji: "10時", thai
+                    { digit: "10 โมง", hira: "じゅうじ", kanji: "10時", thai: "10 โมงเช้า / 4 ทุ่ม" },
+                    { digit: "11 โมง", hira: "じゅういちじ", kanji: "11時", thai: "11 โมงเช้า / 5 ทุ่ม" },
+                    { digit: "12 โมง", hira: "じゅうにじ", kanji: "12時", thai: "12 โมง (เที่ยง/เที่ยงคืน)" },
+                    { digit: "กี่โมง", hira: "なんじ", kanji: "何時", thai: "กี่โมง" }
+                ]
+            },
+            minutes: {
+                title: "⏱️ การนับนาที (〜ふん / 〜ぷん / 分)",
+                items: [
+                    { digit: "1 นาที", hira: "いっぷん", kanji: "1分", thai: "1 นาที", irregular: true, tag: "⚠️ っぷん" },
+                    { digit: "2 นาที", hira: "にふん", kanji: "2分", thai: "2 นาที" },
+                    { digit: "3 นาที", hira: "さんぷん", kanji: "3分", thai: "3 นาที", irregular: true, tag: "⚠️ ぷん" },
+                    { digit: "4 นาที", hira: "よんぷん", kanji: "4分", thai: "4 นาที", irregular: true, tag: "⚠️ ぷん" },
+                    { digit: "5 นาที", hira: "ごふん", kanji: "5分", thai: "5 นาที" },
+                    { digit: "6 นาที", hira: "ろっぷん", kanji: "6分", thai: "6 นาที", irregular: true, tag: "⚠️ っぷん" },
+                    { digit: "7 นาที", hira: "ななふん", kanji: "7分", thai: "7 นาที" },
+                    { digit: "8 นาที", hira: "はっぷん (はちふん)", kanji: "8分", thai: "8 นาที", irregular: true, tag: "⚠️ นิยม はっぷん" },
+                    { digit: "9 นาที", hira: "きゅうふん", kanji: "9分", thai: "9 นาที" },
+                    { digit: "10 นาที", hira: "じゅっぷん (じっぷん)", kanji: "10分", thai: "10 นาที", irregular: true, tag: "⚠️ っぷん" },
+                    { digit: "15 นาที", hira: "じゅうごふん", kanji: "15分", thai: "15 นาที" },
+                    { digit: "20 นาที", hira: "にじゅっぷん", kanji: "20分", thai: "20 นาที", irregular: true, tag: "⚠️ っぷん" },
+                    { digit: "30 นาที", hira: "さんじゅっぷん / はん", kanji: "30分 / 半", thai: "30 นาที / ครึ่ง", irregular: true, tag: "✨ ครึ่ง = 半 (はん)" },
+                    { digit: "45 นาที", hira: "よんじゅうごふん", kanji: "45分", thai: "45 นาที" },
+                    { digit: "กี่นาที", hira: "なんぷん", kanji: "何分", thai: "กี่นาที", irregular: true, tag: "⚠️ なんぷん" }
+                ]
+            },
+            days: {
+                title: "📅 การนับวัน / วันที่ (〜にち / 日)",
+                items: [
+                    { digit: "วันที่ 1", hira: "ついたち", kanji: "1日", thai: "วันที่ 1 (1 วัน ใช้ いちにち)", irregular: true, tag: "✨ คำพิเศษ" },
+                    { digit: "วันที่ 2", hira: "ふつか", kanji: "2日", thai: "วันที่ 2 / 2 วัน", irregular: true, tag: "✨ คำพิเศษ" },
+                    { digit: "วันที่ 3", hira: "みっか", kanji: "3日", thai: "วันที่ 3 / 3 วัน", irregular: true, tag: "✨ คำพิเศษ" },
+                    { digit: "วันที่ 4", hira: "よっか", kanji: "4日", thai: "วันที่ 4 / 4 วัน", irregular: true, tag: "✨ คำพิเศษ" },
+                    { digit: "วันที่ 5", hira: "いつか", kanji: "5日", thai: "วันที่ 5 / 5 วัน", irregular: true, tag: "✨ คำพิเศษ" },
+                    { digit: "วันที่ 6", hira: "むいか", kanji: "6日", thai: "วันที่ 6 / 6 วัน", irregular: true, tag: "✨ คำพิเศษ" },
+                    { digit: "วันที่ 7", hira: "なのか", kanji: "7日", thai: "วันที่ 7 / 7 วัน", irregular: true, tag: "✨ คำพิเศษ" },
+                    { digit: "วันที่ 8", hira: "ようか", kanji: "8日", thai: "วันที่ 8 / 8 วัน", irregular: true, tag: "✨ คำพิเศษ" },
+                    { digit: "วันที่ 9", hira: "ここのか", kanji: "9日", thai: "วันที่ 9 / 9 วัน", irregular: true, tag: "✨ คำพิเศษ" },
+                    { digit: "วันที่ 10", hira: "とおか", kanji: "10日", thai: "วันที่ 10 / 10 วัน", irregular: true, tag: "✨ คำพิเศษ" },
+                    { digit: "วันที่ 14", hira: "じゅうよっか", kanji: "14日", thai: "วันที่ 14 / 14 วัน", irregular: true, tag: "⚠️ よっか" },
+                    { digit: "วันที่ 20", hira: "はつか", kanji: "20日", thai: "วันที่ 20 / 20 วัน", irregular: true, tag: "✨ คำพิเศษ" },
+                    { digit: "วันที่ 24", hira: "にじゅうよっか", kanji: "24日", thai: "วันที่ 24 / 24 วัน", irregular: true, tag: "⚠️ よっか" },
+                    { digit: "วันที่...", hira: "ーにち", kanji: "―日", thai: "วันที่... / ...วัน" },
+                    { digit: "วันที่เท่าไร", hira: "なんにち", kanji: "何日", thai: "วันที่เท่าไร / กี่วัน" }
+                ]
+            }
+        };
+
+        let activeCategoryIndex = 0;
+        let activeItems = [];
+
+        function init() {
+            renderNavTabs();
+            
+            const savedCat = parseInt(localStorage.getItem('l4_flashcard_cat'));
+            const validCat = (!isNaN(savedCat) && savedCat >= 0 && savedCat < vocabularyData.length) ? savedCat : 0;
+            loadCategory(validCat);
+
+            buildCuteFlowerClock();
+            setupClockDragging();
+            updateClockUI(3, 10);
+
+            const savedNumTab = localStorage.getItem('l4_num_tab') || 'regular';
+            switchNumTab(savedNumTab);
+
+            const savedMode = localStorage.getItem('l4_active_mode') || 'flashcards';
+            switchMode(savedMode);
+        }
+
+        /* 🌸 BUILD CUTE FLOWER PETALS & PRECISE 60-MINUTE DOTS */
+        function buildCuteFlowerClock() {
+            const petalsGroup = document.getElementById('clockPetals');
+            const ticksGroup = document.getElementById('clockMinuteTicks');
+            const hourNumbersGroup = document.getElementById('clockHourNumbers');
+
+            petalsGroup.innerHTML = '';
+            ticksGroup.innerHTML = '';
+            hourNumbersGroup.innerHTML = '';
+
+            const cx = 120, cy = 120;
+
+            // 1. Generate 12 Cute Scalloped Flower Petals around the clock
+            for (let i = 0; i < 12; i++) {
+                const angleRad = (i * 30 - 90) * (Math.PI / 180);
+                const px = cx + 96 * Math.cos(angleRad);
+                const py = cy + 96 * Math.sin(angleRad);
+
+                const petal = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                petal.setAttribute('cx', px);
+                petal.setAttribute('cy', py);
+                petal.setAttribute('r', '22');
+                petal.setAttribute('fill', '#ffe8ed');
+                petal.setAttribute('stroke', '#ffccd5');
+                petal.setAttribute('stroke-width', '2');
+                petalsGroup.appendChild(petal);
+            }
+
+            // 2. Generate 60 Exact Minute Dots (จุดเข็มยาวครบ 60 จุด)
+            for (let m = 0; m < 60; m++) {
+                const angleRad = (m * 6 - 90) * (Math.PI / 180);
+                const isMajor = (m % 5 === 0);
+                const rDot = 85;
+                const tx = cx + rDot * Math.cos(angleRad);
+                const ty = cy + rDot * Math.sin(angleRad);
+
+                const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                dot.setAttribute('cx', tx);
+                dot.setAttribute('cy', ty);
+                dot.setAttribute('r', isMajor ? '3.2' : '1.8');
+                dot.setAttribute('fill', isMajor ? '#ff6b8b' : '#cbd5e1');
+                ticksGroup.appendChild(dot);
+            }
+
+            // 3. Generate 12 Cute Japanese Hour Numbers
+            for (let h = 1; h <= 12; h++) {
+                const angleRad = (h * 30 - 90) * (Math.PI / 180);
+                const rHour = 65;
+                const tx = cx + rHour * Math.cos(angleRad);
+                const ty = cy + rHour * Math.sin(angleRad) + 5.5;
+
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', tx);
+                text.setAttribute('y', ty);
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('font-size', '16');
+                text.setAttribute('font-weight', '800');
+                text.setAttribute('fill', '#2d3436');
+                text.setAttribute('font-family', "'Zen Maru Gothic', sans-serif");
+                text.textContent = h;
+                hourNumbersGroup.appendChild(text);
+            }
+        }
+
+        function getBestNaturalJapaneseVoice() {
+            if (!('speechSynthesis' in window)) return null;
+            const voices = window.speechSynthesis.getVoices();
+            const jaVoices = voices.filter(v => v.lang.includes('ja') || v.lang.includes('JA'));
+            if (jaVoices.length === 0) return null;
+
+            const naturalKeywords = ['Natural', 'Enhanced', 'Premium', 'Google', 'Kyoko', 'Otoya', 'Nanami', 'Keita', 'Online'];
+            for (let kw of naturalKeywords) {
+                const found = jaVoices.find(v => v.name.includes(kw));
+                if (found) return found;
+            }
+            return jaVoices[0];
+        }
+
+        function playAudio(text) {
+            if ('speechSynthesis' in window) {
+                const cleanText = text.replace(/ー/g, '').replace(/\(.*\)/g, '').trim();
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.lang = 'ja-JP';
+                utterance.rate = 0.85;
+
+                const bestVoice = getBestNaturalJapaneseVoice();
+                if (bestVoice) utterance.voice = bestVoice;
+
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function renderNavTabs() {
+            const nav = document.getElementById('categoryNav');
+            nav.innerHTML = '';
+            vocabularyData.forEach((cat, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `nav-tab ${idx === activeCategoryIndex ? 'active' : ''}`;
+                btn.innerText = cat.navName;
+                btn.onclick = () => loadCategory(idx);
+                nav.appendChild(btn);
+            });
+        }
+
+        function loadCategory(index) {
+            activeCategoryIndex = index;
+            localStorage.setItem('l4_flashcard_cat', index);
+            const category = vocabularyData[activeCategoryIndex];
+            activeItems = [...category.items];
+
+            document.getElementById('catTitle').innerText = category.title;
+            document.getElementById('prevBtn').disabled = (activeCategoryIndex === 0);
+            document.getElementById('nextBtn').disabled = (activeCategoryIndex === vocabularyData.length - 1);
+
+            renderNavTabs();
+            renderCards();
+        }
+
+        function navigateCategory(dir) {
+            const nextIdx = activeCategoryIndex + dir;
+            if (nextIdx >= 0 && nextIdx < vocabularyData.length) {
+                loadCategory(nextIdx);
+            }
+        }
+
+        function renderCards() {
+            const grid = document.getElementById('cardsGrid');
+            grid.innerHTML = '';
+
+            activeItems.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = (e) => {
+                    if (e.target.closest('.audio-btn')) return;
+                    card.classList.toggle('flipped');
+                };
+
+                const kanjiMarkup = (item.kanji && item.kanji !== item.hiragana && item.kanji !== '-') ? `<div class="jp-kanji">${item.kanji}</div>` : '';
+
+                card.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <button class="audio-btn" title="ฟังเสียงอ่าน" onclick="playAudio('${item.hiragana}')">🔊</button>
+                            <div class="jp-hiragana">${item.hiragana}</div>
+                            ${kanjiMarkup}
+                        </div>
+                        <div class="card-back">
+                            <div class="visual-icon">${item.icon}</div>
+                            <div class="th-meaning">${item.thai}</div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function shuffleCards() {
+            for (let i = activeItems.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [activeItems[i], activeItems[j]] = [activeItems[j], activeItems[i]];
+            }
+            renderCards();
+        }
+
+        function resetFlips() {
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('flipped'));
+        }
+
+        function switchMode(mode) {
+            localStorage.setItem('l4_active_mode', mode);
+            
+            document.getElementById('btnModeFlashcards').classList.toggle('active', mode === 'flashcards');
+            document.getElementById('btnModeVerbs').classList.toggle('active', mode === 'verbs');
+            document.getElementById('btnModeClock').classList.toggle('active', mode === 'clock');
+            document.getElementById('btnModeNumbers').classList.toggle('active', mode === 'numbers');
+            document.getElementById('btnModeGame').classList.toggle('active', mode === 'game');
+
+            document.getElementById('flashcardSection').style.display = (mode === 'flashcards') ? 'block' : 'none';
+            document.getElementById('verbsSection').style.display = (mode === 'verbs') ? 'block' : 'none';
+            document.getElementById('clockSection').style.display = (mode === 'clock') ? 'block' : 'none';
+            document.getElementById('numbersSection').style.display = (mode === 'numbers') ? 'block' : 'none';
+            document.getElementById('gameSection').style.display = (mode === 'game') ? 'block' : 'none';
+
+            if (mode === 'game') startNewGame();
+        }
+
+        /* 🔢 NUMBER TABLE FUNCTIONS */
+        function switchNumTab(tabKey, btn) {
+            localStorage.setItem('l4_num_tab', tabKey);
+            document.querySelectorAll('.num-tab-btn').forEach(b => b.classList.remove('active'));
+            
+            if (btn) {
+                btn.classList.add('active');
+            } else {
+                const keys = ['regular', 'age', 'floor', 'hours', 'minutes', 'days'];
+                const idx = keys.indexOf(tabKey);
+                const buttons = document.querySelectorAll('.num-tab-btn');
+                if (idx !== -1 && buttons[idx]) buttons[idx].classList.add('active');
+            }
+            renderNumberTable(tabKey);
+        }
+
+        function renderNumberTable(tabKey) {
+            const data = numbersData[tabKey];
+            if (!data) return;
+
+            document.getElementById('numCategoryTitle').innerText = data.title;
+            const grid = document.getElementById('numGrid');
+            grid.innerHTML = '';
+
+            data.items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = `num-card ${item.irregular ? 'irregular' : ''}`;
+
+                const badgeHtml = item.tag ? `<span class="num-tag-badge">${item.tag}</span>` : '';
+
+                card.innerHTML = `
+                    ${badgeHtml}
+                    <div>
+                        <div class="num-digit">${item.digit}</div>
+                        <div class="num-hira">${item.hira}</div>
+                        <div class="num-kanji">${item.kanji}</div>
+                        <div class="num-th">${item.thai}</div>
+                    </div>
+                    <button class="num-audio-btn" title="ฟังเสียงอ่าน" onclick="playAudio('${item.hira.split('/')[0].trim()}')">🔊</button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        /* ⏰ JAPANESE CLOCK LOGIC */
+        let currentClockHour = 3;
+        let currentClockMin = 10;
+
+        function getJapaneseTimeReading(hour, min) {
+            const hoursMap = {
+                1: { hira: "いちじ", kanji: "1時" },
+                2: { hira: "にじ", kanji: "2時" },
+                3: { hira: "さんじ", kanji: "3時" },
+                4: { hira: "よじ", kanji: "4時" },
+                5: { hira: "ごじ", kanji: "5時" },
+                6: { hira: "ろくじ", kanji: "6時" },
+                7: { hira: "しちじ", kanji: "7時" },
+                8: { hira: "はちじ", kanji: "8時" },
+                9: { hira: "くじ", kanji: "9時" },
+                10: { hira: "じゅうじ", kanji: "10時" },
+                11: { hira: "じゅういちじ", kanji: "11時" },
+                12: { hira: "じゅうにじ", kanji: "12時" }
+            };
+
+            const hObj = hoursMap[hour] || { hira: "", kanji: "" };
+            let mHira = "";
+            let mKanji = "";
+
+            if (min === 0) {
+                mHira = ""; mKanji = "";
+            } else if (min === 30) {
+                mHira = " さんじゅっぷん (はん)";
+                mKanji = "30分 (半)";
+            } else {
+                const ones = min % 10;
+                const tens = Math.floor(min / 10);
+
+                const onesMap = {
+                    1: "いっぷん", 2: "にふん", 3: "さんぷん", 4: "よんぷん", 5: "ごふん",
+                    6: "ろっぷん", 7: "ななふん", 8: "はっぷん", 9: "きゅうふん"
+                };
+
+                let tensHira = ["", "じゅう", "にじゅう", "さんじゅう", "よんじゅう", "ごじゅう"][tens];
+                let onesHira = "";
+
+                if (ones === 0) {
+                    if (min === 10) tensHira = "じゅっぷん";
+                    else tensHira = ["", "", "にじゅっぷん", "さんじゅっぷん", "よんじゅっぷん", "ごじゅっぷん"][tens];
+                } else {
+                    onesHira = onesMap[ones];
+                }
+
+                mHira = " " + tensHira + onesHira;
+                mKanji = min + "分";
+            }
+
+            return {
+                hira: hObj.hira + mHira,
+                kanji: hObj.kanji + mKanji,
+                timeStr: `${String(hour).padStart(2, '0')}:${String(min).padStart(2, '0')}`
+            };
+        }
+
+        function updateClockUI(h, m) {
+            currentClockHour = h;
+            currentClockMin = m;
+
+            document.getElementById('hourSlider').value = h;
+            document.getElementById('minuteSlider').value = m;
+            document.getElementById('hourValDisplay').innerText = h;
+            document.getElementById('minValDisplay').innerText = m;
+
+            const minAngle = m * 6;
+            const hourAngle = (h % 12) * 30 + (m * 0.5);
+
+            document.getElementById('minuteHandGroup').setAttribute('transform', `rotate(${minAngle} 120 120)`);
+            document.getElementById('hourHandGroup').setAttribute('transform', `rotate(${hourAngle} 120 120)`);
+
+            const readings = getJapaneseTimeReading(h, m);
+            document.getElementById('clockDigital').innerText = readings.timeStr;
+            document.getElementById('clockHiragana').innerText = readings.hira;
+            document.getElementById('clockKanji').innerText = readings.kanji;
+        }
+
+        function onClockSliderChange() {
+            const h = parseInt(document.getElementById('hourSlider').value);
+            const m = parseInt(document.getElementById('minuteSlider').value);
+            updateClockUI(h, m);
+        }
+
+        function setClockTime(h, m) {
+            updateClockUI(h, m);
+            speakCurrentClockTime();
+        }
+
+        function speakCurrentClockTime() {
+            const readings = getJapaneseTimeReading(currentClockHour, currentClockMin);
+            const textToSpeak = readings.hira.replace('(はん)', 'はん').replace(/\s+/g, '');
+            playAudio(textToSpeak);
+        }
+
+        /* 🌸 PRECISE FLOWER CLOCK INTERACTION */
+        function setupClockDragging() {
+            const svg = document.getElementById('clockSvg');
+            const hourHand = document.getElementById('hourHand');
+            const minuteHand = document.getElementById('minuteHand');
+            let draggingHand = null;
+
+            const getAngleFromCenter = (e) => {
+                const rect = svg.getBoundingClientRect();
+                const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+                if (clientX === undefined || clientY === undefined) return null;
+
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height / 2;
+                const x = clientX - cx;
+                const y = clientY - cy;
+
+                let angle = Math.atan2(y, x) * (180 / Math.PI) + 90;
+                if (angle < 0) angle += 360;
+                return angle;
+            };
+
+            const startDrag = (e, hand) => {
+                e.preventDefault();
+                draggingHand = hand;
+                if (hand === 'hour') hourHand.classList.add('active');
+                if (hand === 'minute') minuteHand.classList.add('active');
+                handlePointerMove(e);
+            };
+
+            const handlePointerMove = (e) => {
+                if (!draggingHand) return;
+                const angle = getAngleFromCenter(e);
+                if (angle === null) return;
+
+                if (draggingHand === 'minute') {
+                    let min = Math.round(angle / 6) % 60;
+                    updateClockUI(currentClockHour, min);
+                } else if (draggingHand === 'hour') {
+                    let h = Math.round(angle / 30);
+                    if (h === 0) h = 12;
+                    updateClockUI(h, currentClockMin);
+                }
+            };
+
+            const stopDrag = () => {
+                draggingHand = null;
+                hourHand.classList.remove('active');
+                minuteHand.classList.remove('active');
+            };
+
+            hourHand.addEventListener('mousedown', (e) => startDrag(e, 'hour'));
+            minuteHand.addEventListener('mousedown', (e) => startDrag(e, 'minute'));
+            hourHand.addEventListener('touchstart', (e) => startDrag(e, 'hour'));
+            minuteHand.addEventListener('touchstart', (e) => startDrag(e, 'minute'));
+
+            // Click or tap anywhere on the flower face to immediately set the minute hand directly
+            svg.addEventListener('mousedown', (e) => {
+                if (e.target !== hourHand && e.target !== minuteHand) {
+                    const angle = getAngleFromCenter(e);
+                    if (angle !== null) {
+                        let min = Math.round(angle / 6) % 60;
+                        updateClockUI(currentClockHour, min);
+                        startDrag(e, 'minute');
+                    }
+                }
+            });
+
+            svg.addEventListener('touchstart', (e) => {
+                if (e.target !== hourHand && e.target !== minuteHand) {
+                    const angle = getAngleFromCenter(e);
+                    if (angle !== null) {
+                        let min = Math.round(angle / 6) % 60;
+                        updateClockUI(currentClockHour, min);
+                        startDrag(e, 'minute');
+                    }
+                }
+            });
+
+            window.addEventListener('mousemove', handlePointerMove);
+            window.addEventListener('touchmove', handlePointerMove);
+            window.addEventListener('mouseup', stopDrag);
+            window.addEventListener('touchend', stopDrag);
+        }
+
+        /* 🍱 3-WAY MATCHING GAME LOGIC */
+        let selectedGameCards = [];
+        let matchedTriplets = 0;
+        let totalTriplets = 0;
+
+        function startNewGame() {
+            matchedTriplets = 0;
+            selectedGameCards = [];
+            document.getElementById('winMsg').style.display = 'none';
+
+            const selectedCat = document.getElementById('gameCatSelect').value;
+            let targetWords = [];
+
+            if (selectedCat === 'all') {
+                vocabularyData.forEach(cat => targetWords.push(...cat.items));
+            } else {
+                const found = vocabularyData.find(c => c.id === selectedCat);
+                if (found) targetWords = [...found.items];
+            }
+
+            totalTriplets = targetWords.length;
+            document.getElementById('gameScore').innerText = `0 / ${totalTriplets}`;
+
+            let allGameCards = [];
+            targetWords.forEach((word, wordIndex) => {
+                allGameCards.push({ wordId: wordIndex, type: 'hiragana', text: word.hiragana, voice: word.hiragana });
+                const kanjiDisplay = (word.kanji && word.kanji !== '-') ? word.kanji : word.hiragana;
+                allGameCards.push({ wordId: wordIndex, type: 'kanji', text: kanjiDisplay, voice: word.hiragana });
+                allGameCards.push({ wordId: wordIndex, type: 'thai', text: `${word.icon} ${word.thai}` });
+            });
+
+            allGameCards.sort(() => 0.5 - Math.random());
+
+            const grid = document.getElementById('gameGrid');
+            grid.innerHTML = '';
+
+            allGameCards.forEach((c) => {
+                const cardEl = document.createElement('div');
+                cardEl.className = `match-card type-${c.type}`;
+                cardEl.innerText = c.text;
+                cardEl.dataset.wordId = c.wordId;
+                cardEl.dataset.type = c.type;
+                if (c.voice) cardEl.dataset.voice = c.voice;
+
+                cardEl.onclick = () => handleGameCardClick(cardEl);
+                grid.appendChild(cardEl);
+            });
+        }
+
+        function handleGameCardClick(cardEl) {
+            if (cardEl.classList.contains('matched') || cardEl.classList.contains('selected')) return;
+
+            if (cardEl.dataset.voice) playAudio(cardEl.dataset.voice);
+
+            cardEl.classList.add('selected');
+            selectedGameCards.push(cardEl);
+
+            if (selectedGameCards.length === 3) {
+                const [c1, c2, c3] = selectedGameCards;
+
+                const isSameWord = (c1.dataset.wordId === c2.dataset.wordId) && (c2.dataset.wordId === c3.dataset.wordId);
+                const has3Types = new Set([c1.dataset.type, c2.dataset.type, c3.dataset.type]).size === 3;
+
+                if (isSameWord && has3Types) {
+                    selectedGameCards.forEach(card => {
+                        card.classList.remove('selected');
+                        card.classList.add('matched');
+                    });
+
+                    matchedTriplets++;
+                    document.getElementById('gameScore').innerText = `${matchedTriplets} / ${totalTriplets}`;
+
+                    if (matchedTriplets === totalTriplets) {
+                        document.getElementById('winMsg').style.display = 'block';
+                    }
+                    selectedGameCards = [];
+                } else {
+                    selectedGameCards.forEach(card => card.classList.add('wrong'));
+                    
+                    setTimeout(() => {
+                        selectedGameCards.forEach(card => {
+                            card.classList.remove('selected', 'wrong');
+                        });
+                        selectedGameCards = [];
+                    }, 450);
+                }
+            }
+        }
+
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = () => { getBestNaturalJapaneseVoice(); };
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
