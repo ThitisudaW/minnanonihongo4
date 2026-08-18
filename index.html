@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minna no Nihongo Lesson 4 - Modern Animated Japanese Studio</title>
     
+    <!-- Google Fonts: Klee One (Textbook Style Fallback), Noto Sans JP, Prompt -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -57,7 +58,7 @@
             height: 200%;
             z-index: -2;
             opacity: 0.12;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30"><path d="M0 15 A15 15 0 0 1 30 15 A15 15 0 0 1 60 15 A15 15 0 0 1 0 15 Z" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 0 A15 15 0 0 1 15 0 A15 15 0 0 1 45 0 A15 15 0 0 1 75 0" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 30 A15 15 0 0 1 15 30 A15 15 0 0 1 45 30 A15 15 0 0 1 75 30" fill="none" stroke="%234338ca" stroke-width="1.5"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30"><path d="M0 15 A15 15 0 0 1 30 15 A15 15 0 0 1 60 15 A15 15 0 0 1 30 15 A15 15 0 0 1 0 15 Z" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 0 A15 15 0 0 1 15 0 A15 15 0 0 1 45 0 A15 15 0 0 1 75 0" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 30 A15 15 0 0 1 15 30 A15 15 0 0 1 45 30 A15 15 0 0 1 75 30" fill="none" stroke="%234338ca" stroke-width="1.5"/></svg>');
             animation: panPattern 45s linear infinite;
         }
 
@@ -491,7 +492,7 @@
             margin-left: 6px;
         }
 
-        /* ⏰ INTERACTIVE CLOCK SECTION */
+        /* ⏰ INTERACTIVE REALISTIC CLOCK SECTION */
         .clock-container {
             display: none;
             background: #ffffff;
@@ -513,21 +514,27 @@
 
         .clock-face-wrapper {
             position: relative;
-            width: 270px;
-            height: 270px;
+            width: 290px;
+            height: 290px;
+            user-select: none;
         }
 
-        .svg-clock { width: 100%; height: 100%; touch-action: none; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.06)); }
+        .svg-clock {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+            filter: drop-shadow(0 12px 24px rgba(99, 102, 241, 0.12));
+            cursor: pointer;
+        }
 
         .clock-hand {
             cursor: grab;
-            transition: stroke-width 0.2s, stroke 0.2s;
+            transition: stroke 0.15s ease;
         }
 
         .clock-hand:hover, .clock-hand.active {
             cursor: grabbing;
-            stroke-width: 8px;
-            filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.6));
+            filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.6));
         }
 
         .clock-display-card {
@@ -702,7 +709,6 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.06);
         }
 
-        /* Highlighted irregular readings */
         .num-card.irregular {
             border: 2px solid var(--accent-rose);
             background: #fff5f7;
@@ -1076,32 +1082,41 @@
             </div>
         </div>
 
+        <!-- ⏰ REALISTIC INTERACTIVE CLOCK -->
         <div class="clock-container" id="clockSection">
             <h2 style="color:var(--text-dark); margin-bottom:6px;">⏰ หน้าปัดนาฬิกาฝึกอ่านเวลาภาษาญี่ปุ่น</h2>
-            <p style="color:var(--text-muted); font-size:0.95rem;">เอานิ้ว/เมาส์ลากที่ **เข็มสั้น** หรือ **เข็มยาว** บนหน้าปัดนาฬิกาเพื่อหมุนเวลาได้โดยตรง</p>
+            <p style="text-align:center; color:var(--text-muted); font-size:0.95rem;">คลิก/แตะที่ขีดนาทีบนหน้าปัด หรือลาก <strong>เข็มสั้น (ชั่วโมง)</strong> และ <strong>เข็มยาว (นาที)</strong> ได้อย่างแม่นยำ</p>
 
             <div class="clock-layout">
                 <div class="clock-face-wrapper">
-                    <svg class="svg-clock" viewBox="0 0 200 200" id="clockSvg">
-                        <circle cx="100" cy="100" r="95" fill="#ffffff" stroke="#e2e8f0" stroke-width="6"/>
-                        <circle cx="100" cy="100" r="86" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="2 4"/>
-                        
-                        <text x="100" y="28" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">12</text>
-                        <text x="138" y="38" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">1</text>
-                        <text x="165" y="65" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">2</text>
-                        <text x="175" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">3</text>
-                        <text x="165" y="145" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">4</text>
-                        <text x="138" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">5</text>
-                        <text x="100" y="182" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">6</text>
-                        <text x="62" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">7</text>
-                        <text x="35" y="145" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">8</text>
-                        <text x="25" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">9</text>
-                        <text x="35" y="65" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">10</text>
-                        <text x="62" y="38" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">11</text>
+                    <svg class="svg-clock" viewBox="0 0 240 240" id="clockSvg">
+                        <!-- Outer Rim -->
+                        <circle cx="120" cy="120" r="114" fill="#ffffff" stroke="#e2e8f0" stroke-width="6"/>
+                        <circle cx="120" cy="120" r="108" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
 
-                        <line id="hourHand" class="clock-hand" x1="100" y1="100" x2="100" y2="55" stroke="#f43f5e" stroke-width="7" stroke-linecap="round" />
-                        <line id="minuteHand" class="clock-hand" x1="100" y1="100" x2="100" y2="30" stroke="#6366f1" stroke-width="5" stroke-linecap="round" />
-                        <circle cx="100" cy="100" r="7" fill="#1e293b" />
+                        <!-- 60 Minute Accurate Ticks (Generated Dynamically) -->
+                        <g id="clockTicks"></g>
+
+                        <!-- Outer Minute Numbers (00, 05, 10, 15... 55) -->
+                        <g id="clockMinuteLabels"></g>
+
+                        <!-- Inner 12 Hour Numbers (1 to 12) -->
+                        <g id="clockHourLabels"></g>
+
+                        <!-- Hour Hand (Red, Short) -->
+                        <g id="hourHandGroup">
+                            <line id="hourHand" class="clock-hand" x1="120" y1="120" x2="120" y2="65" stroke="#f43f5e" stroke-width="7" stroke-linecap="round" />
+                        </g>
+                        
+                        <!-- Minute Hand (Indigo, Long pointing directly at ticks) -->
+                        <g id="minuteHandGroup">
+                            <line id="minuteHand" class="clock-hand" x1="120" y1="120" x2="120" y2="30" stroke="#6366f1" stroke-width="4.5" stroke-linecap="round" />
+                            <!-- Pointer Tip Marker -->
+                            <circle cx="120" cy="28" r="3.5" fill="#6366f1" />
+                        </g>
+                        
+                        <!-- Center Pin -->
+                        <circle cx="120" cy="120" r="7.5" fill="#1e293b" stroke="#ffffff" stroke-width="2"/>
                     </svg>
                 </div>
 
@@ -1111,7 +1126,7 @@
                     <div class="reading-kanji" id="clockKanji">3時10分</div>
 
                     <div>
-                        <button class="step-btn" style="background:var(--primary-indigo); color:white; border:none; padding:10px 22px; font-size:0.95rem; border-radius:12px;" onclick="speakCurrentClockTime()">
+                        <button class="step-btn" style="background:var(--primary-indigo); color:white; border:none; padding:10px 22px; font-size:0.95rem; border-radius:12px; margin: 0 auto;" onclick="speakCurrentClockTime()">
                             🔊 ฟังเสียงอ่านภาษาญี่ปุ่น
                         </button>
                     </div>
@@ -1139,6 +1154,7 @@
             </div>
         </div>
 
+        <!-- 🔢 NUMBERS TABLE SECTION -->
         <div class="numbers-container" id="numbersSection">
             <h2 style="color:var(--text-dark); text-align:center; margin-bottom:6px;">🔢 ตารางคำอ่านตัวเลขภาษาญี่ปุ่น</h2>
             <p style="text-align:center; color:var(--text-muted); font-size:0.95rem; margin-bottom:25px;">เลือกหมวดการนับเลขทางซ้าย พร้อมไฮไลต์จุดที่ <strong style="color:var(--accent-rose);">เสียงเปลี่ยน/คำพิเศษ</strong></p>
@@ -1148,17 +1164,17 @@
                     <button class="num-tab-btn active" onclick="switchNumTab('regular', this)">
                         <span>🔢 1. การนับเลขปกติ</span> <span>→</span>
                     </button>
-                    <button class="num-tab-btn" onclick="switchNumTab('hours', this)">
-                        <span>⏰ 2. การนับชั่วโมง (〜時)</span> <span>→</span>
-                    </button>
-                    <button class="num-tab-btn" onclick="switchNumTab('minutes', this)">
-                        <span>⏱️ 3. การนับนาที (〜分)</span> <span>→</span>
-                    </button>
                     <button class="num-tab-btn" onclick="switchNumTab('age', this)">
-                        <span>🎂 4. การนับอายุ (〜才)</span> <span>→</span>
+                        <span>🎂 2. การนับอายุ (〜才)</span> <span>→</span>
                     </button>
                     <button class="num-tab-btn" onclick="switchNumTab('floor', this)">
-                        <span>🏢 5. การนับชั้น (〜階)</span> <span>→</span>
+                        <span>🏢 3. การนับชั้น (〜階)</span> <span>→</span>
+                    </button>
+                    <button class="num-tab-btn" onclick="switchNumTab('hours', this)">
+                        <span>⏰ 4. การนับชั่วโมง (〜時)</span> <span>→</span>
+                    </button>
+                    <button class="num-tab-btn" onclick="switchNumTab('minutes', this)">
+                        <span>⏱️ 5. การนับนาที (〜分)</span> <span>→</span>
                     </button>
                     <button class="num-tab-btn" onclick="switchNumTab('days', this)">
                         <span>📅 6. การนับวัน (〜日)</span> <span>→</span>
@@ -1258,7 +1274,7 @@
                     { hiragana: "あさ", kanji: "朝", thai: "เช้า", icon: "☀️" },
                     { hiragana: "ひる", kanji: "昼", thai: "กลางวัน", icon: "🌤️" },
                     { hiragana: "ばん (よる)", kanji: "晩 (夜)", thai: "เย็น, กลางคืน", icon: "🌙" },
-                    { hiragana: "おととい", kanji: "一瞬間", thai: "เมื่อวานซืน", icon: "⏪" },
+                    { hiragana: "おทわり", kanji: "-", thai: "เมื่อวานซืน", icon: "⏪" },
                     { hiragana: "きのう", kanji: "昨日", thai: "เมื่อวานนี้", icon: "◀️" },
                     { hiragana: "きょう", kanji: "今日", thai: "วันนี้", icon: "📍" },
                     { hiragana: "あした", kanji: "明日", thai: "พรุ่งนี้", icon: "▶️" },
@@ -1306,7 +1322,9 @@
             }
         ];
 
-        /* 🔢 Comprehensive Japanese Numbers Dataset */
+        vocabularyData[2].items[11].hiragana = "おととい";
+
+        /* 🔢 Comprehensive Numbers Dataset */
         const numbersData = {
             regular: {
                 title: "🔢 การนับเลขปกติ (1-10, หลักร้อย, พัน, หมื่น)",
@@ -1333,6 +1351,42 @@
                     { digit: "10,000", hira: "いちまん", kanji: "一万", thai: "หนึ่งหมื่น" },
                     { digit: "100,000", hira: "じゅうまん", kanji: "十万", thai: "หนึ่งแสน" },
                     { digit: "1,000,000", hira: "ひゃくまん", kanji: "百万", thai: "หนึ่งล้าน" }
+                ]
+            },
+            age: {
+                title: "🎂 การนับอายุ (〜さい / 才・歳)",
+                items: [
+                    { digit: "1 ขวบ", hira: "いっさい", kanji: "1才", thai: "1 ขวบ/ปี", irregular: true, tag: "⚠️ いっ" },
+                    { digit: "2 ขวบ", hira: "にさい", kanji: "2才", thai: "2 ขวบ/ปี" },
+                    { digit: "3 ขวบ", hira: "さんさい", kanji: "3才", thai: "3 ขวบ/ปี" },
+                    { digit: "4 ขวบ", hira: "よんさい", kanji: "4才", thai: "4 ขวบ/ปี" },
+                    { digit: "5 ขวบ", hira: "ごさい", kanji: "5才", thai: "5 ขวบ/ปี" },
+                    { digit: "6 ขวบ", hira: "ろくさい", kanji: "6才", thai: "6 ขวบ/ปี" },
+                    { digit: "7 ขวบ", hira: "ななさい", kanji: "7才", thai: "7 ขวบ/ปี" },
+                    { digit: "8 ขวบ", hira: "はっさい", kanji: "8才", thai: "8 ขวบ/ปี", irregular: true, tag: "⚠️ はっ" },
+                    { digit: "9 ขวบ", hira: "きゅうさい", kanji: "9才", thai: "9 ขวบ/ปี" },
+                    { digit: "10 ขวบ", hira: "じゅっさい", kanji: "10才", thai: "10 ขวบ/ปี", irregular: true, tag: "⚠️ じゅっ" },
+                    { digit: "11 ขวบ", hira: "じゅういっさい", kanji: "11才", thai: "11 ขวบ/ปี", irregular: true, tag: "⚠️ いっ" },
+                    { digit: "18 ขวบ", hira: "じゅうはっさい", kanji: "18才", thai: "18 ขวบ/ปี", irregular: true, tag: "⚠️ はっ" },
+                    { digit: "20 ปี", hira: "はたち", kanji: "二十歳 (20才)", thai: "20 ปี (บรรลุนิติภาวะ)", irregular: true, tag: "✨ คำพิเศษ ไม่ใส่ さい" },
+                    { digit: "อายุเท่าไร", hira: "なんさい (おいくつ)", kanji: "何才", thai: "อายุเท่าไร (สุภาพ: おいくつ)" }
+                ]
+            },
+            floor: {
+                title: "🏢 การนับชั้น (〜かい / 〜がい / 階)",
+                items: [
+                    { digit: "ชั้น 1", hira: "いっかい", kanji: "1階", thai: "ชั้น 1", irregular: true, tag: "⚠️ いっ" },
+                    { digit: "ชั้น 2", hira: "にかい", kanji: "2階", thai: "ชั้น 2" },
+                    { digit: "ชั้น 3", hira: "さんがい", kanji: "3階", thai: "ชั้น 3", irregular: true, tag: "⚠️ เสียง がい" },
+                    { digit: "ชั้น 4", hira: "よんかい", kanji: "4階", thai: "ชั้น 4" },
+                    { digit: "ชั้น 5", hira: "ごかい", kanji: "5階", thai: "ชั้น 5" },
+                    { digit: "ชั้น 6", hira: "ろっかい", kanji: "6階", thai: "ชั้น 6", irregular: true, tag: "⚠️ ろっ" },
+                    { digit: "ชั้น 7", hira: "ななかい", kanji: "7階", thai: "ชั้น 7" },
+                    { digit: "ชั้น 8", hira: "はっかい", kanji: "8階", thai: "ชั้น 8", irregular: true, tag: "⚠️ はっ" },
+                    { digit: "ชั้น 9", hira: "きゅうかい", kanji: "9階", thai: "ชั้น 9" },
+                    { digit: "ชั้น 10", hira: "じゅっかい", kanji: "10階", thai: "ชั้น 10", irregular: true, tag: "⚠️ じゅっ" },
+                    { digit: "ชั้น B1", hira: "ちかいっかい", kanji: "地下1階", thai: "ชั้นใต้ดิน 1 (B1)", irregular: true, tag: "⚠️ いっ" },
+                    { digit: "ชั้นอะไร", hira: "なんがい", kanji: "何階", thai: "ชั้นอะไร / ชั้นไหน", irregular: true, tag: "⚠️ นิยม がい" }
                 ]
             },
             hours: {
@@ -1373,42 +1427,6 @@
                     { digit: "กี่นาที", hira: "なんぷん", kanji: "何分", thai: "กี่นาที", irregular: true, tag: "⚠️ なんぷん" }
                 ]
             },
-            age: {
-                title: "🎂 การนับอายุ (〜さい / 才・歳)",
-                items: [
-                    { digit: "1 ขวบ", hira: "いっさい", kanji: "1才", thai: "1 ขวบ/ปี", irregular: true, tag: "⚠️ いっ" },
-                    { digit: "2 ขวบ", hira: "にさい", kanji: "2才", thai: "2 ขวบ/ปี" },
-                    { digit: "3 ขวบ", hira: "さんさい", kanji: "3才", thai: "3 ขวบ/ปี" },
-                    { digit: "4 ขวบ", hira: "よんさい", kanji: "4才", thai: "4 ขวบ/ปี" },
-                    { digit: "5 ขวบ", hira: "ごさい", kanji: "5才", thai: "5 ขวบ/ปี" },
-                    { digit: "6 ขวบ", hira: "ろくさい", kanji: "6才", thai: "6 ขวบ/ปี" },
-                    { digit: "7 ขวบ", hira: "ななさい", kanji: "7才", thai: "7 ขวบ/ปี" },
-                    { digit: "8 ขวบ", hira: "はっさい", kanji: "8才", thai: "8 ขวบ/ปี", irregular: true, tag: "⚠️ はっ" },
-                    { digit: "9 ขวบ", hira: "きゅうさい", kanji: "9才", thai: "9 ขวบ/ปี" },
-                    { digit: "10 ขวบ", hira: "じゅっさい", kanji: "10才", thai: "10 ขวบ/ปี", irregular: true, tag: "⚠️ じゅっ" },
-                    { digit: "11 ขวบ", hira: "じゅういっさい", kanji: "11才", thai: "11 ขวบ/ปี", irregular: true, tag: "⚠️ いっ" },
-                    { digit: "18 ขวบ", hira: "じゅうはっさい", kanji: "18才", thai: "18 ขวบ/ปี", irregular: true, tag: "⚠️ はっ" },
-                    { digit: "20 ปี", hira: "はたち", kanji: "二十歳 (20才)", thai: "20 ปี (บรรลุนิติภาวะ)", irregular: true, tag: "✨ คำพิเศษ ไม่ใส่ さい" },
-                    { digit: "อายุเท่าไร", hira: "なんさい (おいくつ)", kanji: "何才", thai: "อายุเท่าไร (สุภาพ: おいくつ)" }
-                ]
-            },
-            floor: {
-                title: "🏢 การนับชั้น (〜かい / 〜がい / 階)",
-                items: [
-                    { digit: "ชั้น 1", hira: "いっかい", kanji: "1階", thai: "ชั้น 1", irregular: true, tag: "⚠️ いっ" },
-                    { digit: "ชั้น 2", hira: "にかい", kanji: "2階", thai: "ชั้น 2" },
-                    { digit: "ชั้น 3", hira: "さんがい", kanji: "3階", thai: "ชั้น 3", irregular: true, tag: "⚠️ เสียง がい" },
-                    { digit: "ชั้น 4", hira: "よんかい", kanji: "4階", thai: "ชั้น 4" },
-                    { digit: "ชั้น 5", hira: "ごかい", kanji: "5階", thai: "ชั้น 5" },
-                    { digit: "ชั้น 6", hira: "ろっかい", kanji: "6階", thai: "ชั้น 6", irregular: true, tag: "⚠️ ろっ" },
-                    { digit: "ชั้น 7", hira: "ななかい", kanji: "7階", thai: "ชั้น 7" },
-                    { digit: "ชั้น 8", hira: "はっかい", kanji: "8階", thai: "ชั้น 8", irregular: true, tag: "⚠️ はっ" },
-                    { digit: "ชั้น 9", hira: "きゅうかい", kanji: "9階", thai: "ชั้น 9" },
-                    { digit: "ชั้น 10", hira: "じゅっかい", kanji: "10階", thai: "ชั้น 10", irregular: true, tag: "⚠️ じゅっ" },
-                    { digit: "ชั้น B1", hira: "ちかいっかい", kanji: "地下1階", thai: "ชั้นใต้ดิน 1 (B1)", irregular: true, tag: "⚠️ いっ" },
-                    { digit: "ชั้นอะไร", hira: "なんがい", kanji: "何階", thai: "ชั้นอะไร / ชั้นไหน", irregular: true, tag: "⚠️ นิยม がい" }
-                ]
-            },
             days: {
                 title: "📅 การนับวัน / วันที่ (〜にち / 日)",
                 items: [
@@ -1437,11 +1455,11 @@
         function init() {
             renderNavTabs();
             
-            // Restore saved states on refresh
             const savedCat = parseInt(localStorage.getItem('l4_flashcard_cat'));
             const validCat = (!isNaN(savedCat) && savedCat >= 0 && savedCat < vocabularyData.length) ? savedCat : 0;
             loadCategory(validCat);
 
+            buildClockFace();
             setupClockDragging();
             updateClockUI(3, 10);
 
@@ -1450,6 +1468,79 @@
 
             const savedMode = localStorage.getItem('l4_active_mode') || 'flashcards';
             switchMode(savedMode);
+        }
+
+        /* ⏰ BUILD MATHEMATICALLY PRECISE 60-MINUTE CLOCK FACE */
+        function buildClockFace() {
+            const ticksGroup = document.getElementById('clockTicks');
+            const hourLabelsGroup = document.getElementById('clockHourLabels');
+            const minLabelsGroup = document.getElementById('clockMinuteLabels');
+
+            ticksGroup.innerHTML = '';
+            hourLabelsGroup.innerHTML = '';
+            minLabelsGroup.innerHTML = '';
+
+            const cx = 120, cy = 120;
+
+            // Generate 60 Exact Minute Ticks
+            for (let i = 0; i < 60; i++) {
+                const angleRad = (i * 6 - 90) * (Math.PI / 180);
+                const isMajor = (i % 5 === 0);
+
+                const rOuter = 106;
+                const rInner = isMajor ? 94 : 100;
+
+                const x1 = cx + rInner * Math.cos(angleRad);
+                const y1 = cy + rInner * Math.sin(angleRad);
+                const x2 = cx + rOuter * Math.cos(angleRad);
+                const y2 = cy + rOuter * Math.sin(angleRad);
+
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', x1);
+                line.setAttribute('y1', y1);
+                line.setAttribute('x2', x2);
+                line.setAttribute('y2', y2);
+                line.setAttribute('stroke', isMajor ? '#334155' : '#94a3b8');
+                line.setAttribute('stroke-width', isMajor ? '2.5' : '1.2');
+                line.setAttribute('stroke-linecap', 'round');
+                ticksGroup.appendChild(line);
+
+                // Add 12 Minute Numbers (00, 05, 10... 55)
+                if (isMajor) {
+                    const minVal = i;
+                    const rMinText = 84;
+                    const tx = cx + rMinText * Math.cos(angleRad);
+                    const ty = cy + rMinText * Math.sin(angleRad) + 3;
+
+                    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    text.setAttribute('x', tx);
+                    text.setAttribute('y', ty);
+                    text.setAttribute('text-anchor', 'middle');
+                    text.setAttribute('font-size', '8.5');
+                    text.setAttribute('font-weight', '700');
+                    text.setAttribute('fill', '#6366f1');
+                    text.textContent = String(minVal).padStart(2, '0');
+                    minLabelsGroup.appendChild(text);
+                }
+            }
+
+            // Generate 12 Hour Numbers (1 to 12)
+            for (let h = 1; h <= 12; h++) {
+                const angleRad = (h * 30 - 90) * (Math.PI / 180);
+                const rHourText = 66;
+                const tx = cx + rHourText * Math.cos(angleRad);
+                const ty = cy + rHourText * Math.sin(angleRad) + 5.5;
+
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', tx);
+                text.setAttribute('y', ty);
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('font-size', '15');
+                text.setAttribute('font-weight', '800');
+                text.setAttribute('fill', '#1e293b');
+                text.textContent = h;
+                hourLabelsGroup.appendChild(text);
+            }
         }
 
         function getBestNaturalJapaneseVoice() {
@@ -1583,7 +1674,7 @@
             if (btn) {
                 btn.classList.add('active');
             } else {
-                const keys = ['regular', 'hours', 'minutes', 'age', 'floor', 'days'];
+                const keys = ['regular', 'age', 'floor', 'hours', 'minutes', 'days'];
                 const idx = keys.indexOf(tabKey);
                 const buttons = document.querySelectorAll('.num-tab-btn');
                 if (idx !== -1 && buttons[idx]) buttons[idx].classList.add('active');
@@ -1619,7 +1710,7 @@
             });
         }
 
-        /* ⏰ JAPANESE CLOCK LOGIC & DIRECT HAND DRAGGING */
+        /* ⏰ JAPANESE CLOCK LOGIC */
         let currentClockHour = 3;
         let currentClockMin = 10;
 
@@ -1690,8 +1781,8 @@
             const minAngle = m * 6;
             const hourAngle = (h % 12) * 30 + (m * 0.5);
 
-            document.getElementById('minuteHand').setAttribute('transform', `rotate(${minAngle} 100 100)`);
-            document.getElementById('hourHand').setAttribute('transform', `rotate(${hourAngle} 100 100)`);
+            document.getElementById('minuteHandGroup').setAttribute('transform', `rotate(${minAngle} 120 120)`);
+            document.getElementById('hourHandGroup').setAttribute('transform', `rotate(${hourAngle} 120 120)`);
 
             const readings = getJapaneseTimeReading(h, m);
             document.getElementById('clockDigital').innerText = readings.timeStr;
@@ -1716,6 +1807,7 @@
             playAudio(textToSpeak);
         }
 
+        /* ⏰ ACCURATE DRAGGING & DIRECT CLICK FOR EXACT MINUTE SELECTION */
         function setupClockDragging() {
             const svg = document.getElementById('clockSvg');
             const hourHand = document.getElementById('hourHand');
@@ -1772,11 +1864,27 @@
             hourHand.addEventListener('touchstart', (e) => startDrag(e, 'hour'));
             minuteHand.addEventListener('touchstart', (e) => startDrag(e, 'minute'));
 
+            // Click anywhere directly on the ticks to instantly jump to that exact minute
             svg.addEventListener('mousedown', (e) => {
-                if (e.target !== hourHand && e.target !== minuteHand) startDrag(e, 'minute');
+                if (e.target !== hourHand && e.target !== minuteHand) {
+                    const angle = getAngleFromCenter(e);
+                    if (angle !== null) {
+                        let min = Math.round(angle / 6) % 60;
+                        updateClockUI(currentClockHour, min);
+                        startDrag(e, 'minute');
+                    }
+                }
             });
+
             svg.addEventListener('touchstart', (e) => {
-                if (e.target !== hourHand && e.target !== minuteHand) startDrag(e, 'minute');
+                if (e.target !== hourHand && e.target !== minuteHand) {
+                    const angle = getAngleFromCenter(e);
+                    if (angle !== null) {
+                        let min = Math.round(angle / 6) % 60;
+                        updateClockUI(currentClockHour, min);
+                        startDrag(e, 'minute');
+                    }
+                }
             });
 
             window.addEventListener('mousemove', handlePointerMove);
