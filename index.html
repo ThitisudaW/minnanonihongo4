@@ -61,7 +61,7 @@
             height: 200%;
             z-index: -2;
             opacity: 0.09;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30"><path d="M0 15 A15 15 0 0 1 30 15 A15 15 0 0 1 60 15 A15 15 0 0 1 0 15 Z" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 0 A15 15 0 0 1 15 0 A15 15 0 0 1 45 0 A15 15 0 0 1 75 0" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 30 A15 15 0 0 1 15 30 A15 15 0 0 1 45 30 A15 15 0 0 1 75 30" fill="none" stroke="%234338ca" stroke-width="1.5"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30"><path d="M0 15 A15 15 0 0 1 30 15 A15 15 0 0 1 60 15 A15 15 0 0 1 30 15 A15 15 0 0 1 0 15 Z" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 0 A15 15 0 0 1 15 0 A15 15 0 0 1 45 0 A15 15 0 0 1 75 0" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 30 A15 15 0 0 1 15 30 A15 15 0 0 1 45 30 A15 15 0 0 1 75 30" fill="none" stroke="%234338ca" stroke-width="1.5"/></svg>');
             animation: panPattern 45s linear infinite;
         }
 
@@ -1367,7 +1367,7 @@
                     { hiragana: "いま", kanji: "今", thai: "ตอนนี้", icon: "clock" },
                     { hiragana: "ーじ", kanji: "―時", thai: "... โมง", icon: "watch" },
                     { hiragana: "ーふん (ーぷん)", kanji: "―分", thai: "... นาที", icon: "timer" },
-                    { hiragana: "はん", kanji: "半", thai: "ครึ่ง", icon: "timer" },
+                    { hiragana: "はん", kanji: "半", thai: "ครึ่ง (30 นาที)", icon: "pie-chart" },
                     { hiragana: "なんじ", kanji: "何時", thai: "กี่โมง", icon: "help-circle" },
                     { hiragana: "なんぷん", kanji: "何分", thai: "กี่นาที", icon: "help-circle" },
                     { hiragana: "ごぜん", kanji: "午前", thai: "ช่วงเช้า (a.m.)", icon: "sunrise" },
@@ -1375,7 +1375,7 @@
                     { hiragana: "あさ", kanji: "朝", thai: "เช้า", icon: "sun-medium" },
                     { hiragana: "ひる", kanji: "昼", thai: "กลางวัน", icon: "sun" },
                     { hiragana: "ばん (よる)", kanji: "晩 (夜)", thai: "เย็น, กลางคืน", icon: "moon-star" },
-                    { hiragana: "おทわり", kanji: "-", thai: "เมื่อวานซืน", icon: "chevrons-left" },
+                    { hiragana: "おととい", kanji: "-", thai: "เมื่อวานซืน", icon: "chevrons-left" },
                     { hiragana: "きのう", kanji: "昨日", thai: "เมื่อวานนี้", icon: "chevron-left" },
                     { hiragana: "きょう", kanji: "今日", thai: "วันนี้", icon: "calendar-check" },
                     { hiragana: "あした", kanji: "明日", thai: "พรุ่งนี้", icon: "chevron-right" },
@@ -1399,7 +1399,7 @@
                     { hiragana: "かようび", kanji: "火曜日", thai: "วันอังคาร", icon: "flame" },
                     { hiragana: "すいようび", kanji: "水曜日", thai: "วันพุธ", icon: "droplets" },
                     { hiragana: "もくようび", kanji: "木曜日", thai: "วันพฤหัสบดี", icon: "tree-pine" },
-                    { hiragana: "きんようび", kanji: "金曜日", thai: "วันศุกร์", icon: "coins" },
+                    { hiragana: "きんようび", kanji: "金曜日", thai: "วันศุกร์", icon: "japanese-yen" },
                     { hiragana: "どようび", kanji: "土曜日", thai: "วันเสาร์", icon: "mountain" },
                     { hiragana: "にちようび", kanji: "日曜日", thai: "วันอาทิตย์", icon: "sun" },
                     { hiragana: "なんようび", kanji: "何曜日", thai: "วันอะไร", icon: "help-circle" }
@@ -1424,8 +1424,6 @@
                 ]
             }
         ];
-
-        vocabularyData[2].items[11].hiragana = "おととい";
 
         const numbersData = {
             regular: {
@@ -1526,7 +1524,7 @@
                     { digit: "20 นาที", hira: "にじゅっぷん", kanji: "20分", thai: "20 นาที", irregular: true, tag: "っぷん" },
                     { digit: "30 นาที", hira: "さんじゅっぷん / はん", kanji: "30分 / 半", thai: "30 นาที / ครึ่ง", irregular: true, tag: "ครึ่ง = 半" },
                     { digit: "45 นาที", hira: "よんじゅうごふん", kanji: "45分", thai: "45 นาที" },
-                    { digit: "กี่นาที", hira: "なんぷん", kanji: "何分", thai: "กี่นาที", irregular: true, tag: "なんぷん" }
+                    { digit: "กี่นาที", hira: "なんぷん", kanji: "何分", thai: "กี่นาที", irregular: true, tag: "นำนปุน" }
                 ]
             },
             days: {
@@ -1550,6 +1548,8 @@
                 ]
             }
         };
+
+        vocabularyData[2].items[11].hiragana = "おととい";
 
         let activeCategoryIndex = 0;
         let activeItems = [];
