@@ -61,7 +61,7 @@
             height: 200%;
             z-index: -2;
             opacity: 0.09;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30"><path d="M0 15 A15 15 0 0 1 30 15 A15 15 0 0 1 60 15 A15 15 0 0 1 30 15 A15 15 0 0 1 0 15 Z" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 0 A15 15 0 0 1 15 0 A15 15 0 0 1 45 0 A15 15 0 0 1 75 0" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 30 A15 15 0 0 1 15 30 A15 15 0 0 1 45 30 A15 15 0 0 1 75 30" fill="none" stroke="%234338ca" stroke-width="1.5"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30"><path d="M0 15 A15 15 0 0 1 30 15 A15 15 0 0 1 60 15 A15 15 0 0 1 0 15 Z" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 0 A15 15 0 0 1 15 0 A15 15 0 0 1 45 0 A15 15 0 0 1 75 0" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 30 A15 15 0 0 1 15 30 A15 15 0 0 1 45 30 A15 15 0 0 1 75 30" fill="none" stroke="%234338ca" stroke-width="1.5"/></svg>');
             animation: panPattern 45s linear infinite;
         }
 
@@ -1061,7 +1061,7 @@
 
             <div class="stepper-bar">
                 <button class="step-btn" id="prevBtn" onclick="navigateCategory(-1)">← หน้าก่อนหน้า</button>
-                <div class="cat-title" id="catTitle">หมวดคำศัพท์</div>
+                <div class="cat-title" id="catTitle"><i data-lucide="folder" style="width:18px;height:18px;"></i> หมวดคำศัพท์</div>
                 <button class="step-btn" id="nextBtn" onclick="navigateCategory(1)">หน้าถัดไป →</button>
             </div>
 
@@ -1331,6 +1331,7 @@
                 id: 'verbs',
                 navName: '1. คำกริยา',
                 title: 'หมวดที่ 1: คำกริยา (Verbs)',
+                icon: 'sparkles',
                 items: [
                     { hiragana: "おきます", kanji: "起きます", thai: "ตื่นนอน", icon: "alarm-clock" },
                     { hiragana: "ねます", kanji: "寝ます", thai: "นอน, เข้านอน", icon: "bed-double" },
@@ -1344,6 +1345,7 @@
                 id: 'places',
                 navName: '2. สถานที่ & เมือง',
                 title: 'หมวดที่ 2: สถานที่ & เมือง (Places & Cities)',
+                icon: 'building',
                 items: [
                     { hiragana: "デパート", kanji: "デパート", thai: "ห้างสรรพสินค้า", icon: "shopping-bag" },
                     { hiragana: "ぎんこう", kanji: "銀行", thai: "ธนาคาร", icon: "landmark" },
@@ -1360,11 +1362,12 @@
                 id: 'time',
                 navName: '3. เวลา',
                 title: 'หมวดที่ 3: เวลา & ช่วงเวลา (Time)',
+                icon: 'clock',
                 items: [
                     { hiragana: "いま", kanji: "今", thai: "ตอนนี้", icon: "clock" },
                     { hiragana: "ーじ", kanji: "―時", thai: "... โมง", icon: "watch" },
                     { hiragana: "ーふん (ーぷん)", kanji: "―分", thai: "... นาที", icon: "timer" },
-                    { hiragana: "はん", kanji: "半", thai: "ครึ่ง", icon: "pie-chart" },
+                    { hiragana: "はん", kanji: "半", thai: "ครึ่ง", icon: "timer" },
                     { hiragana: "なんじ", kanji: "何時", thai: "กี่โมง", icon: "help-circle" },
                     { hiragana: "なんぷん", kanji: "何分", thai: "กี่นาที", icon: "help-circle" },
                     { hiragana: "ごぜん", kanji: "午前", thai: "ช่วงเช้า (a.m.)", icon: "sunrise" },
@@ -1390,12 +1393,13 @@
                 id: 'days',
                 navName: '4. วันในสัปดาห์',
                 title: 'หมวดที่ 4: วันในสัปดาห์ (Days)',
+                icon: 'calendar',
                 items: [
                     { hiragana: "げつようび", kanji: "月曜日", thai: "วันจันทร์", icon: "moon" },
                     { hiragana: "かようび", kanji: "火曜日", thai: "วันอังคาร", icon: "flame" },
                     { hiragana: "すいようび", kanji: "水曜日", thai: "วันพุธ", icon: "droplets" },
                     { hiragana: "もくようび", kanji: "木曜日", thai: "วันพฤหัสบดี", icon: "tree-pine" },
-                    { hiragana: "きんようび", kanji: "金曜日", thai: "วันศุกร์", icon: "sparkles" },
+                    { hiragana: "きんようび", kanji: "金曜日", thai: "วันศุกร์", icon: "coins" },
                     { hiragana: "どようび", kanji: "土曜日", thai: "วันเสาร์", icon: "mountain" },
                     { hiragana: "にちようび", kanji: "日曜日", thai: "วันอาทิตย์", icon: "sun" },
                     { hiragana: "なんようび", kanji: "何曜日", thai: "วันอะไร", icon: "help-circle" }
@@ -1405,11 +1409,12 @@
                 id: 'expressions',
                 navName: '5. คำเฉพาะ & สำนวน',
                 title: 'หมวดที่ 5: คำเฉพาะบท & สำนวน (Expressions)',
+                icon: 'message-square',
                 items: [
                     { hiragana: "しけん", kanji: "試験", thai: "การสอบ", icon: "file-text" },
                     { hiragana: "かいぎ", kanji: "会議", thai: "การประชุม", icon: "users" },
                     { hiragana: "えいが", kanji: "映画", thai: "ภาพยนตร์", icon: "film" },
-                    { hiragana: "ーから", kanji: "―から", thai: "จาก, ตั้งแต่", icon: "plane-takeoff" },
+                    { hiragana: "ーから", kanji: "―จาก", thai: "จาก, ตั้งแต่", icon: "plane-takeoff" },
                     { hiragana: "ーまで", kanji: "―จนถึง", thai: "ถึง, จนถึง", icon: "plane-landing" },
                     { hiragana: "ーとー", kanji: "―と―", thai: "กับ, และ", icon: "link" },
                     { hiragana: "たいへんですね", kanji: "大変ですね", thai: "ลำบากหน่อยนะ", icon: "smile-plus" },
@@ -1420,7 +1425,6 @@
             }
         ];
 
-        /* 🔢 Numbers Dataset */
         const numbersData = {
             regular: {
                 title: "การนับเลขปกติ (1-10, หลักร้อย, พัน, หมื่น)",
@@ -1646,10 +1650,11 @@
             vocabularyData.forEach((cat, idx) => {
                 const btn = document.createElement('button');
                 btn.className = `nav-tab ${idx === activeCategoryIndex ? 'active' : ''}`;
-                btn.innerText = cat.navName;
+                btn.innerHTML = `<i data-lucide="${cat.icon || 'folder'}" style="width:15px;height:15px;"></i> ${cat.navName}`;
                 btn.onclick = () => loadCategory(idx);
                 nav.appendChild(btn);
             });
+            if (window.lucide) lucide.createIcons();
         }
 
         function loadCategory(index) {
@@ -1658,7 +1663,7 @@
             const category = vocabularyData[activeCategoryIndex];
             activeItems = [...category.items];
 
-            document.getElementById('catTitle').innerText = category.title;
+            document.getElementById('catTitle').innerHTML = `<i data-lucide="${category.icon || 'folder'}" style="width:18px;height:18px;"></i> ${category.title}`;
             document.getElementById('prevBtn').disabled = (activeCategoryIndex === 0);
             document.getElementById('nextBtn').disabled = (activeCategoryIndex === vocabularyData.length - 1);
 
@@ -1770,7 +1775,6 @@
             if (window.lucide) lucide.createIcons();
         }
 
-        /* 🔢 NUMBER TABLE FUNCTIONS */
         function switchNumTab(tabKey, btn) {
             localStorage.setItem('l4_num_tab', tabKey);
             document.querySelectorAll('.num-tab-btn').forEach(b => b.classList.remove('active'));
@@ -1816,7 +1820,6 @@
             if (window.lucide) lucide.createIcons();
         }
 
-        /* ⏰ JAPANESE CLOCK LOGIC */
         let currentClockHour = 3;
         let currentClockMin = 10;
 
@@ -1997,7 +2000,6 @@
             window.addEventListener('touchend', stopDrag);
         }
 
-        /* 🎯 BIG 2-SIDED DRAG & DROP MATCHING GAME LOGIC */
         let gameScore = 0;
         let gameTotalWords = 0;
         let activeDragCard = null;
