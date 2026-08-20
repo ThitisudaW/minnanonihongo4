@@ -61,7 +61,7 @@
             height: 200%;
             z-index: -2;
             opacity: 0.09;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30"><path d="M0 15 A15 15 0 0 1 30 15 A15 15 0 0 1 60 15 A15 15 0 0 1 0 15 Z" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 0 A15 15 0 0 1 15 0 A15 15 0 0 1 45 0 A15 15 0 0 1 75 0" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 30 A15 15 0 0 1 15 30 A15 15 0 0 1 45 30 A15 15 0 0 1 75 30" fill="none" stroke="%234338ca" stroke-width="1.5"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30"><path d="M0 15 A15 15 0 0 1 30 15 A15 15 0 0 1 60 15 A15 15 0 0 1 30 15 A15 15 0 0 1 0 15 Z" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 0 A15 15 0 0 1 15 0 A15 15 0 0 1 45 0 A15 15 0 0 1 75 0" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 30 A15 15 0 0 1 15 30 A15 15 0 0 1 45 30 A15 15 0 0 1 75 30" fill="none" stroke="%234338ca" stroke-width="1.5"/></svg>');
             animation: panPattern 45s linear infinite;
         }
 
@@ -1326,335 +1326,47 @@
     </div>
 
     <script>
-        // 🎵 ตั้งชื่อไฟล์เสียงหลักที่อัปโหลดขึ้น GitHub (วางไว้คู่กับ index.html)
-        const AUDIO_SOURCE_FILE = '085.mp3';
-        const masterAudio = new Audio(AUDIO_SOURCE_FILE);
+        // 🎵 รองรับทั้ง 085.mp3 และ 085.mp4
+        let masterAudio = new Audio();
+        masterAudio.src = '085.mp3';
+        masterAudio.preload = 'auto';
+
+        // ตรวจสอบกรณีอัปโหลดเป็นไฟล์ .mp4
+        masterAudio.addEventListener('error', function() {
+            if (masterAudio.src.endsWith('.mp3')) {
+                masterAudio.src = '085.mp4';
+                masterAudio.load();
+            }
+        });
+
         let audioTimer = null;
 
-        const vocabularyData = [
-            {
-                id: 'verbs',
-                navName: '1. คำกริยา',
-                title: 'หมวดที่ 1: คำกริยา (Verbs)',
-                icon: 'sparkles',
-                items: [
-                    { hiragana: "おきます", kanji: "起きます", thai: "ตื่นนอน", icon: "alarm-clock", start: 1.5, end: 3.5 },
-                    { hiragana: "ねます", kanji: "寝ます", thai: "นอน, เข้านอน", icon: "bed-double", start: 3.8, end: 5.5 },
-                    { hiragana: "はたらきます", kanji: "働きます", thai: "ทำงาน", icon: "briefcase", start: 5.7, end: 7.7 },
-                    { hiragana: "やすみます", kanji: "休みます", thai: "พัก, พักผ่อน", icon: "coffee", start: 8.0, end: 10.0 },
-                    { hiragana: "べんきょうします", kanji: "勉強します", thai: "เรียน", icon: "book-open", start: 10.2, end: 12.8 },
-                    { hiragana: "おわります", kanji: "終わります", thai: "เสร็จ, เลิก", icon: "check-circle-2", start: 13.0, end: 15.0 }
-                ]
-            },
-            {
-                id: 'places',
-                navName: '2. สถานที่ & เมือง',
-                title: 'หมวดที่ 2: สถานที่ & เมือง (Places & Cities)',
-                icon: 'building',
-                items: [
-                    { hiragana: "デパート", kanji: "デパート", thai: "ห้างสรรพสินค้า", icon: "shopping-bag", start: 15.2, end: 17.0 },
-                    { hiragana: "ぎんこう", kanji: "銀行", thai: "ธนาคาร", icon: "landmark", start: 17.2, end: 19.0 },
-                    { hiragana: "ゆうびんきょく", kanji: "郵便局", thai: "ไปรษณีย์", icon: "mail", start: 19.2, end: 21.0 },
-                    { hiragana: "としょかん", kanji: "図書館", thai: "ห้องสมุด", icon: "library", start: 21.2, end: 23.0 },
-                    { hiragana: "びじゅつかん", kanji: "美術館", thai: "หอศิลป์", icon: "palette", start: 23.2, end: 25.0 },
-                    { hiragana: "ニューヨーク", kanji: "ニューヨーク", thai: "นิวยอร์ก", icon: "building-2", start: 147.5, end: 149.8 },
-                    { hiragana: "ペキン", kanji: "ペキン", thai: "ปักกิ่ง", icon: "compass", start: 150.0, end: 152.0 },
-                    { hiragana: "ロサンゼルス", kanji: "ロサンゼルス", thai: "ลอสแอนเจลิส", icon: "sun", start: 152.2, end: 154.5 },
-                    { hiragana: "ロンドン", kanji: "ロンドン", thai: "ลอนดอน", icon: "navigation", start: 154.8, end: 157.0 }
-                ]
-            },
-            {
-                id: 'time',
-                navName: '3. เวลา',
-                title: 'หมวดที่ 3: เวลา & ช่วงเวลา (Time)',
-                icon: 'clock',
-                items: [
-                    { hiragana: "いま", kanji: "今", thai: "ตอนนี้", icon: "clock", start: 25.2, end: 26.5 },
-                    { hiragana: "ーじ", kanji: "―時", thai: "... โมง", icon: "watch", start: 26.8, end: 28.0 },
-                    { hiragana: "ーふん (ーぷん)", kanji: "―分", thai: "... นาที", icon: "timer", start: 28.2, end: 30.5 },
-                    { hiragana: "はん", kanji: "半", thai: "ครึ่ง (30 นาที)", icon: "pie-chart", start: 30.8, end: 32.2 },
-                    { hiragana: "なんじ", kanji: "何時", thai: "กี่โมง", icon: "help-circle", start: 32.5, end: 34.0 },
-                    { hiragana: "なんぷん", kanji: "何分", thai: "กี่นาที", icon: "help-circle", start: 34.2, end: 36.0 },
-                    { hiragana: "ごぜん", kanji: "午前", thai: "ช่วงเช้า (a.m.)", icon: "sunrise", start: 36.2, end: 38.0 },
-                    { hiragana: "ごご", kanji: "午後", thai: "ช่วงบ่าย (p.m.)", icon: "sunset", start: 38.2, end: 39.8 },
-                    { hiragana: "あさ", kanji: "朝", thai: "เช้า", icon: "sun-medium", start: 40.0, end: 41.5 },
-                    { hiragana: "ひる", kanji: "昼", thai: "กลางวัน", icon: "sun", start: 41.8, end: 43.2 },
-                    { hiragana: "ばん (よる)", kanji: "晩 (夜)", thai: "เย็น, กลางคืน", icon: "moon-star", start: 43.5, end: 46.5 },
-                    { hiragana: "おととい", kanji: "-", thai: "เมื่อวานซืน", icon: "chevrons-left", start: 46.8, end: 50.0 },
-                    { hiragana: "きのう", kanji: "昨日", thai: "เมื่อวานนี้", icon: "chevron-left", start: 50.2, end: 53.5 },
-                    { hiragana: "きょう", kanji: "今日", thai: "วันนี้", icon: "calendar-check", start: 53.8, end: 55.5 },
-                    { hiragana: "あした", kanji: "明日", thai: "พรุ่งนี้", icon: "chevron-right", start: 55.8, end: 57.5 },
-                    { hiragana: "あさって", kanji: "明後日", thai: "มะรืนนี้", icon: "chevrons-right", start: 57.8, end: 59.5 },
-                    { hiragana: "けさ", kanji: "今朝", thai: "เมื่อเช้า", icon: "coffee", start: 59.8, end: 61.5 },
-                    { hiragana: "こんばん", kanji: "今晩", thai: "คืนนี้", icon: "moon", start: 61.8, end: 63.5 },
-                    { hiragana: "やすみ", kanji: "休み", thai: "วันหยุด", icon: "palmtree", start: 63.8, end: 65.2 },
-                    { hiragana: "ひるやすみ", kanji: "昼休み", thai: "พักเที่ยง", icon: "utensils", start: 65.5, end: 67.5 },
-                    { hiragana: "まいあさ", kanji: "毎朝", thai: "ทุกเช้า", icon: "repeat", start: 110.0, end: 112.0 },
-                    { hiragana: "まいばん", kanji: "毎晩", thai: "ทุกคืน", icon: "repeat", start: 112.2, end: 114.0 },
-                    { hiragana: "まいにち", kanji: "毎日", thai: "ทุกวัน", icon: "calendar-range", start: 114.2, end: 116.0 }
-                ]
-            },
-            {
-                id: 'days',
-                navName: '4. วันในสัปดาห์',
-                title: 'หมวดที่ 4: วันในสัปดาห์ (Days)',
-                icon: 'calendar',
-                items: [
-                    { hiragana: "げつようび", kanji: "月曜日", thai: "วันจันทร์", icon: "moon", start: 116.2, end: 118.2 },
-                    { hiragana: "かようび", kanji: "火曜日", thai: "วันอังคาร", icon: "flame", start: 118.5, end: 120.5 },
-                    { hiragana: "すいようび", kanji: "水曜日", thai: "วันพุธ", icon: "droplets", start: 120.8, end: 122.8 },
-                    { hiragana: "もくようび", kanji: "木曜日", thai: "วันพฤหัสบดี", icon: "tree-pine", start: 123.0, end: 125.0 },
-                    { hiragana: "きんようび", kanji: "金曜日", thai: "วันศุกร์", icon: "japanese-yen", start: 125.2, end: 127.2 },
-                    { hiragana: "どようび", kanji: "土曜日", thai: "วันเสาร์", icon: "mountain", start: 127.5, end: 129.5 },
-                    { hiragana: "にちようび", kanji: "日曜日", thai: "วันอาทิตย์", icon: "sun", start: 129.8, end: 131.8 },
-                    { hiragana: "なんようび", kanji: "何曜日", thai: "วันอะไร", icon: "help-circle", start: 132.0, end: 134.0 }
-                ]
-            },
-            {
-                id: 'expressions',
-                navName: '5. คำเฉพาะ & สำนวน',
-                title: 'หมวดที่ 5: คำเฉพาะบท & สำนวน (Expressions)',
-                icon: 'message-square',
-                items: [
-                    { hiragana: "しけん", kanji: "試験", thai: "การสอบ", icon: "file-text", start: 67.8, end: 69.5 },
-                    { hiragana: "かいぎ", kanji: "会議", thai: "การประชุม", icon: "users", start: 69.8, end: 71.5 },
-                    { hiragana: "えいが", kanji: "映画", thai: "ภาพยนตร์", icon: "film", start: 71.8, end: 73.5 },
-                    { hiragana: "ーから", kanji: "―から", thai: "จาก, ตั้งแต่", icon: "plane-takeoff", start: 134.5, end: 136.0 },
-                    { hiragana: "ーまで", kanji: "―まで", thai: "ถึง, จนถึง", icon: "plane-landing", start: 136.2, end: 137.8 },
-                    { hiragana: "ーとー", kanji: "―と―", thai: "กับ, และ", icon: "link", start: 138.0, end: 139.5 },
-                    { hiragana: "たいへんですね", kanji: "大変ですね", thai: "ลำบากหน่อยนะ", icon: "smile-plus", start: 140.0, end: 143.0 },
-                    { hiragana: "ばんごう", kanji: "番号", thai: "หมายเลข, เบอร์", icon: "hash", start: 144.5, end: 146.0 },
-                    { hiragana: "なんばん", kanji: "何番", thai: "หมายเลขอะไร", icon: "help-circle", start: 146.2, end: 147.8 },
-                    { hiragana: "そちら", kanji: "そちら", thai: "ทางคุณ", icon: "arrow-right-circle", start: 148.0, end: 149.8 }
-                ]
-            }
-        ];
-
-        vocabularyData[2].items[11].hiragana = "おととい";
-
-        const numbersData = {
-            regular: {
-                title: "การนับเลขปกติ (1-10, หลักร้อย, พัน, หมื่น)",
-                items: [
-                    { digit: "1", hira: "いち", kanji: "一", thai: "หนึ่ง" },
-                    { digit: "2", hira: "に", kanji: "二", thai: "สอง" },
-                    { digit: "3", hira: "さん", kanji: "三", thai: "สาม" },
-                    { digit: "4", hira: "よん / し", kanji: "四", thai: "สี่" },
-                    { digit: "5", hira: "ご", kanji: "五", thai: "ห้า" },
-                    { digit: "6", hira: "ろく", kanji: "六", thai: "หก" },
-                    { digit: "7", hira: "なな / しち", kanji: "七", thai: "เจ็ด" },
-                    { digit: "8", hira: "はち", kanji: "八", thai: "แปด" },
-                    { digit: "9", hira: "きゅう / く", kanji: "九", thai: "เก้า" },
-                    { digit: "10", hira: "じゅう", kanji: "十", thai: "สิบ" },
-                    { digit: "100", hira: "ひゃく", kanji: "百", thai: "หนึ่งร้อย" },
-                    { digit: "300", hira: "さんびゃく", kanji: "三百", thai: "สามร้อย", irregular: true, tag: "เสียง びゃく" },
-                    { digit: "600", hira: "ろっぴゃく", kanji: "六百", thai: "หกร้อย", irregular: true, tag: "เสียง ろっぴゃく" },
-                    { digit: "800", hira: "はっぴゃく", kanji: "八百", thai: "แปดร้อย", irregular: true, tag: "เสียง はっぴゃく" },
-                    { digit: "กี่ร้อย", hira: "なんびゃく", kanji: "何百", thai: "กี่ร้อย", irregular: true, tag: "เสียง びゃく" },
-                    { digit: "1,000", hira: "せん", kanji: "千", thai: "หนึ่งพัน" },
-                    { digit: "3,000", hira: "さんぜん", kanji: "三千", thai: "สามพัน", irregular: true, tag: "เสียง ぜん" },
-                    { digit: "8,000", hira: "はっせん", kanji: "八千", thai: "แปดพัน", irregular: true, tag: "เสียง はっせん" },
-                    { digit: "กี่พัน", hira: "なんぜん", kanji: "何千", thai: "กี่พัน", irregular: true, tag: "เสียง ぜん" },
-                    { digit: "10,000", hira: "いちまん", kanji: "一万", thai: "หนึ่งหมื่น" },
-                    { digit: "100,000", hira: "じゅうまん", kanji: "十万", thai: "หนึ่งแสน" },
-                    { digit: "1,000,000", hira: "ひゃくまん", kanji: "百万", thai: "หนึ่งล้าน" }
-                ]
-            },
-            age: {
-                title: "การนับอายุ (〜さい / 才・歳)",
-                items: [
-                    { digit: "1 ขวบ", hira: "いっさい", kanji: "1才", thai: "1 ขวบ/ปี", irregular: true, tag: "いっ" },
-                    { digit: "2 ขวบ", hira: "にさい", kanji: "2才", thai: "2 ขวบ/ปี" },
-                    { digit: "3 ขวบ", hira: "さんさい", kanji: "3才", thai: "3 ขวบ/ปี" },
-                    { digit: "4 ขวบ", hira: "よんさい", kanji: "4才", thai: "4 ขวบ/ปี" },
-                    { digit: "5 ขวบ", hira: "ごさい", kanji: "5才", thai: "5 ขวบ/ปี" },
-                    { digit: "6 ขวบ", hira: "ろくさい", kanji: "6才", thai: "6 ขวบ/ปี" },
-                    { digit: "7 ขวบ", hira: "ななさい", kanji: "7才", thai: "7 ขวบ/ปี" },
-                    { digit: "8 ขวบ", hira: "はっさい", kanji: "8才", thai: "8 ขวบ/ปี", irregular: true, tag: "はっ" },
-                    { digit: "9 ขวบ", hira: "きゅうさい", kanji: "9才", thai: "9 ขวบ/ปี" },
-                    { digit: "10 ขวบ", hira: "じゅっさい", kanji: "10才", thai: "10 ขวบ/ปี", irregular: true, tag: "じゅっ" },
-                    { digit: "11 ขวบ", hira: "じゅういっさい", kanji: "11才", thai: "11 ขวบ/ปี", irregular: true, tag: "いっ" },
-                    { digit: "18 ขวบ", hira: "じゅうはっさい", kanji: "18才", thai: "18 ขวบ/ปี", irregular: true, tag: "はっ" },
-                    { digit: "20 ปี", hira: "はたち", kanji: "二十歳 (20才)", thai: "20 ปี (บรรลุนิติภาวะ)", irregular: true, tag: "คำพิเศษ" },
-                    { digit: "อายุเท่าไร", hira: "なんさい (おいくつ)", kanji: "何才", thai: "อายุเท่าไร (สุภาพ: おいくつ)" }
-                ]
-            },
-            floor: {
-                title: "การนับชั้น (〜かい / 〜がい / 階)",
-                items: [
-                    { digit: "ชั้น 1", hira: "いっかい", kanji: "1階", thai: "ชั้น 1", irregular: true, tag: "いっ" },
-                    { digit: "ชั้น 2", hira: "にかい", kanji: "2階", thai: "ชั้น 2" },
-                    { digit: "ชั้น 3", hira: "さんがい", kanji: "3階", thai: "ชั้น 3", irregular: true, tag: "เสียง がい" },
-                    { digit: "ชั้น 4", hira: "よんかい", kanji: "4階", thai: "ชั้น 4" },
-                    { digit: "ชั้น 5", hira: "ごかい", kanji: "5階", thai: "ชั้น 5" },
-                    { digit: "ชั้น 6", hira: "ろっかい", kanji: "6階", thai: "ชั้น 6", irregular: true, tag: "ろっ" },
-                    { digit: "ชั้น 7", hira: "ななかい", kanji: "7階", thai: "ชั้น 7" },
-                    { digit: "ชั้น 8", hira: "はっかい", kanji: "8階", thai: "ชั้น 8", irregular: true, tag: "เสียง はっ" },
-                    { digit: "ชั้น 9", hira: "きゅうかい", kanji: "9階", thai: "ชั้น 9" },
-                    { digit: "ชั้น 10", hira: "じゅっかい", kanji: "10階", thai: "ชั้น 10", irregular: true, tag: "じゅっ" },
-                    { digit: "ชั้น B1", hira: "ちかいっかい", kanji: "地下1階", thai: "ชั้นใต้ดิน 1 (B1)", irregular: true, tag: "いっ" },
-                    { digit: "ชั้นอะไร", hira: "なんがい", kanji: "何階", thai: "ชั้นอะไร / ชั้นไหน", irregular: true, tag: "นิยม がい" }
-                ]
-            },
-            hours: {
-                title: "การนับชั่วโมง / โมง (〜じ / 時)",
-                items: [
-                    { digit: "1 โมง", hira: "いちじ", kanji: "1時", thai: "1 โมง / ตี 1 / บ่ายโมง" },
-                    { digit: "2 โมง", hira: "にじ", kanji: "2時", thai: "2 โมง / ตี 2 / บ่าย 2" },
-                    { digit: "3 โมง", hira: "さんじ", kanji: "3時", thai: "3 โมง / ตี 3 / บ่าย 3" },
-                    { digit: "4 โมง", hira: "よじ", kanji: "4時", thai: "4 โมง / ตี 4 / บ่าย 4", irregular: true, tag: "よじ" },
-                    { digit: "5 โมง", hira: "ごじ", kanji: "5時", thai: "5 โมง / ตี 5 / 5 โมงเย็น" },
-                    { digit: "6 โมง", hira: "ろくじ", kanji: "6時", thai: "6 โมงเช้า / 6 โมงเย็น" },
-                    { digit: "7 โมง", hira: "しちじ", kanji: "7時", thai: "7 โมงเช้า / 1 ทุ่ม", irregular: true, tag: "นิยม しちじ" },
-                    { digit: "8 โมง", hira: "はちじ", kanji: "8時", thai: "8 โมงเช้า / 2 ทุ่ม" },
-                    { digit: "9 โมง", hira: "くじ", kanji: "9時", thai: "9 โมงเช้า / 3 ทุ่ม", irregular: true, tag: "くじ" },
-                    { digit: "10 โมง", hira: "じゅうじ", kanji: "10時", thai: "10 โมงเช้า / 4 ทุ่ม" },
-                    { digit: "11 โมง", hira: "じゅういちじ", kanji: "11時", thai: "11 โมงเช้า / 5 ทุ่ม" },
-                    { digit: "12 โมง", hira: "じゅうにじ", kanji: "12時", thai: "12 โมง (เที่ยง/เที่ยงคืน)" },
-                    { digit: "กี่โมง", hira: "なんじ", kanji: "何時", thai: "กี่โมง" }
-                ]
-            },
-            minutes: {
-                title: "การนับนาที (〜ふん / 〜ぷん / 分)",
-                items: [
-                    { digit: "1 นาที", hira: "いっぷん", kanji: "1分", thai: "1 นาที", irregular: true, tag: "っぷん" },
-                    { digit: "2 นาที", hira: "にふん", kanji: "2分", thai: "2 นาที" },
-                    { digit: "3 นาที", hira: "さんぷん", kanji: "3分", thai: "3 นาที", irregular: true, tag: "ぷん" },
-                    { digit: "4 นาที", hira: "よんぷん", kanji: "4分", thai: "4 นาที", irregular: true, tag: "ぷん" },
-                    { digit: "5 นาที", hira: "ごふん", kanji: "5分", thai: "5 นาที" },
-                    { digit: "6 นาที", hira: "ろっぷん", kanji: "6分", thai: "6 นาที", irregular: true, tag: "っぷん" },
-                    { digit: "7 นาที", hira: "ななふん", kanji: "7分", thai: "7 นาที" },
-                    { digit: "8 นาที", hira: "はっぷん (はちふん)", kanji: "8分", thai: "8 นาที", irregular: true, tag: "นิยม はっぷん" },
-                    { digit: "9 นาที", hira: "きゅうふん", kanji: "9分", thai: "9 นาที" },
-                    { digit: "10 นาที", hira: "じゅっぷん (じっぷん)", kanji: "10分", thai: "10 นาที", irregular: true, tag: "っぷん" },
-                    { digit: "15 นาที", hira: "じゅうごふん", kanji: "15分", thai: "15 นาที" },
-                    { digit: "20 นาที", hira: "にじゅっぷん", kanji: "20分", thai: "20 นาที", irregular: true, tag: "っぷん" },
-                    { digit: "30 นาที", hira: "さんじゅっぷん / はん", kanji: "30分 / 半", thai: "30 นาที / ครึ่ง", irregular: true, tag: "ครึ่ง = 半" },
-                    { digit: "45 นาที", hira: "よんじゅうごふん", kanji: "45分", thai: "45 นาที" },
-                    { digit: "กี่นาที", hira: "なんぷん", kanji: "何分", thai: "กี่นาที", irregular: true, tag: "なんぷん" }
-                ]
-            },
-            days: {
-                title: "การนับวัน / วันที่ (〜にち / 日)",
-                items: [
-                    { digit: "วันที่ 1", hira: "ついたち", kanji: "1日", thai: "วันที่ 1 (1 วัน ใช้ いちにち)", irregular: true, tag: "คำพิเศษ" },
-                    { digit: "วันที่ 2", hira: "ふつか", kanji: "2日", thai: "วันที่ 2 / 2 วัน", irregular: true, tag: "คำพิเศษ" },
-                    { digit: "วันที่ 3", hira: "みっか", kanji: "3日", thai: "วันที่ 3 / 3 วัน", irregular: true, tag: "คำพิเศษ" },
-                    { digit: "วันที่ 4", hira: "よっか", kanji: "4日", thai: "วันที่ 4 / 4 วัน", irregular: true, tag: "คำพิเศษ" },
-                    { digit: "วันที่ 5", hira: "いつか", kanji: "5日", thai: "วันที่ 5 / 5 วัน", irregular: true, tag: "คำพิเศษ" },
-                    { digit: "วันที่ 6", hira: "むいか", kanji: "6日", thai: "วันที่ 6 / 6 วัน", irregular: true, tag: "คำพิเศษ" },
-                    { digit: "วันที่ 7", hira: "なのか", kanji: "7日", thai: "วันที่ 7 / 7 วัน", irregular: true, tag: "คำพิเศษ" },
-                    { digit: "วันที่ 8", hira: "ようか", kanji: "8日", thai: "วันที่ 8 / 8 วัน", irregular: true, tag: "คำพิเศษ" },
-                    { digit: "วันที่ 9", hira: "ここのか", kanji: "9日", thai: "วันที่ 9 / 9 วัน", irregular: true, tag: "คำพิเศษ" },
-                    { digit: "วันที่ 10", hira: "とおか", kanji: "10日", thai: "วันที่ 10 / 10 วัน", irregular: true, tag: "คำพิเศษ" },
-                    { digit: "วันที่ 14", hira: "じゅうよっか", kanji: "14日", thai: "วันที่ 14 / 14 วัน", irregular: true, tag: "よっか" },
-                    { digit: "วันที่ 20", hira: "はつか", kanji: "20日", thai: "วันที่ 20 / 20 วัน", irregular: true, tag: "คำพิเศษ" },
-                    { digit: "วันที่ 24", hira: "にじゅうよっか", kanji: "24日", thai: "วันที่ 24 / 24 วัน", irregular: true, tag: "よっか" },
-                    { digit: "วันที่...", hira: "ーにち", kanji: "―日", thai: "วันที่... / ...วัน" },
-                    { digit: "วันที่เท่าไร", hira: "なんにち", kanji: "何日", thai: "วันที่เท่าไร / กี่วัน" }
-                ]
-            }
-        };
-
-        let activeCategoryIndex = 0;
-        let activeItems = [];
-
-        function init() {
-            renderNavTabs();
-            
-            const savedCat = parseInt(localStorage.getItem('l4_flashcard_cat'));
-            const validCat = (!isNaN(savedCat) && savedCat >= 0 && savedCat < vocabularyData.length) ? savedCat : 0;
-            loadCategory(validCat);
-
-            buildCuteFlowerClock();
-            setupClockDragging();
-            updateClockUI(3, 10);
-
-            const savedNumTab = localStorage.getItem('l4_num_tab') || 'regular';
-            switchNumTab(savedNumTab);
-
-            const savedMode = localStorage.getItem('l4_active_mode') || 'flashcards';
-            switchMode(savedMode);
-        }
-
-        function buildCuteFlowerClock() {
-            const petalsGroup = document.getElementById('clockPetals');
-            const ticksGroup = document.getElementById('clockMinuteTicks');
-            petalsGroup.innerHTML = '';
-            ticksGroup.innerHTML = '';
-            const cx = 100, cy = 100;
-
-            for (let i = 0; i < 12; i++) {
-                const angleRad = (i * 30 - 90) * (Math.PI / 180);
-                const px = cx + 80 * Math.cos(angleRad);
-                const py = cy + 80 * Math.sin(angleRad);
-
-                const petal = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                petal.setAttribute('cx', px);
-                petal.setAttribute('cy', py);
-                petal.setAttribute('r', '17');
-                petal.setAttribute('fill', '#ffe8ed');
-                petal.setAttribute('stroke', '#ffccd5');
-                petal.setAttribute('stroke-width', '1.5');
-                petalsGroup.appendChild(petal);
-            }
-
-            for (let m = 0; m < 60; m++) {
-                const angleRad = (m * 6 - 90) * (Math.PI / 180);
-                const isMajor = (m % 5 === 0);
-                const rInner = isMajor ? 69 : 72;
-                const rOuter = 75;
-
-                const x1 = cx + rInner * Math.cos(angleRad);
-                const y1 = cy + rInner * Math.sin(angleRad);
-                const x2 = cx + rOuter * Math.cos(angleRad);
-                const y2 = cy + rOuter * Math.sin(angleRad);
-
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', x1);
-                line.setAttribute('y1', y1);
-                line.setAttribute('x2', x2);
-                line.setAttribute('y2', y2);
-                line.setAttribute('stroke', isMajor ? '#6366f1' : '#cbd5e1');
-                line.setAttribute('stroke-width', isMajor ? '2' : '1');
-                line.setAttribute('stroke-linecap', 'round');
-                ticksGroup.appendChild(line);
-            }
-        }
-
-        function getBestNaturalJapaneseVoice() {
-            if (!('speechSynthesis' in window)) return null;
-            const voices = window.speechSynthesis.getVoices();
-            const jaVoices = voices.filter(v => v.lang.includes('ja') || v.lang.includes('JA'));
-            if (jaVoices.length === 0) return null;
-
-            const naturalKeywords = ['Natural', 'Enhanced', 'Premium', 'Google', 'Kyoko', 'Otoya', 'Nanami', 'Keita', 'Online'];
-            for (let kw of naturalKeywords) {
-                const found = jaVoices.find(v => v.name.includes(kw));
-                if (found) return found;
-            }
-            return jaVoices[0];
-        }
-
         function playAudio(text, start = null, end = null) {
-            // 1. ถ้ามีการระบุ start และ end: เล่นไฟล์เสียงจริง 085.mp3 ตามช่วงเวลา
             if (start !== null && end !== null && !isNaN(start) && !isNaN(end)) {
                 if (audioTimer) clearTimeout(audioTimer);
                 
-                masterAudio.currentTime = start;
-                masterAudio.play().then(() => {
-                    const duration = (end - start) * 1000;
-                    audioTimer = setTimeout(() => {
-                        masterAudio.pause();
-                    }, duration);
-                }).catch(e => {
-                    console.warn("ไม่พบไฟล์เสียง 085.mp3 กำลังใช้เสียงสังเคราะห์แทน:", e);
+                try {
+                    masterAudio.pause();
+                    masterAudio.currentTime = start;
+                    
+                    const playPromise = masterAudio.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            const duration = (end - start) * 1000;
+                            audioTimer = setTimeout(() => {
+                                masterAudio.pause();
+                            }, duration);
+                        }).catch(e => {
+                            console.warn("ไม่สามารถเล่นไฟล์เสียงได้ กำลังใช้เสียงสังเคราะห์แทน:", e);
+                            speakWithTTS(text);
+                        });
+                    }
+                } catch(e) {
                     speakWithTTS(text);
-                });
+                }
                 return;
             }
 
-            // 2. ถ้าไม่ได้ระบุเวลา ให้ใช้เสียงสังเคราะห์ TTS อัตโนมัติ
             speakWithTTS(text);
         }
 
@@ -1671,6 +1383,20 @@
                 window.speechSynthesis.cancel();
                 window.speechSynthesis.speak(utterance);
             }
+        }
+
+        function getBestNaturalJapaneseVoice() {
+            if (!('speechSynthesis' in window)) return null;
+            const voices = window.speechSynthesis.getVoices();
+            const jaVoices = voices.filter(v => v.lang.includes('ja') || v.lang.includes('JA'));
+            if (jaVoices.length === 0) return null;
+
+            const naturalKeywords = ['Natural', 'Enhanced', 'Premium', 'Google', 'Kyoko', 'Otoya', 'Nanami', 'Keita', 'Online'];
+            for (let kw of naturalKeywords) {
+                const found = jaVoices.find(v => v.name.includes(kw));
+                if (found) return found;
+            }
+            return jaVoices[0];
         }
 
         function renderNavTabs() {
@@ -1847,6 +1573,51 @@
             });
 
             if (window.lucide) lucide.createIcons();
+        }
+
+        function buildCuteFlowerClock() {
+            const petalsGroup = document.getElementById('clockPetals');
+            const ticksGroup = document.getElementById('clockMinuteTicks');
+            petalsGroup.innerHTML = '';
+            ticksGroup.innerHTML = '';
+            const cx = 100, cy = 100;
+
+            for (let i = 0; i < 12; i++) {
+                const angleRad = (i * 30 - 90) * (Math.PI / 180);
+                const px = cx + 80 * Math.cos(angleRad);
+                const py = cy + 80 * Math.sin(angleRad);
+
+                const petal = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                petal.setAttribute('cx', px);
+                petal.setAttribute('cy', py);
+                petal.setAttribute('r', '17');
+                petal.setAttribute('fill', '#ffe8ed');
+                petal.setAttribute('stroke', '#ffccd5');
+                petal.setAttribute('stroke-width', '1.5');
+                petalsGroup.appendChild(petal);
+            }
+
+            for (let m = 0; m < 60; m++) {
+                const angleRad = (m * 6 - 90) * (Math.PI / 180);
+                const isMajor = (m % 5 === 0);
+                const rInner = isMajor ? 69 : 72;
+                const rOuter = 75;
+
+                const x1 = cx + rInner * Math.cos(angleRad);
+                const y1 = cy + rInner * Math.sin(angleRad);
+                const x2 = cx + rOuter * Math.cos(angleRad);
+                const y2 = cy + rOuter * Math.sin(angleRad);
+
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', x1);
+                line.setAttribute('y1', y1);
+                line.setAttribute('x2', x2);
+                line.setAttribute('y2', y2);
+                line.setAttribute('stroke', isMajor ? '#6366f1' : '#cbd5e1');
+                line.setAttribute('stroke-width', isMajor ? '2' : '1');
+                line.setAttribute('stroke-linecap', 'round');
+                ticksGroup.appendChild(line);
+            }
         }
 
         let currentClockHour = 3;
