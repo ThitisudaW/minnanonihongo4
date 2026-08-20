@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@600;700;800&family=Prompt:wght@300;400;500;600;700&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root { --primary-indigo: #6366f1; --accent-rose: #ff6b8b; --primary-teal: #14b8a6; --glass-bg: rgba(255, 255, 255, 0.82); --glass-card: rgba(255, 255, 255, 0.92); }
+        :root { --primary-indigo: #6366f1; --accent-rose: #ff6b8b; --primary-teal: #14b8a6; --glass-bg: rgba(255, 255, 255, 0.82); }
         body { background: #eef2ff; color: #2d3436; min-height: 100vh; padding: 30px 15px; font-family: 'Prompt', sans-serif; overflow-x: hidden; }
         .app-container { max-width: 1040px; margin: 0 auto; background: var(--glass-bg); backdrop-filter: blur(28px); border-radius: 32px; padding: 35px 25px; border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 20px 40px rgba(99, 102, 241, 0.12); }
         .mode-switcher { display: flex; justify-content: center; background: rgba(226, 232, 240, 0.65); padding: 6px; border-radius: 50px; gap: 6px; margin-bottom: 30px; flex-wrap: wrap; }
@@ -21,65 +21,52 @@
         .card:hover .card-inner { transform: translateY(-4px); }
         .card.flipped .card-inner { transform: rotateY(180deg); }
         .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; border: 1px solid rgba(255,255,255,0.9); }
-        .card-front { background: var(--glass-card); }
+        .card-front { background: rgba(255, 255, 255, 0.92); }
         .card-back { background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%); color: white; transform: rotateY(180deg); }
-        .audio-btn { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 50%; border: none; background: #f8fafc; color: #64748b; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .audio-btn:hover { background: var(--primary-indigo); color: white; }
+        .audio-btn { cursor: pointer; background: #f8fafc; border: none; padding: 8px; border-radius: 50%; position: absolute; top: 10px; right: 10px; }
         
-        /* POPUP WIN BANNER */
-        .win-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(5px); }
-        .win-banner { background: white; padding: 40px; border-radius: 30px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.2); transform: scale(0.9); transition: transform 0.3s; }
-        .confetti { font-size: 50px; margin-bottom: 15px; }
+        /* Popup */
+        .win-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center; z-index:1000; backdrop-filter: blur(5px); }
+        .win-banner { background: white; padding: 40px; border-radius: 30px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3); animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+        .confetti { font-size: 60px; animation: bounce 1s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
     </style>
 </head>
 <body>
 
     <audio id="masterAudio" src="085.mp4" preload="auto" playsinline style="display:none;"></audio>
     
-    <!-- Win Popup -->
     <div class="win-overlay" id="winOverlay" onclick="closeWinBanner()">
         <div class="win-banner" id="winBanner">
-            <div class="confetti">🎉🎆🎊</div>
+            <div class="confetti">🎉🥳🎈</div>
             <h2 style="color:var(--primary-teal);">おめでとうございます！</h2>
-            <p style="font-size: 1.2rem; margin-top: 10px;">คุณจับคู่คำศัพท์ถูกต้องทั้งหมดแล้ว!</p>
+            <p>นักเรียนเก่งมาก จับคู่ถูกต้องทั้งหมดแล้ว!</p>
         </div>
     </div>
 
     <div class="app-container">
         <header><h1><span>みんなの日本語</span> บทที่ 4</h1></header>
         <div class="mode-switcher">
-            <button class="mode-btn active" id="btnModeFlashcards" onclick="switchMode('flashcards')"><i data-lucide="layers"></i> คำศัพท์</button>
+            <button class="mode-btn" id="btnModeFlashcards" onclick="switchMode('flashcards')"><i data-lucide="layers"></i> บัตรคำศัพท์</button>
             <button class="mode-btn" id="btnModeGame" onclick="switchMode('game')"><i data-lucide="target"></i> เกมจับคู่</button>
         </div>
-
-        <div id="flashcardSection">
-            <div class="cards-grid" id="cardsGrid"></div>
-        </div>
-
-        <div id="gameSection" style="display:none;">
-            <div id="dragPool" class="cards-grid"></div>
-            <div id="dropSlots" class="cards-grid" style="margin-top:20px;"></div>
-        </div>
+        <div id="flashcardSection"><div class="cards-grid" id="cardsGrid"></div></div>
+        <div id="gameSection" style="display:none;"><div id="dragPool" class="cards-grid"></div><div id="dropSlots" class="cards-grid" style="margin-top:20px;"></div></div>
     </div>
 
     <script>
         const vocabularyData = [
-            { h: "おきます", k: "起きます", t: "ตื่นนอน", s: 2.1, e: 3.7 },
-            { h: "ねます", k: "寝ます", t: "นอน", s: 4.0, e: 5.5 },
-            { h: "はたらきます", k: "働きます", t: "ทำงาน", s: 5.8, e: 7.5 },
-            { h: "やすみます", k: "休みます", t: "พัก", s: 7.8, e: 9.6 },
-            { h: "べんきょうします", k: "勉強します", t: "เรียน", s: 9.9, e: 11.8 }
+            { h: "おきます", k: "起きます", t: "ตื่นนอน", icon: "alarm-clock", s: 2.1, e: 3.7 },
+            { h: "ねます", k: "寝ます", t: "นอน", icon: "bed-double", s: 4.0, e: 5.5 },
+            { h: "はたらきます", k: "働きます", t: "ทำงาน", icon: "briefcase", s: 5.8, e: 7.5 }
+            // ... (ใส่ข้อมูลเพิ่มตามต้องการ)
         ];
 
-        let audioTimer = null;
         function playAudio(start, end) {
             const audio = document.getElementById('masterAudio');
-            if(audioTimer) clearTimeout(audioTimer);
-            audio.pause();
-            audio.currentTime = start;
-            audio.play().then(() => {
-                audioTimer = setTimeout(() => audio.pause(), (end - start) * 1000);
-            });
+            audio.pause(); audio.currentTime = start;
+            audio.play().then(() => setTimeout(() => audio.pause(), (end - start) * 1000));
         }
 
         function renderCards() {
@@ -88,48 +75,34 @@
             vocabularyData.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.innerHTML = `
-                    <div class="card-inner">
-                        <div class="card-front">
-                            <button class="audio-btn" onclick="event.stopPropagation(); playAudio(${item.s}, ${item.e})"><i data-lucide="volume-2"></i></button>
-                            <div class="jp-hiragana">${item.h}</div>
-                            <div style="color:#aaa; font-size:0.9rem;">${item.k}</div>
-                        </div>
-                        <div class="card-back"><div class="th-meaning">${item.t}</div></div>
+                card.innerHTML = `<div class="card-inner">
+                    <div class="card-front">
+                        <button class="audio-btn" onclick="event.stopPropagation(); playAudio(${item.s}, ${item.e})"><i data-lucide="volume-2"></i></button>
+                        <div class="jp-hiragana">${item.h}</div>
                     </div>
-                `;
+                    <div class="card-back"><div class="th-meaning">${item.t}</div></div>
+                </div>`;
                 card.onclick = () => card.classList.toggle('flipped');
                 grid.appendChild(card);
             });
             lucide.createIcons();
         }
 
-        function triggerWin() {
-            document.getElementById('winOverlay').style.display = 'flex';
-            document.getElementById('winBanner').style.transform = 'scale(1)';
+        function switchMode(mode) {
+            localStorage.setItem('l4_mode', mode);
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(mode === 'flashcards' ? 'btnModeFlashcards' : 'btnModeGame').classList.add('active');
+            document.getElementById('flashcardSection').style.display = mode === 'flashcards' ? 'block' : 'none';
+            document.getElementById('gameSection').style.display = mode === 'game' ? 'block' : 'none';
         }
 
         function closeWinBanner() {
             document.getElementById('winOverlay').style.display = 'none';
         }
 
-        function switchMode(mode) {
-            localStorage.setItem('last_mode', mode);
-            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
-            if(mode === 'flashcards') {
-                document.getElementById('btnModeFlashcards').classList.add('active');
-                document.getElementById('flashcardSection').style.display = 'block';
-                document.getElementById('gameSection').style.display = 'none';
-            } else {
-                document.getElementById('btnModeGame').classList.add('active');
-                document.getElementById('flashcardSection').style.display = 'none';
-                document.getElementById('gameSection').style.display = 'block';
-            }
-        }
-
         window.onload = () => {
             renderCards();
-            const lastMode = localStorage.getItem('last_mode') || 'flashcards';
+            const lastMode = localStorage.getItem('l4_mode') || 'flashcards';
             switchMode(lastMode);
         };
     </script>
