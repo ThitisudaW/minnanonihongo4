@@ -6,17 +6,17 @@
     <title>Minna no Nihongo Lesson 4</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root { --primary-indigo: #6366f1; --accent-rose: #ff6b8b; --glass-bg: rgba(255, 255, 255, 0.82); }
-        body { background: #eef2ff; color: #2d3436; min-height: 100vh; padding: 20px; }
+        :root { --primary-indigo: #6366f1; --accent-rose: #ff6b8b; --glass-bg: rgba(255, 255, 255, 0.9); }
+        body { background: #eef2ff; color: #2d3436; font-family: 'Prompt', sans-serif; padding: 20px; }
         .app-container { max-width: 900px; margin: 0 auto; }
         .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
         .card { height: 180px; perspective: 1000px; cursor: pointer; }
         .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
         .card.flipped .card-inner { transform: rotateY(180deg); }
-        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; border: 1px solid #ddd; background: white; }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; border: 1px solid #ddd; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .card-back { background: var(--primary-indigo); color: white; transform: rotateY(180deg); }
         .audio-btn { cursor: pointer; background: #eee; border: none; padding: 8px; border-radius: 50%; margin-bottom: 10px; }
-        .jp-hiragana { font-size: 1.6rem; font-weight: 700; color: var(--primary-indigo); }
+        .jp-hiragana { font-size: 1.5rem; font-weight: 700; color: var(--primary-indigo); }
         .th-meaning { font-size: 1.2rem; font-weight: 600; }
     </style>
 </head>
@@ -25,59 +25,61 @@
     <audio id="masterAudio" src="085.mp4" preload="auto"></audio>
 
     <div class="app-container">
-        <h1 style="text-align:center; margin-bottom:20px;">บทที่ 4</h1>
+        <h1 style="text-align:center; margin-bottom:20px;">บทที่ 4 - คำศัพท์</h1>
         <div id="cardsGrid" class="cards-grid"></div>
     </div>
 
     <script>
-        // แก้ไขค่า start และ end ที่นี่หากเสียงยังเหลื่อม
+        // ข้อมูลคำศัพท์พร้อม Timestamp (แก้ตัวเลข start/end ได้ที่นี่)
         const vocabularyData = [
-            { hiragana: "おきます", kanji: "起きます", thai: "ตื่นนอน", start: 2.2, end: 3.5 },
-            { hiragana: "ねます", kanji: "寝ます", thai: "นอน", start: 4.1, end: 5.5 },
-            { hiragana: "はたらきます", kanji: "働きます", thai: "ทำงาน", start: 6.0, end: 7.5 },
-            { hiragana: "やすみます", kanji: "休みます", thai: "พัก", start: 8.0, end: 9.6 },
-            { hiragana: "べんきょうします", kanji: "勉強します", thai: "เรียน", start: 10.0, end: 11.8 },
-            { hiragana: "おわります", kanji: "終わります", thai: "เสร็จ, เลิก", start: 12.2, end: 13.8 },
-            { hiragana: "デパート", kanji: "-", thai: "ห้างสรรพสินค้า", start: 14.2, end: 15.6 },
-            { hiragana: "けさ", kanji: "今朝", thai: "เมื่อเช้า", start: 56.5, end: 57.6 },
-            { hiragana: "こんばん", kanji: "今晩", thai: "คืนนี้", start: 58.0, end: 59.4 },
-            { hiragana: "やすみ", kanji: "休み", thai: "วันหยุด", start: 59.8, end: 61.2 },
-            { hiragana: "ニューヨーク", kanji: "-", thai: "นิวยอร์ก", start: 148.0, end: 149.8 },
-            { hiragana: "ペキン", kanji: "-", thai: "ปักกิ่ง", start: 150.2, end: 151.5 },
-            { hiragana: "ロサンゼルス", kanji: "-", thai: "ลอสแอนเจลิส", start: 152.0, end: 154.2 },
-            { hiragana: "ロンドン", kanji: "-", thai: "ลอนดอน", start: 154.5, end: 156.5 }
+            { h: "おきます", k: "起きます", t: "ตื่นนอน", s: 2.1, e: 3.7 },
+            { h: "ねます", k: "寝ます", t: "นอน", s: 4.0, e: 5.5 },
+            { h: "はたらきます", k: "働きます", t: "ทำงาน", s: 5.8, e: 7.5 },
+            { h: "やすみます", k: "休みます", t: "พัก", s: 7.8, e: 9.6 },
+            { h: "べんきょうします", k: "勉強します", t: "เรียน", s: 9.9, e: 11.8 },
+            { h: "おわります", k: "終わります", t: "เสร็จ, เลิก", s: 12.0, e: 13.8 },
+            { h: "デパート", k: "-", t: "ห้างสรรพสินค้า", s: 14.0, e: 15.6 },
+            { h: "ぎんこう", k: "銀行", t: "ธนาคาร", s: 15.9, e: 17.5 },
+            { h: "ゆうびんきょく", k: "郵便局", t: "ไปรษณีย์", s: 17.7, e: 19.5 },
+            { h: "としょかん", k: "図書館", t: "ห้องสมุด", s: 19.7, e: 21.5 },
+            { h: "びじゅつかん", k: "美術館", t: "หอศิลป์", s: 21.7, e: 23.5 },
+            { h: "ニューヨーク", k: "-", t: "นิวยอร์ก", s: 108.1, e: 110.1 },
+            { h: "ペキン", k: "-", t: "ปักกิ่ง", s: 110.3, e: 112.1 },
+            { h: "ロサンゼルス", k: "-", t: "ลอสแอนเจลิส", s: 112.4, e: 114.7 },
+            { h: "ロンドン", k: "-", t: "ลอนดอน", s: 114.9, e: 116.9 },
+            { h: "けさ", k: "今朝", t: "เมื่อเช้า", s: 56.4, e: 57.6 },
+            { h: "こんばん", k: "今晩", t: "คืนนี้", s: 58.0, e: 59.3 },
+            { h: "やすみ", k: "休み", t: "วันหยุด", s: 59.7, e: 61.1 }
         ];
-
-        function playAudio(text, start, end) {
-            const masterAudio = document.getElementById('masterAudio');
-            if (audioTimer) clearTimeout(audioTimer);
-            
-            masterAudio.pause();
-            masterAudio.currentTime = start;
-            masterAudio.play().then(() => {
-                audioTimer = setTimeout(() => masterAudio.pause(), (end - start) * 1000);
-            });
-        }
 
         let audioTimer = null;
 
+        function playAudio(start, end) {
+            const audio = document.getElementById('masterAudio');
+            if (audioTimer) clearTimeout(audioTimer);
+            
+            audio.pause();
+            audio.currentTime = start;
+            audio.play();
+            audioTimer = setTimeout(() => audio.pause(), (end - start) * 1000);
+        }
+
         function renderCards() {
             const grid = document.getElementById('cardsGrid');
-            grid.innerHTML = '';
             vocabularyData.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
                     <div class="card-inner">
                         <div class="card-front">
-                            <button class="audio-btn" onclick="event.stopPropagation(); playAudio('${item.hiragana}', ${item.start}, ${item.end})">
+                            <button class="audio-btn" onclick="event.stopPropagation(); playAudio(${item.s}, ${item.e})">
                                 <i data-lucide="volume-2"></i>
                             </button>
-                            <div class="jp-hiragana">${item.hiragana}</div>
-                            <div style="color:#aaa; font-size:0.9rem;">${item.kanji}</div>
+                            <div class="jp-hiragana">${item.h}</div>
+                            <div style="color:#aaa; font-size:0.9rem;">${item.k}</div>
                         </div>
                         <div class="card-back">
-                            <div class="th-meaning">${item.thai}</div>
+                            <div class="th-meaning">${item.t}</div>
                         </div>
                     </div>
                 `;
