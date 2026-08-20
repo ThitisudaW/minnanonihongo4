@@ -4,113 +4,2082 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minna no Nihongo Lesson 4 - Modern Japanese Studio</title>
+    
+    <!-- Google Fonts: Klee One, Noto Sans JP, Prompt, Zen Maru Gothic -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@600;700;800&family=Prompt:wght@300;400;500;600;700&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Modern Vector Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         :root {
             --primary-indigo: #6366f1;
+            --primary-indigo-light: #818cf8;
+            --primary-teal: #14b8a6;
+            --accent-rose: #ff6b8b;
+            --accent-amber: #f59e0b;
+            --bg-dark: #0f172a;
             --text-dark: #2d3436;
             --text-muted: #64748b;
             --glass-bg: rgba(255, 255, 255, 0.82);
             --glass-card: rgba(255, 255, 255, 0.92);
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --shadow-glow: 0 20px 40px rgba(99, 102, 241, 0.12);
+            --shadow-card: 0 10px 25px rgba(0, 0, 0, 0.04);
+            --radius-xl: 32px;
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            
+            /* UD Digi Kyokasho N Font Stack */
+            --font-jp: "UD Digi Kyokasho N", "UD デジタル教科書体 N", "Zen Maru Gothic", "Klee One", "Noto Sans JP", sans-serif;
+            --font-th: 'Prompt', sans-serif;
         }
-        body { background: #eef2ff; color: var(--text-dark); min-height: 100vh; padding: 30px 15px; font-family: 'Prompt', sans-serif; }
-        .app-container { max-width: 1040px; margin: 0 auto; background: var(--glass-bg); backdrop-filter: blur(28px); border-radius: 32px; padding: 35px 25px; border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 20px 40px rgba(99, 102, 241, 0.12); }
-        .mode-switcher { display: flex; justify-content: center; background: rgba(226, 232, 240, 0.65); padding: 6px; border-radius: 50px; gap: 6px; margin-bottom: 30px; flex-wrap: wrap; }
-        .mode-btn { flex: 1; min-width: 145px; background: transparent; border: none; color: var(--text-muted); padding: 10px 14px; border-radius: 50px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .mode-btn.active { background: #ffffff; color: var(--primary-indigo); box-shadow: 0 4px 16px rgba(99, 102, 241, 0.16); font-weight: 700; }
-        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 20px; }
-        .card { height: 190px; perspective: 1000px; cursor: pointer; }
-        .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); transform-style: preserve-3d; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.04); }
-        .card:hover .card-inner { box-shadow: 0 15px 30px rgba(99, 102, 241, 0.15); transform: translateY(-4px); }
-        .card.flipped .card-inner { transform: rotateY(180deg); }
-        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; border: 1px solid rgba(255,255,255,0.9); }
-        .card-front { background: var(--glass-card); }
-        .card-back { background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%); color: white; transform: rotateY(180deg); }
-        .audio-btn { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 50%; border: none; background: #f8fafc; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .audio-btn:hover { background: var(--primary-indigo); color: white; }
-        .jp-hiragana { font-size: 1.8rem; font-weight: 700; color: var(--primary-indigo); margin-bottom: 6px; }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-th);
+        }
+
+        body {
+            background: #eef2ff;
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 30px 15px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .jp-pattern-bg {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            z-index: -2;
+            opacity: 0.09;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30"><path d="M0 15 A15 15 0 0 1 30 15 A15 15 0 0 1 60 15 A15 15 0 0 1 30 15 A15 15 0 0 1 0 15 Z" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 0 A15 15 0 0 1 15 0 A15 15 0 0 1 45 0 A15 15 0 0 1 75 0" fill="none" stroke="%234338ca" stroke-width="1.5"/><path d="M-15 30 A15 15 0 0 1 15 30 A15 15 0 0 1 45 30 A15 15 0 0 1 75 30" fill="none" stroke="%234338ca" stroke-width="1.5"/></svg>');
+            animation: panPattern 45s linear infinite;
+        }
+
+        @keyframes panPattern {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-120px, -60deg) rotate(2deg); }
+        }
+
+        .aurora-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.2) 0%, transparent 45%),
+                radial-gradient(circle at 90% 15%, rgba(255, 107, 139, 0.16) 0%, transparent 40%),
+                radial-gradient(circle at 50% 85%, rgba(20, 184, 166, 0.18) 0%, transparent 50%);
+            filter: blur(50px);
+            animation: pulseGlow 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.7; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.08); }
+        }
+
+        .app-container {
+            max-width: 1040px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border-radius: var(--radius-xl);
+            padding: 35px 25px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-glow);
+            position: relative;
+            z-index: 10;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .brand-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary-indigo);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        h1 span {
+            color: var(--primary-indigo);
+            font-family: var(--font-jp);
+        }
+
+        .mode-switcher {
+            display: flex;
+            justify-content: center;
+            background: rgba(226, 232, 240, 0.65);
+            padding: 6px;
+            border-radius: 50px;
+            gap: 6px;
+            margin-bottom: 30px;
+            max-width: 940px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+        }
+
+        .mode-btn {
+            flex: 1;
+            min-width: 145px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 10px 14px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .mode-btn svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .mode-btn.active {
+            background: #ffffff;
+            color: var(--primary-indigo);
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.16);
+            font-weight: 700;
+        }
+
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .nav-tab {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #cbd5e1;
+            padding: 8px 18px;
+            border-radius: 50px;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-tab.active {
+            background: var(--primary-indigo);
+            color: #ffffff;
+            border-color: var(--primary-indigo);
+            box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
+        }
+
+        .stepper-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff;
+            padding: 12px 20px;
+            border-radius: var(--radius-lg);
+            border: 1px solid #f1f5f9;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .step-btn {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: var(--text-dark);
+            padding: 8px 18px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .step-btn:hover:not(:disabled) {
+            background: var(--primary-indigo);
+            color: white;
+            border-color: var(--primary-indigo);
+        }
+
+        .step-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .cat-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quick-tools {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .tool-chip {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 8px 18px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .tool-chip svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .tool-chip:hover {
+            border-color: var(--primary-indigo);
+            color: var(--primary-indigo);
+            background: rgba(99, 102, 241, 0.08);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 20px;
+            min-height: 320px;
+        }
+
+        @keyframes cardPopIn {
+            0% { opacity: 0; transform: scale(0.85) translateY(18px); }
+            60% { transform: scale(1.03) translateY(-4px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .card {
+            height: 190px;
+            perspective: 1000px;
+            cursor: pointer;
+            animation: cardPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+        }
+
+        .card:hover .card-inner {
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.15);
+            transform: translateY(-4deg);
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+        }
+
+        .card-front {
+            background: var(--glass-card);
+        }
+
+        .jp-hiragana {
+            font-family: var(--font-jp);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-indigo);
+            margin-bottom: 6px;
+        }
+
+        .jp-kanji {
+            font-family: var(--font-jp);
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            background: #f1f5f9;
+            padding: 3px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .audio-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: none;
+            background: #f8fafc;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .audio-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .audio-btn:hover {
+            background: var(--primary-indigo);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+            color: white;
+            transform: rotateY(180deg);
+            gap: 10px;
+        }
+
+        .vector-icon-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+            color: #ffffff;
+        }
+
+        .vector-icon-badge svg {
+            width: 26px;
+            height: 26px;
+            stroke-width: 2.2px;
+        }
+
         .th-meaning { font-size: 1.25rem; font-weight: 600; }
+
+        .verbs-container {
+            display: none;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 30px 20px;
+            border: 1px solid #f1f5f9;
+            box-shadow: var(--shadow-card);
+        }
+
+        .verb-rule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .verb-rule-card {
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .verb-rule-card.g1 { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+        .verb-rule-card.g2 { background: linear-gradient(135deg, #f59e0b, #f97316); }
+        .verb-rule-card.g3 { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
+
+        .verb-rule-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .verb-rule-card .rule-desc {
+            font-size: 0.92rem;
+            line-height: 1.5;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 10px;
+        }
+
+        .verb-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .verb-col {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-lg);
+            padding: 18px;
+        }
+
+        .verb-col h4 {
+            text-align: center;
+            padding: 10px;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .verb-col.g1 h4 { background: #3b82f6; }
+        .verb-col.g2 h4 { background: #f97316; }
+        .verb-col.g3 h4 { background: #8b5cf6; }
+
+        .verb-item-box {
+            background: white;
+            border: 1px solid #f1f5f9;
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .verb-item-jp { font-family: var(--font-jp); font-size: 1.25rem; font-weight: 700; color: var(--text-dark); }
+        .verb-item-kanji { font-family: var(--font-jp); font-size: 0.9rem; color: var(--text-muted); }
+        .verb-item-th { font-size: 0.95rem; font-weight: 600; color: var(--primary-indigo); }
+
+        .highlight-i { color: #2563eb; font-weight: 800; }
+        .highlight-e { color: #f97316; font-weight: 800; }
+        .badge-exception {
+            background: var(--accent-rose);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 8px;
+            margin-left: 6px;
+        }
+
+        .clock-container {
+            display: none;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 30px 20px;
+            border: 1px solid #f1f5f9;
+            box-shadow: var(--shadow-card);
+            text-align: center;
+        }
+
+        .clock-layout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .clock-face-wrapper {
+            position: relative;
+            width: 270px;
+            height: 270px;
+            user-select: none;
+        }
+
+        .svg-clock {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+            filter: drop-shadow(0 14px 28px rgba(255, 107, 139, 0.16));
+            cursor: pointer;
+        }
+
+        .clock-hand {
+            cursor: grab;
+            transition: stroke 0.15s ease;
+        }
+
+        .clock-hand:hover, .clock-hand.active {
+            cursor: grabbing;
+            filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.5));
+        }
+
+        .clock-display-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            padding: 25px;
+            min-width: 320px;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .digital-time {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: 2px;
+            font-family: 'Plus Jakarta Sans', monospace;
+            margin-bottom: 8px;
+        }
+
+        .reading-hiragana {
+            font-family: var(--font-jp);
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: var(--primary-indigo);
+            margin-bottom: 8px;
+        }
+
+        .reading-kanji {
+            font-family: var(--font-jp);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            background: #e2e8f0;
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .clock-sliders {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        .slider-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        .slider-group input[type="range"] {
+            flex: 1;
+            accent-color: var(--primary-indigo);
+            cursor: pointer;
+        }
+
+        .preset-btns {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .numbers-container {
+            display: none;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 25px 20px;
+            border: 1px solid #f1f5f9;
+            box-shadow: var(--shadow-card);
+        }
+
+        .numbers-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        .num-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: var(--radius-lg);
+            border: 1px solid #e2e8f0;
+            position: sticky;
+            top: 20px;
+        }
+
+        .num-tab-btn {
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            color: var(--text-dark);
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 0.92rem;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .num-tab-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .num-tab-btn:hover {
+            border-color: var(--primary-indigo);
+            color: var(--primary-indigo);
+            background: #eef2ff;
+        }
+
+        .num-tab-btn.active {
+            background: var(--primary-indigo);
+            color: #ffffff;
+            border-color: var(--primary-indigo);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .num-content {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            min-height: 480px;
+        }
+
+        .num-content-header {
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px dashed #cbd5e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .num-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .num-card {
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .num-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+        }
+
+        .num-card.irregular {
+            border: 2px solid var(--accent-rose);
+            background: #fff5f7;
+        }
+
+        .num-card.irregular .num-hira {
+            color: var(--accent-rose);
+            font-weight: 800;
+        }
+
+        .num-tag-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--accent-rose);
+            color: white;
+            font-size: 0.68rem;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        .num-digit {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .num-hira {
+            font-family: var(--font-jp);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary-indigo);
+            margin-bottom: 2px;
+        }
+
+        .num-kanji {
+            font-family: var(--font-jp);
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .num-th {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .num-audio-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: #f1f5f9;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .num-audio-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .num-audio-btn:hover {
+            background: var(--primary-indigo);
+            color: white;
+            transform: scale(1.15);
+        }
+
+        .game-section {
+            display: none;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 25px 20px;
+            border: 1px solid #f1f5f9;
+            box-shadow: var(--shadow-card);
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            background: #f8fafc;
+            padding: 14px 22px;
+            border-radius: 18px;
+            margin-bottom: 22px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .game-stats {
+            font-weight: 700;
+            color: var(--text-dark);
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .drag-pool, .drop-slots {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            padding: 4px;
+        }
+
+        .drag-card {
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 20px;
+            padding: 16px;
+            min-height: 105px;
+            font-family: var(--font-jp) !important;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-indigo);
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.08);
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            text-align: center;
+            line-height: 1.25;
+        }
+
+        .drag-card * {
+            font-family: var(--font-jp) !important;
+        }
+
+        .drag-card:hover {
+            transform: translateY(-3deg);
+            box-shadow: 0 10px 22px rgba(99, 102, 241, 0.2);
+            border-color: var(--primary-indigo);
+        }
+
+        .drag-card.dragging {
+            opacity: 0.35;
+            cursor: grabbing;
+        }
+
+        .drag-clone {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+            transform: translate(-50%, -50%) scale(1.04);
+            background: #ffffff;
+            border: 2.5px solid var(--primary-indigo);
+            border-radius: 20px;
+            padding: 16px;
+            font-family: var(--font-jp) !important;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-indigo);
+            box-shadow: 0 16px 32px rgba(99, 102, 241, 0.35);
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .drag-clone * {
+            font-family: var(--font-jp) !important;
+        }
+
+        .drop-zone {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 20px;
+            padding: 14px 18px;
+            min-height: 105px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .drop-zone-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary-indigo);
+            margin-right: 10px;
+        }
+
+        .drop-zone-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2.2px;
+        }
+
+        .drop-zone-label {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drop-zone.hovered {
+            background: #eef2ff;
+            border-color: var(--primary-indigo);
+            border-style: solid;
+            transform: scale(1.02);
+        }
+
+        .drop-zone.correct {
+            background: #e6fffa;
+            border-color: var(--primary-teal);
+            border-style: solid;
+        }
+
+        .drop-zone.wrong-flash {
+            background: #ffe4e6;
+            border-color: var(--accent-rose);
+            animation: shake 0.35s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+
+        .game-win-banner {
+            display: none;
+            background: #e6fffa;
+            border: 2px solid var(--primary-teal);
+            color: #0f766e;
+            padding: 18px;
+            border-radius: 18px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            animation: popIn 0.35s ease;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        footer {
+            margin-top: 35px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .app-container { padding: 20px 15px; }
+            .numbers-layout { grid-template-columns: 1fr; }
+            .num-sidebar { flex-direction: row; overflow-x: auto; padding: 10px; position: static; }
+            .num-tab-btn { min-width: 140px; }
+            .cards-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+            .card { height: 165px; }
+            .jp-hiragana { font-size: 1.45rem; }
+            .th-meaning { font-size: 1.05rem; }
+            .stepper-bar { flex-direction: column; gap: 10px; }
+            .clock-layout { flex-direction: column; }
+            .clock-display-card { min-width: 100%; }
+            .game-board { grid-template-columns: 1fr; gap: 15px; }
+            .drag-card, .drop-zone { min-height: 90px; }
+            .drag-card { font-size: 1.3rem; }
+            .drop-zone-label { font-size: 1.05rem; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- 🎵 Native Embedded Audio Element pointing directly to 085.mp4 -->
     <audio id="masterAudio" src="085.mp4" preload="auto" playsinline webkit-playsinline style="display:none;"></audio>
+
+    <div class="jp-pattern-bg"></div>
+
+    <div class="aurora-bg"></div>
 
     <div class="app-container">
         <header>
+            <div class="brand-pill"><i data-lucide="sparkles" style="width:14px;height:14px;"></i> MINNA NO NIHONGO • LESSON 4</div>
             <h1><span>みんなの日本語</span> บทที่ 4</h1>
         </header>
 
         <div class="mode-switcher">
-            <button class="mode-btn active" onclick="switchMode('flashcards')"><i data-lucide="layers"></i> บัตรคำศัพท์</button>
+            <button class="mode-btn active" id="btnModeFlashcards" onclick="switchMode('flashcards')"><i data-lucide="layers"></i> บัตรคำศัพท์</button>
+            <button class="mode-btn" id="btnModeVerbs" onclick="switchMode('verbs')"><i data-lucide="sparkles"></i> กลุ่มกริยา 3 กลุ่ม</button>
+            <button class="mode-btn" id="btnModeClock" onclick="switchMode('clock')"><i data-lucide="clock"></i> หมุนนาฬิกาฝึกอ่าน</button>
+            <button class="mode-btn" id="btnModeNumbers" onclick="switchMode('numbers')"><i data-lucide="hash"></i> ตารางตัวเลข</button>
+            <button class="mode-btn" id="btnModeGame" onclick="switchMode('game')"><i data-lucide="target"></i> เกมลากจับคู่คำศัพท์</button>
         </div>
 
         <div id="flashcardSection">
+            <div class="category-nav" id="categoryNav"></div>
+
+            <div class="stepper-bar">
+                <button class="step-btn" id="prevBtn" onclick="navigateCategory(-1)">← หน้าก่อนหน้า</button>
+                <div class="cat-title" id="catTitle"><i data-lucide="folder" style="width:18px;height:18px;"></i> หมวดคำศัพท์</div>
+                <button class="step-btn" id="nextBtn" onclick="navigateCategory(1)">หน้าถัดไป →</button>
+            </div>
+
+            <div class="quick-tools">
+                <button class="tool-chip" onclick="shuffleCards()"><i data-lucide="shuffle"></i> สลับการ์ดสุ่มคำ</button>
+                <button class="tool-chip" id="toggleFlipBtn" onclick="toggleAllFlips()"><i data-lucide="rotate-cw"></i> หงายคำแปลทั้งหมด</button>
+            </div>
+
             <div class="cards-grid" id="cardsGrid"></div>
         </div>
+
+        <div class="verbs-container" id="verbsSection">
+            <h2 style="color:var(--text-dark); text-align:center; margin-bottom:8px;">หลักการแบ่งกลุ่มคำกริยาภาษาญี่ปุ่น (3 กลุ่ม)</h2>
+            <p style="text-align:center; color:var(--text-muted); margin-bottom:25px; font-size:0.95rem;">สังเกตเสียงอักษรฮิรางานะที่อยู่ **หน้าคำว่า ます** เพื่อแบ่งกลุ่ม</p>
+
+            <div class="verb-rule-grid">
+                <div class="verb-rule-card g1">
+                    <h3>กลุ่มที่ 1 (I類) <i data-lucide="circle-dot"></i></h3>
+                    <div class="rule-desc">
+                        อักษรหน้า <code>ます</code> เป็นเสียงแถว <strong>[ い (i) ]</strong><br>
+                        (เช่น き, し, ち, に, ひ, み, り, い)
+                    </div>
+                </div>
+                <div class="verb-rule-card g2">
+                    <h3>กลุ่มที่ 2 (II類) <i data-lucide="circle-dot"></i></h3>
+                    <div class="rule-desc">
+                        อักษรหน้า <code>ます</code> เป็นเสียงแถว <strong>[ え (e) ]</strong><br>
+                        *(รวมถึงคำกริยายกเว้นเสียง [い] เช่น 起きます)*
+                    </div>
+                </div>
+                <div class="verb-rule-card g3">
+                    <h3>กลุ่มที่ 3 (III類) <i data-lucide="circle-dot"></i></h3>
+                    <div class="rule-desc">
+                        กริยาพิเศษ มี 2 คำหลัก:<br>
+                        • <strong>きます</strong> (มา)<br>
+                        • <strong>します</strong> (ทำ) / [คำนาม] + します
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color:var(--text-dark); margin-bottom:18px; text-align:center;">สรุปกลุ่มคำกริยาในบทที่ 4</h3>
+            
+            <div class="verb-columns">
+                <div class="verb-col g1">
+                    <h4>กลุ่ม 1 (I類) [เสียง い]</h4>
+                    <div class="verb-item-box">
+                        <div>
+                            <div class="verb-item-jp">はたら<span class="highlight-i">き</span>ます</div>
+                            <div class="verb-item-kanji">働きます</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div class="verb-item-th">ทำงาน</div>
+                            <button class="audio-btn" style="position:static;" onclick="playAudio('はたらきます', 5.8, 7.5)"><i data-lucide="volume-2"></i></button>
+                        </div>
+                    </div>
+                    <div class="verb-item-box">
+                        <div>
+                            <div class="verb-item-jp">やす<span class="highlight-i">み</span>ます</div>
+                            <div class="verb-item-kanji">休みます</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div class="verb-item-th">พัก, พักผ่อน</div>
+                            <button class="audio-btn" style="position:static;" onclick="playAudio('やすみます', 7.8, 9.6)"><i data-lucide="volume-2"></i></button>
+                        </div>
+                    </div>
+                    <div class="verb-item-box">
+                        <div>
+                            <div class="verb-item-jp">おわ<span class="highlight-i">り</span>ます</div>
+                            <div class="verb-item-kanji">終わります</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div class="verb-item-th">เสร็จ, เลิก</div>
+                            <button class="audio-btn" style="position:static;" onclick="playAudio('おわります', 12.0, 13.8)"><i data-lucide="volume-2"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="verb-col g2">
+                    <h4>กลุ่ม 2 (II類) [เสียง え + ยกเว้น]</h4>
+                    <div class="verb-item-box">
+                        <div>
+                            <div class="verb-item-jp"><span class="highlight-e">ね</span>ます</div>
+                            <div class="verb-item-kanji">寝ます</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div class="verb-item-th">นอน</div>
+                            <button class="audio-btn" style="position:static;" onclick="playAudio('ねます', 4.0, 5.5)"><i data-lucide="volume-2"></i></button>
+                        </div>
+                    </div>
+                    <div class="verb-item-box" style="border: 1.5px dashed var(--accent-rose);">
+                        <div>
+                            <div class="verb-item-jp">お<span class="highlight-i" style="color:var(--accent-rose);">き</span>ます <span class="badge-exception">คำยกเว้น</span></div>
+                            <div class="verb-item-kanji">起きます</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div class="verb-item-th">ตื่นนอน</div>
+                            <button class="audio-btn" style="position:static;" onclick="playAudio('おきます', 2.1, 3.7)"><i data-lucide="volume-2"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="verb-col g3">
+                    <h4>กลุ่ม 3 (III類) [します / きます]</h4>
+                    <div class="verb-item-box">
+                        <div>
+                            <div class="verb-item-jp">べんきょう<span style="color:#8b5cf6; font-weight:800;">します</span></div>
+                            <div class="verb-item-kanji">勉強します</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div class="verb-item-th">เรียน</div>
+                            <button class="audio-btn" style="position:static;" onclick="playAudio('べんきょうします', 9.9, 11.8)"><i data-lucide="volume-2"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🌸 CUTE FLOWER CLOCK WITH STANDARD PROPORTIONS -->
+        <div class="clock-container" id="clockSection">
+            <h2 style="color:var(--text-dark); margin-bottom:6px;">หน้าปัดนาฬิกาฝึกอ่านเวลาภาษาญี่ปุ่น</h2>
+            <p style="text-align:center; color:var(--text-muted); font-size:0.95rem;">แตะที่ขีดนาทีบนหน้าปัด หรือลาก <strong>เข็มสั้น (สีชมพู)</strong> และ <strong>เข็มยาว (สีม่วง)</strong> เพื่อปรับเวลา</p>
+
+            <div class="clock-layout">
+                <div class="clock-face-wrapper">
+                    <svg class="svg-clock" viewBox="0 0 200 200" id="clockSvg">
+                        <g id="clockPetals"></g>
+
+                        <circle cx="100" cy="100" r="82" fill="#ffffff" stroke="#ffccd5" stroke-width="2.5"/>
+                        <circle cx="100" cy="100" r="76" fill="#fffafb" stroke="#ffe3e8" stroke-width="1"/>
+
+                        <g id="clockMinuteTicks"></g>
+
+                        <text x="100" y="44" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">12</text>
+                        <text x="129" y="52" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">1</text>
+                        <text x="150" y="73" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">2</text>
+                        <text x="158" y="105" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">3</text>
+                        <text x="150" y="137" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">4</text>
+                        <text x="129" y="158" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">5</text>
+                        <text x="100" y="166" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">6</text>
+                        <text x="71" y="158" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">7</text>
+                        <text x="50" y="137" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">8</text>
+                        <text x="42" y="105" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">9</text>
+                        <text x="50" y="73" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">10</text>
+                        <text x="71" y="52" text-anchor="middle" font-size="14" font-weight="800" fill="#2d3436" font-family="'Zen Maru Gothic', sans-serif">11</text>
+
+                        <g id="hourHandGroup">
+                            <line id="hourHand" class="clock-hand" x1="100" y1="100" x2="100" y2="58" stroke="#ff6b8b" stroke-width="6" stroke-linecap="round" />
+                        </g>
+                        
+                        <g id="minuteHandGroup">
+                            <line id="minuteHand" class="clock-hand" x1="100" y1="100" x2="100" y2="28" stroke="#6366f1" stroke-width="4" stroke-linecap="round" />
+                        </g>
+                        
+                        <circle cx="100" cy="100" r="6" fill="#2d3436" stroke="#ffffff" stroke-width="2"/>
+                    </svg>
+                </div>
+
+                <div class="clock-display-card">
+                    <div class="digital-time" id="clockDigital">03:10</div>
+                    <div class="reading-hiragana" id="clockHiragana">さんじ じゅっぷん</div>
+                    <div class="reading-kanji" id="clockKanji">3時10分</div>
+
+                    <div>
+                        <button class="step-btn" style="background:var(--primary-indigo); color:white; border:none; padding:10px 22px; font-size:0.95rem; border-radius:12px; margin: 0 auto; display:flex; align-items:center; gap:8px;" onclick="speakCurrentClockTime()">
+                            <i data-lucide="volume-2"></i> ฟังเสียงอ่านภาษาญี่ปุ่น
+                        </button>
+                    </div>
+
+                    <div class="clock-sliders">
+                        <div class="slider-group">
+                            <span>ชั่วโมง:</span>
+                            <input type="range" id="hourSlider" min="1" max="12" value="3" oninput="onClockSliderChange()">
+                            <span id="hourValDisplay" style="min-width:25px;">3</span>
+                        </div>
+                        <div class="slider-group">
+                            <span>นาที:</span>
+                            <input type="range" id="minuteSlider" min="0" max="59" value="10" oninput="onClockSliderChange()">
+                            <span id="minValDisplay" style="min-width:25px;">10</span>
+                        </div>
+                    </div>
+
+                    <div class="preset-btns">
+                        <button class="tool-chip" onclick="setClockTime(3, 10)">3:10 (さんじじゅっぷん)</button>
+                        <button class="tool-chip" onclick="setClockTime(4, 5)">4:05 (よじごふん)</button>
+                        <button class="tool-chip" onclick="setClockTime(7, 30)">7:30 (しちじはん)</button>
+                        <button class="tool-chip" onclick="setClockTime(9, 0)">9:00 (くじ)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🔢 NUMBER TABLES SECTION -->
+        <div class="numbers-container" id="numbersSection">
+            <h2 style="color:var(--text-dark); text-align:center; margin-bottom:6px;">ตารางคำอ่านตัวเลขภาษาญี่ปุ่น</h2>
+            <p style="text-align:center; color:var(--text-muted); font-size:0.95rem; margin-bottom:25px;">เลือกหมวดการนับเลขทางซ้าย พร้อมไฮไลต์จุดที่ <strong style="color:var(--accent-rose);">เสียงเปลี่ยน/คำพิเศษ</strong></p>
+
+            <div class="numbers-layout">
+                <div class="num-sidebar">
+                    <button class="num-tab-btn active" onclick="switchNumTab('regular', this)">
+                        <span style="display:flex;align-items:center;gap:8px;"><i data-lucide="hash"></i> 1. การนับเลขปกติ</span> <span>→</span>
+                    </button>
+                    <button class="num-tab-btn" onclick="switchNumTab('age', this)">
+                        <span style="display:flex;align-items:center;gap:8px;"><i data-lucide="cake"></i> 2. การนับอายุ (〜才)</span> <span>→</span>
+                    </button>
+                    <button class="num-tab-btn" onclick="switchNumTab('floor', this)">
+                        <span style="display:flex;align-items:center;gap:8px;"><i data-lucide="building"></i> 3. การนับชั้น (〜階)</span> <span>→</span>
+                    </button>
+                    <button class="num-tab-btn" onclick="switchNumTab('hours', this)">
+                        <span style="display:flex;align-items:center;gap:8px;"><i data-lucide="clock"></i> 4. การนับชั่วโมง (〜時)</span> <span>→</span>
+                    </button>
+                    <button class="num-tab-btn" onclick="switchNumTab('minutes', this)">
+                        <span style="display:flex;align-items:center;gap:8px;"><i data-lucide="timer"></i> 5. การนับนาที (〜分)</span> <span>→</span>
+                    </button>
+                    <button class="num-tab-btn" onclick="switchNumTab('days', this)">
+                        <span style="display:flex;align-items:center;gap:8px;"><i data-lucide="calendar"></i> 6. การนับวัน (〜日)</span> <span>→</span>
+                    </button>
+                </div>
+
+                <div class="num-content">
+                    <div class="num-content-header">
+                        <h3 id="numCategoryTitle" style="color:var(--text-dark);">การนับเลขปกติ (หลักร้อย/พัน/หมื่น)</h3>
+                        <span style="font-size:0.85rem; color:var(--accent-rose); font-weight:700;">กล่องสีชมพู = เสียงเปลี่ยน/อ่านพิเศษ</span>
+                    </div>
+
+                    <div class="num-grid" id="numGrid"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🎯 BIG 2-SIDED DRAG & DROP MATCHING GAME SECTION -->
+        <div class="game-section" id="gameSection">
+            <div class="game-header">
+                <div class="game-stats">
+                    <span>คะแนน: <span id="gameScore">0</span> / <span id="gameTotal">0</span></span>
+                </div>
+                <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                    <select id="gameCatSelect" onchange="startNewGame()" style="padding:6px 12px; border-radius:10px; border:1px solid #cbd5e1; font-weight:bold; color:var(--text-dark);">
+                        <option value="all">คำศัพท์ทั้งหมดในบทที่ 4</option>
+                        <option value="verbs">1. คำกริยา</option>
+                        <option value="places">2. สถานที่ & เมือง</option>
+                        <option value="time">3. เวลา & ช่วงเวลา</option>
+                        <option value="days">4. วันในสัปดาห์</option>
+                        <option value="expressions">5. คำเฉพาะ & สำนวน</option>
+                    </select>
+                    <button class="tool-chip" onclick="startNewGame()" style="background:var(--primary-indigo); color:white; border:none;"><i data-lucide="rotate-ccw"></i> เริ่มใหม่</button>
+                </div>
+            </div>
+
+            <div class="game-win-banner" id="gameWinBanner">
+                🎉 おめでとうございます！ คุณจับคู่คำศัพท์บทที่ 4 ถูกต้องทั้งหมด! 🌸✨
+            </div>
+
+            <div class="game-board">
+                <div class="drag-pool" id="dragPool"></div>
+                <div class="drop-slots" id="dropSlots"></div>
+            </div>
+        </div>
+
+        <footer>
+            💡 แตะการ์ดเพื่อพลิกดูความหมาย | กดปุ่มเสียงเพื่อฟังเสียงอ่านภาษาญี่ปุ่น
+        </footer>
     </div>
 
     <script>
         const vocabularyData = [
-            { h: "おきます", k: "起きます", t: "ตื่นนอน", s: 2.1, e: 3.7 },
-            { h: "ねます", k: "寝ます", t: "นอน", s: 4.0, e: 5.5 },
-            { h: "はたらきます", k: "働きます", t: "ทำงาน", s: 5.8, e: 7.5 },
-            { h: "やすみます", k: "休みます", t: "พัก", s: 7.8, e: 9.6 },
-            { h: "べんきょうします", k: "勉強します", t: "เรียน", s: 9.9, e: 11.8 },
-            { h: "おわります", k: "終わります", t: "เสร็จ, เลิก", s: 12.0, e: 13.8 },
-            { h: "デパート", k: "-", t: "ห้างสรรพสินค้า", s: 14.0, e: 15.6 },
-            { h: "ぎんこう", k: "銀行", t: "ธนาคาร", s: 15.9, e: 17.5 },
-            { h: "ゆうびんきょく", k: "郵便局", t: "ไปรษณีย์", s: 17.7, e: 19.5 },
-            { h: "としょかん", k: "図書館", t: "ห้องสมุด", s: 19.7, e: 21.5 },
-            { h: "びじゅつかん", k: "美術館", t: "หอศิลป์", s: 21.7, e: 23.5 },
-            { h: "けさ", k: "今朝", t: "เมื่อเช้า", s: 56.4, e: 57.6 },
-            { h: "こんばん", k: "今晩", t: "คืนนี้", s: 58.0, e: 59.3 },
-            { h: "やすみ", k: "休み", t: "วันหยุด", s: 59.7, e: 61.1 }
+            {
+                id: 'verbs',
+                navName: '1. คำกริยา',
+                title: 'หมวดที่ 1: คำกริยา (Verbs)',
+                icon: 'sparkles',
+                items: [
+                    { hiragana: "おきます", kanji: "起きます", thai: "ตื่นนอน", icon: "alarm-clock", start: 2.1, end: 3.7 },
+                    { hiragana: "ねます", kanji: "寝ます", thai: "นอน, เข้านอน", icon: "bed-double", start: 4.0, end: 5.5 },
+                    { hiragana: "はたらきます", kanji: "働きます", thai: "ทำงาน", icon: "briefcase", start: 5.8, end: 7.5 },
+                    { hiragana: "やすみます", kanji: "休みます", thai: "พัก, พักผ่อน", icon: "coffee", start: 7.8, end: 9.6 },
+                    { hiragana: "べんきょうします", kanji: "勉強します", thai: "เรียน", icon: "book-open", start: 9.9, end: 11.8 },
+                    { hiragana: "おわります", kanji: "終わります", thai: "เสร็จ, เลิก", icon: "check-circle-2", start: 12.0, end: 13.8 }
+                ]
+            },
+            {
+                id: 'places',
+                navName: '2. สถานที่ & เมือง',
+                title: 'หมวดที่ 2: สถานที่ & เมือง (Places & Cities)',
+                icon: 'building',
+                items: [
+                    { hiragana: "デパート", kanji: "デパート", thai: "ห้างสรรพสินค้า", icon: "shopping-bag", start: 14.0, end: 15.6 },
+                    { hiragana: "ぎんこう", kanji: "銀行", thai: "ธนาคาร", icon: "landmark", start: 15.9, end: 17.5 },
+                    { hiragana: "ゆうびんきょく", kanji: "郵便局", thai: "ไปรษณีย์", icon: "mail", start: 17.7, end: 19.5 },
+                    { hiragana: "としょかん", kanji: "図書館", thai: "ห้องสมุด", icon: "library", start: 19.7, end: 21.5 },
+                    { hiragana: "びじゅつかん", kanji: "美術館", thai: "หอศิลป์", icon: "palette", start: 21.7, end: 23.5 },
+                    { hiragana: "ニューヨーク", kanji: "ニューヨーク", thai: "นิวยอร์ก", icon: "building-2", start: 108, end: 110 },
+                    { hiragana: "ペキン", kanji: "ペキン", thai: "ปักกิ่ง", icon: "compass", start: 110.5, end: 111.7 },
+                    { hiragana: "ロサンゼルス", kanji: "ロサンゼルス", thai: "ลอสแอนเจลิส", icon: "sun", start: 112, end: 114.2 },
+                    { hiragana: "ロンドン", kanji: "ロンドン", thai: "ลอนดอน", icon: "navigation", start: 114.4, end: 116 }
+                ]
+            },
+            {
+                id: 'time',
+                navName: '3. เวลา',
+                title: 'หมวดที่ 3: เวลา & ช่วงเวลา (Time)',
+                icon: 'clock',
+                items: [
+                    { hiragana: "いま", kanji: "今", thai: "ตอนนี้", icon: "clock", start: 23.6, end: 24.8 },
+                    { hiragana: "〜じ", kanji: "〜時", thai: "... โมง", icon: "watch", start: 25.1, end: 26.2 },
+                    { hiragana: "〜ふん (〜ぷん)", kanji: "〜分", thai: "... นาที", icon: "timer", start: 26.5, end: 28.5 },
+                    { hiragana: "はん", kanji: "半", thai: "ครึ่ง (30 นาที)", icon: "pie-chart", start: 29.0, end: 30.3 },
+                    { hiragana: "なんじ", kanji: "何時", thai: "กี่โมง", icon: "help-circle", start: 30.8, end: 32.1 },
+                    { hiragana: "なんぷん", kanji: "何分", thai: "กี่นาที", icon: "help-circle", start: 32.6, end: 33.9 },
+                    { hiragana: "ごぜん", kanji: "午前", thai: "ช่วงเช้า (a.m.)", icon: "sunrise", start: 34.4, end: 35.8 },
+                    { hiragana: "ごご", kanji: "午後", thai: "ช่วงบ่าย (p.m.)", icon: "sunset", start: 36.2, end: 36.7 },
+                    { hiragana: "あさ", kanji: "朝", thai: "เช้า", icon: "sun-medium", start: 37.7, end: 39.2 },
+                    { hiragana: "ひる", kanji: "昼", thai: "กลางวัน", icon: "sun", start: 39.4, end: 40.8 },
+                    { hiragana: "ばん (よる)", kanji: "晩 (夜)", thai: "เย็น, กลางคืน", icon: "moon-star", start: 41, end: 43.2 },
+                    { hiragana: "おととい", kanji: "-", thai: "เมื่อวานซืน", icon: "chevrons-left", start: 43.5, end: 46.8 },
+                    { hiragana: "きのう", kanji: "昨日", thai: "เมื่อวานนี้", icon: "chevron-left", start: 47.4, end: 49.9 },
+                    { hiragana: "きょう", kanji: "今日", thai: "วันนี้", icon: "calendar-check", start: 50.8, end: 52.1 },
+                    { hiragana: "あした", kanji: "明日", thai: "พรุ่งนี้", icon: "chevron-right", start: 52.5, end: 53.9 },
+                    { hiragana: "あさって", kanji: "明後日", thai: "มะรืนนี้", icon: "chevrons-right", start: 54.3, end: 55.9 },
+                    { hiragana: "けさ", kanji: "今朝", thai: "เมื่อเช้า", icon: "coffee", start: 56, end: 57.6 },
+                    { hiragana: "こんばん", kanji: "今晩", thai: "คืนนี้", icon: "moon", start: 57.0, end: 59.3 },
+                    { hiragana: "やすみ", kanji: "休み", thai: "วันหยุด", icon: "palmtree", start: 59.4, end: 61.1 },
+                    { hiragana: "ひるやすみ", kanji: "昼休み", thai: "พักเที่ยง", icon: "utensils", start: 61, end: 63.0 },
+                    { hiragana: "まいあさ", kanji: "毎朝", thai: "ทุกเช้า", icon: "repeat", start: 68, end: 70.1 },
+                    { hiragana: "まいばん", kanji: "毎晩", thai: "ทุกคืน", icon: "repeat", start: 70, end: 71.8 },
+                    { hiragana: "まいにち", kanji: "毎日", thai: "ทุกวัน", icon: "calendar-range", start: 71.9, end: 73.5 }
+                ]
+            },
+            {
+                id: 'days',
+                navName: '4. วันในสัปดาห์',
+                title: 'หมวดที่ 4: วันในสัปดาห์ (Days)',
+                icon: 'calendar',
+                items: [
+                    { hiragana: "げつようび", kanji: "月曜日", thai: "วันจันทร์", icon: "moon", start: 73.8, end: 75.5 },
+                    { hiragana: "かようび", kanji: "火曜日", thai: "วันอังคาร", icon: "flame", start: 75.7, end: 77.5 },
+                    { hiragana: "すいようび", kanji: "水曜日", thai: "วันพุธ", icon: "droplets", start: 77.7, end: 79.4 },
+                    { hiragana: "もくようび", kanji: "木曜日", thai: "วันพฤหัสบดี", icon: "tree-pine", start: 79.8, end: 81.3 },
+                    { hiragana: "きんようび", kanji: "金曜日", thai: "วันศุกร์", icon: "japanese-yen", start: 81.8, end: 83.3 },
+                    { hiragana: "どようび", kanji: "土曜日", thai: "วันเสาร์", icon: "mountain", start: 83.8, end: 85.3 },
+                    { hiragana: "にちようび", kanji: "日曜日", thai: "วันอาทิตย์", icon: "sun", start: 85.8, end: 87.3 },
+                    { hiragana: "なんようび", kanji: "何曜日", thai: "วันอะไร", icon: "help-circle", start: 87.8, end: 89.3 }
+                ]
+            },
+            {
+                id: 'expressions',
+                navName: '5. คำเฉพาะ & สำนวน',
+                title: 'หมวดที่ 5: คำเฉพาะบท & สำนวน (Expressions)',
+                icon: 'message-square',
+                items: [
+                    { hiragana: "しけん", kanji: "試験", thai: "การสอบ", icon: "file-text", start: 63, end: 64.7 },
+                    { hiragana: "かいぎ", kanji: "会議", thai: "การประชุม", icon: "users", start: 64.8, end: 66.5 },
+                    { hiragana: "えいが", kanji: "映画", thai: "ภาพยนตร์", icon: "film", start: 66.6, end: 68.3 },
+                    { hiragana: "〜から", kanji: "〜から", thai: "จาก, ตั้งแต่", icon: "plane-takeoff", start: 89.8, end: 91.2 },
+                    { hiragana: "〜まで", kanji: "〜まで", thai: "ถึง, จนถึง", icon: "plane-landing", start: 91.5, end: 92.9 },
+                    { hiragana: "〜と〜", kanji: "〜と〜", thai: "กับ, และ", icon: "link", start: 93, end: 93.9 },
+                    { hiragana: "たいへんですね", kanji: "大変ですね", thai: "ลำบากหน่อยนะ", icon: "smile-plus", start: 97.2, end: 99.5 },
+                    { hiragana: "ばんごう", kanji: "番号", thai: "หมายเลข, เบอร์", icon: "hash", start: 102.2, end: 103.7 },
+                    { hiragana: "なんばん", kanji: "何番", thai: "หมายเลขอะไร / เบอร์อะไร", icon: "help-circle", start: 104.0, end: 105.5 },
+                    { hiragana: "そちら", kanji: "そちら", thai: "ทางคุณ", icon: "arrow-right-circle", start: 106.0, end: 107.5 }
+                ]
+            }
         ];
+
+        vocabularyData[2].items[11].hiragana = "おととい";
+
+        let activeCategoryIndex = 0;
+        let activeItems = [];
+
+        function init() {
+            renderNavTabs();
+            
+            const savedCat = parseInt(localStorage.getItem('l4_flashcard_cat'));
+            const validCat = (!isNaN(savedCat) && savedCat >= 0 && savedCat < vocabularyData.length) ? savedCat : 0;
+            loadCategory(validCat);
+
+            buildCuteFlowerClock();
+            setupClockDragging();
+            updateClockUI(3, 10);
+
+            const savedNumTab = localStorage.getItem('l4_num_tab') || 'regular';
+            switchNumTab(savedNumTab);
+
+            const savedMode = localStorage.getItem('l4_active_mode') || 'flashcards';
+            switchMode(savedMode);
+
+            const audioElement = document.getElementById('masterAudio');
+            if (audioElement) {
+                audioElement.load();
+            }
+        }
+
+        function buildCuteFlowerClock() {
+            const petalsGroup = document.getElementById('clockPetals');
+            const ticksGroup = document.getElementById('clockMinuteTicks');
+            petalsGroup.innerHTML = '';
+            ticksGroup.innerHTML = '';
+            const cx = 100, cy = 100;
+
+            for (let i = 0; i < 12; i++) {
+                const angleRad = (i * 30 - 90) * (Math.PI / 180);
+                const px = cx + 80 * Math.cos(angleRad);
+                const py = cy + 80 * Math.sin(angleRad);
+
+                const petal = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                petal.setAttribute('cx', px);
+                petal.setAttribute('cy', py);
+                petal.setAttribute('r', '17');
+                petal.setAttribute('fill', '#ffe8ed');
+                petal.setAttribute('stroke', '#ffccd5');
+                petal.setAttribute('stroke-width', '1.5');
+                petalsGroup.appendChild(petal);
+            }
+
+            for (let m = 0; m < 60; m++) {
+                const angleRad = (m * 6 - 90) * (Math.PI / 180);
+                const isMajor = (m % 5 === 0);
+                const rInner = isMajor ? 69 : 72;
+                const rOuter = 75;
+
+                const x1 = cx + rInner * Math.cos(angleRad);
+                const y1 = cy + rInner * Math.sin(angleRad);
+                const x2 = cx + rOuter * Math.cos(angleRad);
+                const y2 = cy + rOuter * Math.sin(angleRad);
+
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', x1);
+                line.setAttribute('y1', y1);
+                line.setAttribute('x2', x2);
+                line.setAttribute('y2', y2);
+                line.setAttribute('stroke', isMajor ? '#6366f1' : '#cbd5e1');
+                line.setAttribute('stroke-width', isMajor ? '2' : '1');
+                line.setAttribute('stroke-linecap', 'round');
+                ticksGroup.appendChild(line);
+            }
+        }
 
         let audioTimer = null;
 
-        function playAudio(start, end) {
-            const audio = document.getElementById('masterAudio');
-            if (audioTimer) clearTimeout(audioTimer);
-            audio.pause();
-            audio.currentTime = start;
-            audio.play().then(() => {
-                audioTimer = setTimeout(() => audio.pause(), (end - start) * 1000);
+        function playAudio(text, start = null, end = null) {
+            const masterAudio = document.getElementById('masterAudio');
+
+            if (masterAudio && start !== null && end !== null && !isNaN(start) && !isNaN(end)) {
+                if (audioTimer) clearTimeout(audioTimer);
+                
+                try {
+                    masterAudio.pause();
+                    masterAudio.currentTime = start;
+                    
+                    const playPromise = masterAudio.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            const duration = (end - start) * 1000;
+                            audioTimer = setTimeout(() => {
+                                masterAudio.pause();
+                            }, duration);
+                        }).catch(e => {
+                            console.warn("ไม่สามารถเล่นไฟล์ 085.mp4 ได้ (กำลังใช้เสียง TTS สำรอง):", e);
+                            speakWithTTS(text);
+                        });
+                    }
+                    return;
+                } catch(e) {
+                    console.warn(e);
+                    speakWithTTS(text);
+                    return;
+                }
+            }
+
+            speakWithTTS(text);
+        }
+
+        function speakWithTTS(text) {
+            if ('speechSynthesis' in window) {
+                const cleanText = text.replace(/ー/g, '').replace(/〜/g, '').replace(/\(.*\)/g, '').trim();
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.lang = 'ja-JP';
+                utterance.rate = 0.85;
+
+                const bestVoice = getBestNaturalJapaneseVoice();
+                if (bestVoice) utterance.voice = bestVoice;
+
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function getBestNaturalJapaneseVoice() {
+            if (!('speechSynthesis' in window)) return null;
+            const voices = window.speechSynthesis.getVoices();
+            const jaVoices = voices.filter(v => v.lang.includes('ja') || v.lang.includes('JA'));
+            if (jaVoices.length === 0) return null;
+
+            const naturalKeywords = ['Natural', 'Enhanced', 'Premium', 'Google', 'Kyoko', 'Otoya', 'Nanami', 'Keita', 'Online'];
+            for (let kw of naturalKeywords) {
+                const found = jaVoices.find(v => v.name.includes(kw));
+                if (found) return found;
+            }
+            return jaVoices[0];
+        }
+
+        function renderNavTabs() {
+            const nav = document.getElementById('categoryNav');
+            nav.innerHTML = '';
+            vocabularyData.forEach((cat, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `nav-tab ${idx === activeCategoryIndex ? 'active' : ''}`;
+                btn.innerHTML = `<i data-lucide="${cat.icon || 'folder'}" style="width:15px;height:15px;"></i> ${cat.navName}`;
+                btn.onclick = () => loadCategory(idx);
+                nav.appendChild(btn);
             });
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function loadCategory(index) {
+            activeCategoryIndex = index;
+            localStorage.setItem('l4_flashcard_cat', index);
+            const category = vocabularyData[activeCategoryIndex];
+            activeItems = [...category.items];
+
+            document.getElementById('catTitle').innerHTML = `<i data-lucide="${category.icon || 'folder'}" style="width:18px;height:18px;"></i> ${category.title}`;
+            document.getElementById('prevBtn').disabled = (activeCategoryIndex === 0);
+            document.getElementById('nextBtn').disabled = (activeCategoryIndex === vocabularyData.length - 1);
+
+            renderNavTabs();
+            renderCards();
+            updateToggleFlipBtn();
+        }
+
+        function navigateCategory(dir) {
+            const nextIdx = activeCategoryIndex + dir;
+            if (nextIdx >= 0 && nextIdx < vocabularyData.length) {
+                loadCategory(nextIdx);
+            }
         }
 
         function renderCards() {
             const grid = document.getElementById('cardsGrid');
             grid.innerHTML = '';
-            vocabularyData.forEach(item => {
+
+            activeItems.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'card';
+                card.onclick = (e) => {
+                    if (e.target.closest('.audio-btn')) return;
+                    card.classList.toggle('flipped');
+                    updateToggleFlipBtn();
+                };
+
+                const kanjiMarkup = (item.kanji && item.kanji !== item.hiragana && item.kanji !== '-') ? `<div class="jp-kanji">${item.kanji}</div>` : '';
+
                 card.innerHTML = `
                     <div class="card-inner">
                         <div class="card-front">
-                            <button class="audio-btn" onclick="event.stopPropagation(); playAudio(${item.s}, ${item.e})">
-                                <i data-lucide="volume-2"></i>
-                            </button>
-                            <div class="jp-hiragana">${item.h}</div>
-                            <div style="color:#aaa; font-size:0.9rem;">${item.k}</div>
+                            <button class="audio-btn" title="ฟังเสียงอ่าน" onclick="playAudio('${item.hiragana}', ${item.start || 'null'}, ${item.end || 'null'})"><i data-lucide="volume-2"></i></button>
+                            <div class="jp-hiragana">${item.hiragana}</div>
+                            ${kanjiMarkup}
                         </div>
                         <div class="card-back">
-                            <div class="th-meaning">${item.t}</div>
+                            <div class="vector-icon-badge"><i data-lucide="${item.icon}"></i></div>
+                            <div class="th-meaning">${item.thai}</div>
                         </div>
                     </div>
                 `;
-                card.onclick = () => card.classList.toggle('flipped');
                 grid.appendChild(card);
             });
-            lucide.createIcons();
+
+            if (window.lucide) lucide.createIcons();
         }
 
-        window.onload = renderCards;
+        function shuffleCards() {
+            const cards = document.querySelectorAll('.cards-grid .card');
+            cards.forEach(card => {
+                card.classList.remove('flipped');
+                const randomX = (Math.random() - 0.5) * 50;
+                const randomY = (Math.random() - 0.5) * 35;
+                const randomRotate = (Math.random() - 0.5) * 20;
+                card.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${randomRotate}deg) scale(0.88)`;
+                card.style.opacity = '0.35';
+            });
+
+            setTimeout(() => {
+                for (let i = activeItems.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [activeItems[i], activeItems[j]] = [activeItems[j], activeItems[i]];
+                }
+                renderCards();
+                updateToggleFlipBtn();
+            }, 300);
+        }
+
+        function toggleAllFlips() {
+            const flippedCards = document.querySelectorAll('.cards-grid .card.flipped');
+            if (flippedCards.length > 0) {
+                flippedCards.forEach(c => c.classList.remove('flipped'));
+            } else {
+                document.querySelectorAll('.cards-grid .card').forEach(c => c.classList.add('flipped'));
+            }
+            updateToggleFlipBtn();
+        }
+
+        function updateToggleFlipBtn() {
+            const btn = document.getElementById('toggleFlipBtn');
+            if (!btn) return;
+            const flippedCards = document.querySelectorAll('.cards-grid .card.flipped');
+            if (flippedCards.length > 0) {
+                btn.innerHTML = `<i data-lucide="rotate-ccw"></i> พลิกกลับหน้าศัพท์ (${flippedCards.length})`;
+            } else {
+                btn.innerHTML = `<i data-lucide="rotate-cw"></i> หงายคำแปลทั้งหมด`;
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function switchMode(mode) {
+            localStorage.setItem('l4_active_mode', mode);
+            
+            document.getElementById('btnModeFlashcards').classList.toggle('active', mode === 'flashcards');
+            document.getElementById('btnModeVerbs').classList.toggle('active', mode === 'verbs');
+            document.getElementById('btnModeClock').classList.toggle('active', mode === 'clock');
+            document.getElementById('btnModeNumbers').classList.toggle('active', mode === 'numbers');
+            document.getElementById('btnModeGame').classList.toggle('active', mode === 'game');
+
+            document.getElementById('flashcardSection').style.display = (mode === 'flashcards') ? 'block' : 'none';
+            document.getElementById('verbsSection').style.display = (mode === 'verbs') ? 'block' : 'none';
+            document.getElementById('clockSection').style.display = (mode === 'clock') ? 'block' : 'none';
+            document.getElementById('numbersSection').style.display = (mode === 'numbers') ? 'block' : 'none';
+            document.getElementById('gameSection').style.display = (mode === 'game') ? 'block' : 'none';
+
+            if (mode === 'game') startNewGame();
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function switchNumTab(tabKey, btn) {
+            localStorage.setItem('l4_num_tab', tabKey);
+            document.querySelectorAll('.num-tab-btn').forEach(b => b.classList.remove('active'));
+            
+            if (btn) {
+                btn.classList.add('active');
+            } else {
+                const keys = ['regular', 'age', 'floor', 'hours', 'minutes', 'days'];
+                const idx = keys.indexOf(tabKey);
+                const buttons = document.querySelectorAll('.num-tab-btn');
+                if (idx !== -1 && buttons[idx]) buttons[idx].classList.add('active');
+            }
+            renderNumberTable(tabKey);
+        }
+
+        function renderNumberTable(tabKey) {
+            const data = numbersData[tabKey];
+            if (!data) return;
+
+            document.getElementById('numCategoryTitle').innerText = data.title;
+            const grid = document.getElementById('numGrid');
+            grid.innerHTML = '';
+
+            data.items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = `num-card ${item.irregular ? 'irregular' : ''}`;
+
+                const badgeHtml = item.tag ? `<span class="num-tag-badge">${item.tag}</span>` : '';
+
+                card.innerHTML = `
+                    ${badgeHtml}
+                    <div>
+                        <div class="num-digit">${item.digit}</div>
+                        <div class="num-hira">${item.hira}</div>
+                        <div class="num-kanji">${item.kanji}</div>
+                        <div class="num-th">${item.thai}</div>
+                    </div>
+                    <button class="num-audio-btn" title="ฟังเสียงอ่าน" onclick="playAudio('${item.hira.split('/')[0].trim()}')"><i data-lucide="volume-2"></i></button>
+                `;
+                grid.appendChild(card);
+            });
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        let currentClockHour = 3;
+        let currentClockMin = 10;
+
+        function getJapaneseTimeReading(hour, min) {
+            const hoursMap = {
+                1: { hira: "いちじ", kanji: "1時" },
+                2: { hira: "にじ", kanji: "2時" },
+                3: { hira: "さんじ", kanji: "3時" },
+                4: { hira: "よじ", kanji: "4時" },
+                5: { hira: "ごじ", kanji: "5時" },
+                6: { hira: "ろくじ", kanji: "6時" },
+                7: { hira: "しちじ", kanji: "7時" },
+                8: { hira: "はちじ", kanji: "8時" },
+                9: { hira: "くじ", kanji: "9時" },
+                10: { hira: "じゅうじ", kanji: "10時" },
+                11: { hira: "じゅういちじ", kanji: "11時" },
+                12: { hira: "じゅうにじ", kanji: "12時" }
+            };
+
+            const hObj = hoursMap[hour] || { hira: "", kanji: "" };
+            let mHira = "";
+            let mKanji = "";
+
+            if (min === 0) {
+                mHira = ""; mKanji = "";
+            } else if (min === 30) {
+                mHira = " さんじゅっぷん (はん)";
+                mKanji = "30分 (半)";
+            } else {
+                const ones = min % 10;
+                const tens = Math.floor(min / 10);
+
+                const onesMap = {
+                    1: "いっぷん", 2: "にふん", 3: "さんぷん", 4: "よんぷん", 5: "ごふん",
+                    6: "ろっぷん", 7: "ななふん", 8: "はっぷん", 9: "きゅうふん"
+                };
+
+                let tensHira = ["", "じゅう", "にじゅう", "さんじゅう", "よんじゅう", "ごじゅう"][tens];
+                let onesHira = "";
+
+                if (ones === 0) {
+                    if (min === 10) tensHira = "じゅっぷん";
+                    else tensHira = ["", "", "にじゅっぷん", "さんじゅっぷん", "よんじゅっぷん", "ごじゅっぷん"][tens];
+                } else {
+                    onesHira = onesMap[ones];
+                }
+
+                mHira = " " + tensHira + onesHira;
+                mKanji = min + "分";
+            }
+
+            return {
+                hira: hObj.hira + mHira,
+                kanji: hObj.kanji + mKanji,
+                timeStr: `${String(hour).padStart(2, '0')}:${String(min).padStart(2, '0')}`
+            };
+        }
+
+        function updateClockUI(h, m) {
+            currentClockHour = h;
+            currentClockMin = m;
+
+            document.getElementById('hourSlider').value = h;
+            document.getElementById('minuteSlider').value = m;
+            document.getElementById('hourValDisplay').innerText = h;
+            document.getElementById('minValDisplay').innerText = m;
+
+            const minAngle = m * 6;
+            const hourAngle = (h % 12) * 30 + (m * 0.5);
+
+            document.getElementById('minuteHandGroup').setAttribute('transform', `rotate(${minAngle} 100 100)`);
+            document.getElementById('hourHandGroup').setAttribute('transform', `rotate(${hourAngle} 100 100)`);
+
+            const readings = getJapaneseTimeReading(h, m);
+            document.getElementById('clockDigital').innerText = readings.timeStr;
+            document.getElementById('clockHiragana').innerText = readings.hira;
+            document.getElementById('clockKanji').innerText = readings.kanji;
+        }
+
+        function onClockSliderChange() {
+            const h = parseInt(document.getElementById('hourSlider').value);
+            const m = parseInt(document.getElementById('minuteSlider').value);
+            updateClockUI(h, m);
+        }
+
+        function setClockTime(h, m) {
+            updateClockUI(h, m);
+            speakCurrentClockTime();
+        }
+
+        function speakCurrentClockTime() {
+            const readings = getJapaneseTimeReading(currentClockHour, currentClockMin);
+            const textToSpeak = readings.hira.replace('(はん)', 'はん').replace(/\s+/g, '');
+            playAudio(textToSpeak);
+        }
+
+        function setupClockDragging() {
+            const svg = document.getElementById('clockSvg');
+            const hourHand = document.getElementById('hourHand');
+            const minuteHand = document.getElementById('minuteHand');
+            let draggingHand = null;
+
+            const getAngleFromCenter = (e) => {
+                const rect = svg.getBoundingClientRect();
+                const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+                if (clientX === undefined || clientY === undefined) return null;
+
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height / 2;
+                const x = clientX - cx;
+                const y = clientY - cy;
+
+                let angle = Math.atan2(y, x) * (180 / Math.PI) + 90;
+                if (angle < 0) angle += 360;
+                return angle;
+            };
+
+            const startDrag = (e, hand) => {
+                e.preventDefault();
+                draggingHand = hand;
+                if (hand === 'hour') hourHand.classList.add('active');
+                if (hand === 'minute') minuteHand.classList.add('active');
+                handlePointerMove(e);
+            };
+
+            const handlePointerMove = (e) => {
+                if (!draggingHand) return;
+                const angle = getAngleFromCenter(e);
+                if (angle === null) return;
+
+                if (draggingHand === 'minute') {
+                    let min = Math.round(angle / 6) % 60;
+                    updateClockUI(currentClockHour, min);
+                } else if (draggingHand === 'hour') {
+                    let h = Math.round(angle / 30);
+                    if (h === 0) h = 12;
+                    updateClockUI(h, currentClockMin);
+                }
+            };
+
+            const stopDrag = () => {
+                draggingHand = null;
+                hourHand.classList.remove('active');
+                minuteHand.classList.remove('active');
+            };
+
+            hourHand.addEventListener('mousedown', (e) => startDrag(e, 'hour'));
+            minuteHand.addEventListener('mousedown', (e) => startDrag(e, 'minute'));
+            hourHand.addEventListener('touchstart', (e) => startDrag(e, 'hour'));
+            minuteHand.addEventListener('touchstart', (e) => startDrag(e, 'minute'));
+
+            svg.addEventListener('mousedown', (e) => {
+                if (e.target !== hourHand && e.target !== minuteHand) {
+                    const angle = getAngleFromCenter(e);
+                    if (angle !== null) {
+                        let min = Math.round(angle / 6) % 60;
+                        updateClockUI(currentClockHour, min);
+                        startDrag(e, 'minute');
+                    }
+                }
+            });
+
+            svg.addEventListener('touchstart', (e) => {
+                if (e.target !== hourHand && e.target !== minuteHand) {
+                    const angle = getAngleFromCenter(e);
+                    if (angle !== null) {
+                        let min = Math.round(angle / 6) % 60;
+                        updateClockUI(currentClockHour, min);
+                        startDrag(e, 'minute');
+                    }
+                }
+            });
+
+            window.addEventListener('mousemove', handlePointerMove);
+            window.addEventListener('touchmove', handlePointerMove);
+            window.addEventListener('mouseup', stopDrag);
+            window.addEventListener('touchend', stopDrag);
+        }
+
+        let gameScore = 0;
+        let gameTotalWords = 0;
+        let activeDragCard = null;
+        let dragCloneEl = null;
+
+        function startNewGame() {
+            gameScore = 0;
+            document.getElementById('gameWinBanner').style.display = 'none';
+
+            const selectedCatId = document.getElementById('gameCatSelect').value;
+            let words = [];
+
+            if (selectedCatId === 'all') {
+                vocabularyData.forEach(cat => words.push(...cat.items));
+            } else {
+                const categoryObj = vocabularyData.find(cat => cat.id === selectedCatId);
+                if (categoryObj) words = [...categoryObj.items];
+            }
+
+            words.sort(() => 0.5 - Math.random());
+
+            gameTotalWords = words.length;
+            document.getElementById('gameScore').innerText = '0';
+            document.getElementById('gameTotal').innerText = gameTotalWords;
+
+            const poolEl = document.getElementById('dragPool');
+            poolEl.innerHTML = '';
+            const shuffledJp = [...words].sort(() => 0.5 - Math.random());
+
+            shuffledJp.forEach((word) => {
+                const card = document.createElement('div');
+                card.className = 'drag-card';
+                card.dataset.id = word.hiragana;
+                card.dataset.hiragana = word.hiragana;
+                card.dataset.start = word.start !== undefined ? word.start : '';
+                card.dataset.end = word.end !== undefined ? word.end : '';
+
+                const kanjiTxt = (word.kanji && word.kanji !== '-') ? `<div style="font-size:1rem; opacity:0.8; font-weight:normal; margin-top:2px;">(${word.kanji})</div>` : '';
+                card.innerHTML = `<div>${word.hiragana}</div>${kanjiTxt}`;
+
+                card.onpointerdown = (e) => onDragStart(e, card);
+                poolEl.appendChild(card);
+            });
+
+            const slotsEl = document.getElementById('dropSlots');
+            slotsEl.innerHTML = '';
+            const shuffledThai = [...words].sort(() => 0.5 - Math.random());
+
+            shuffledThai.forEach((word) => {
+                const slot = document.createElement('div');
+                slot.className = 'drop-zone';
+                slot.dataset.id = word.hiragana;
+                slot.innerHTML = `
+                    <div class="drop-zone-label">
+                        <span class="drop-zone-icon"><i data-lucide="${word.icon}"></i></span>
+                        <span>${word.thai}</span>
+                    </div>
+                `;
+                slotsEl.appendChild(slot);
+            });
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function onDragStart(e, card) {
+            if (card.parentElement.classList.contains('drop-zone')) return;
+
+            e.preventDefault();
+            activeDragCard = card;
+            card.classList.add('dragging');
+
+            const s = card.dataset.start !== '' ? parseFloat(card.dataset.start) : null;
+            const end = card.dataset.end !== '' ? parseFloat(card.dataset.end) : null;
+            playAudio(card.dataset.hiragana, s, end);
+
+            dragCloneEl = card.cloneNode(true);
+            dragCloneEl.className = 'drag-clone';
+            document.body.appendChild(dragCloneEl);
+
+            moveClone(e.clientX, e.clientY);
+
+            window.onpointermove = onDragMove;
+            window.onpointerup = onDragEnd;
+        }
+
+        function moveClone(x, y) {
+            if (dragCloneEl) {
+                dragCloneEl.style.left = `${x}px`;
+                dragCloneEl.style.top = `${y}px`;
+            }
+        }
+
+        function onDragMove(e) {
+            if (!activeDragCard) return;
+            moveClone(e.clientX, e.clientY);
+
+            document.querySelectorAll('.drop-zone:not(.correct)').forEach(zone => {
+                const rect = zone.getBoundingClientRect();
+                if (e.clientX >= rect.left && e.clientX <= rect.right &&
+                    e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                    zone.classList.add('hovered');
+                } else {
+                    zone.classList.remove('hovered');
+                }
+            });
+        }
+
+        function onDragEnd(e) {
+            if (!activeDragCard) return;
+
+            window.onpointermove = null;
+            window.onpointerup = null;
+
+            if (dragCloneEl) {
+                dragCloneEl.remove();
+                dragCloneEl = null;
+            }
+
+            let droppedZone = null;
+            document.querySelectorAll('.drop-zone:not(.correct)').forEach(zone => {
+                zone.classList.remove('hovered');
+                const rect = zone.getBoundingClientRect();
+                if (e.clientX >= rect.left && e.clientX <= rect.right &&
+                    e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                    droppedZone = zone;
+                }
+            });
+
+            if (droppedZone) {
+                if (droppedZone.dataset.id === activeDragCard.dataset.id) {
+                    droppedZone.classList.add('correct');
+                    droppedZone.appendChild(activeDragCard);
+                    activeDragCard.style.border = 'none';
+                    activeDragCard.style.boxShadow = 'none';
+                    activeDragCard.style.padding = '0';
+                    activeDragCard.style.background = 'transparent';
+                    activeDragCard.style.minHeight = 'auto';
+
+                    gameScore++;
+                    document.getElementById('gameScore').innerText = gameScore;
+
+                    if (gameScore === gameTotalWords) {
+                        document.getElementById('gameWinBanner').style.display = 'block';
+                    }
+                } else {
+                    droppedZone.classList.add('wrong-flash');
+                    setTimeout(() => droppedZone.classList.remove('wrong-flash'), 400);
+                }
+            }
+
+            activeDragCard.classList.remove('dragging');
+            activeDragCard = null;
+        }
+
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = () => { getBestNaturalJapaneseVoice(); };
+        }
+
+        window.onload = init;
     </script>
 </body>
 </html>
